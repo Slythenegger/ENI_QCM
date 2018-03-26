@@ -8,32 +8,43 @@ go
 Use BDD_QCM;
 
 create table Questions(
-id int not null identity(1,1) primary key,
+id_question int not null identity(1,1) primary key,
 libelle text not null, 
 type varchar(30) not null,
 fichier_image varchar(255),
 id_theme int not null
 );
 go
-  
-
+ 
+ create table Questions_user(
+ id_question int unique not null,
+ id_epreuve int unique not null,
+ num_question int unique not null,
+ marque bit
+ );
 
  create table Reponses(
- id int not null identity(1,1) primary key,
+ id_reponse int not null identity(1,1) primary key,
  id_question int not null,
  libelle text not null,
  correct bit not null, 
  );
  go
 
+ create table Reponses_user(
+ id_reponse int unique not null,
+ id_question int unique not null,
+ id_epreuve int unique not null,
+ );
+
  create table Themes(
- id int not null identity(1,1) primary key,
+ id_theme int not null identity(1,1) primary key,
  nom varchar(255) unique not null,
  );
  go
 
  create table Sections(
- id int not null identity(1,1) primary key,
+ id_section int not null identity(1,1) primary key,
  nom varchar(255) not null,
  id_theme int not null,
  id_qcm int not null,
@@ -44,15 +55,15 @@ go
 
 
  create table Qcms(
- id int not null identity(1,1) primary key,
+ id_qcm int not null identity(1,1) primary key,
  nom varchar(255) not null,
  niveau varchar(255) not null,  
  );
 
  go
  create table Sessions(
- id int not null identity(1,1) primary key,
- id_candidat  int not null,
+ id_session int not null identity(1,1) primary key,
+ id_user  int not null,
  id_qcm int not null,
  date_inscription datetime not null,
  temps_limite int not null,
@@ -64,59 +75,63 @@ go
 
 
  create table Epreuves(
- id int not null identity(1,1) primary key,
+ id_epreuve int not null identity(1,1) primary key,
  date_passage datetime not null,
  temps_restant int not null,
  id_session int not null
  );
 
  create table Users(
- id int not null identity(1,1) primary key,
+ id_user int not null identity(1,1) primary key,
  login varchar(255) not null, 
  password varchar(255) not null,
- role varchar(10)
+ nom varchar(255) not null,
+ prenom varchar(255) not null,
+ email varchar(255) not null,
+ role char(3) not null,
+ id_promo int null
  );
  go
 
-
- create table Candidats(
-  id int not null identity(1,1) primary key,
-  nom varchar(255) not null,
-  prenom varchar(255) not null,
-  id_promotion int null,
- id_user int not null,
+ create table Roles(
+ codeRole char(3) primary key,
+ libelle varchar(255) not null
  );
 
  create table Promotions(
- id int not null identity(1,1) primary key,
+ id_promo int not null identity(1,1) primary key,
  nom varchar(255)
  );
  go
 
 
-alter table Reponses add constraint fk_reponse_question foreign key (id_question) references Questions (id);
-alter table Questions add constraint fk_question_theme foreign key (id_theme) references Themes (id);
-alter table Sections add constraint fk_theme_section foreign key (id_theme) references Themes (id);
-alter table Sections add constraint fk_qcm_section foreign key (id_qcm) references Qcms (id);
-alter table Sessions add constraint fk_candidat_session foreign key (id_candidat) references Candidats (id);
-alter table Sessions add constraint fk_qcm_session foreign key (id_qcm) references Qcms (id);
-alter table Candidats add constraint fk_promotion_candidat foreign key (id_promotion) references Promotions (id);
-alter table Candidats add constraint fk_user_candidat foreign key (id_user) references Users (id);
-alter table Epreuves add constraint fk_session_epreuve foreign key (id_session) references Sessions (id);
+alter table Reponses add constraint fk_reponse_question foreign key (id_question) references Questions (id_question);
+alter table Questions add constraint fk_question_theme foreign key (id_theme) references Themes (id_theme);
+alter table Sections add constraint fk_theme_section foreign key (id_theme) references Themes (id_theme);
+alter table Sections add constraint fk_qcm_section foreign key (id_qcm) references Qcms (id_qcm);
+alter table Sessions add constraint fk_user_session foreign key (id_user) references Users (id_user);
+alter table Sessions add constraint fk_qcm_session foreign key (id_qcm) references Qcms (id_qcm);
+alter table Users add constraint fk_promotion_user foreign key (id_promo) references Promotions (id_promo);
+alter table Epreuves add constraint fk_session_epreuve foreign key (id_session) references Sessions (id_session);
+alter table Questions_user add constraint fk_questionU_question foreign key (id_question) references Questions (id_question);
+alter table Questions_user add constraint fk_questionU_epreuve foreign key (id_epreuve) references Epreuves (id_epreuve);
+alter table Reponses_user add constraint fk_1 foreign key (id_reponse) references Reponses (id_reponse); 
+alter table Reponses_user add constraint fk_2 foreign key (id_question) references Questions (id_question); 
+alter table Reponses_user add constraint fk_3 foreign key (id_epreuve) references Epreuves (id_epreuve); 
 
-
-
-
-insert into Users (login, password, role) values ('ccc', 'ccc', 'CAN');
-insert into Users (login, password, role) values ('sss', 'sss', 'STA');
-insert into Users (login, password, role) values ('fff', 'fff', 'FOR');
-insert into Users (login, password, role) values ('rrr', 'rrr', 'RES');
 
 insert into Promotions(nom) values ('DL-127');
 insert into Promotions(nom) values ('CDI-72');
 
-insert into Candidats(id_promotion, id_user, nom, prenom) values (null, 1, 'Michel', 'DUPONT');
-insert into Candidats(id_promotion, id_user, nom, prenom) values (1, 2, 'Micheline', 'DUPONTE');
+insert into Roles (codeRole, libelle) values ('STA', 'stagiaire');
+insert into Roles (codeRole, libelle) values ('FOR', 'formateur');
+insert into Roles (codeRole, libelle) values ('CAN', 'candidat');
+insert into Roles (codeRole, libelle) values ('RES', 'responsable de formation');
+
+insert into Users(login, password, nom, prenom, email, role) values ('michel', 'michel', 'Michel', 'DUPONT', 'michel@hotmail.fr', 'STA');
+insert into Users(login, password, nom, prenom, email, role) values ('micheline', 'micheline', 'Micheline', 'DUPOND', 'micheline@hotmail.fr', 'CAN');
+insert into Users(login, password, nom, prenom, email, role) values ('fabrice', 'fabrice', 'fabrice', 'FARRUGIA', 'fabrice@hotmail.fr', 'FOR');
+insert into Users(login, password, nom, prenom, email, role) values ('robert', 'robert', 'Robert', 'Rourour', 'robert@hotmail.fr', 'RES');
 
 insert into Themes (nom) values ('Java EE');
 insert into Themes (nom) values ('Php');
@@ -175,8 +190,8 @@ insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 2,'Php', 
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (2, 1,'Java EE', 2);
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (2, 2,'Php', 3);
 
-insert into Sessions (date_inscription, date_prevue, temps_limite,id_candidat, id_qcm) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 1,1);
-insert into Sessions (date_inscription, date_prevue, temps_limite,id_candidat, id_qcm) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 2,2);
+insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 1,1);
+insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 2,2);
 
 insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 60, 1);
 insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 20, 2);
