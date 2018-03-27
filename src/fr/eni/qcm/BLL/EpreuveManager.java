@@ -1,5 +1,6 @@
 package fr.eni.qcm.BLL;
 
+import java.util.Date;
 import java.util.List;
 
 import fr.eni.qcm.BusinessException;
@@ -16,5 +17,9 @@ public class EpreuveManager {
 	
 	public List<Epreuve> getUserEpreuve(int userID) throws BusinessException {
 		return this.dao.getUserEpreuve(userID);
+	}
+	
+	public void createEpreuve(Date dateDebut, Date dateFin, int idTest, int idUser)throws BusinessException{
+	this.dao.Create(dateDebut, dateFin, idTest, idUser);	
 	}
 }

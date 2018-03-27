@@ -14,4 +14,7 @@ public class DAOFactory {
 		return new UserDAOJdbcImpl();
 	}
 
+	public static TestDAO getTestDAO() {
+		return new TestDAOJdbcImpl();
+	}
 }
