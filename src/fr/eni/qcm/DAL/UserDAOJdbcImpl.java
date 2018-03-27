@@ -11,18 +11,18 @@ import fr.eni.qcm.BO.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
-	private String LOGIN_USER = "select * from Utilisateur where login = ? and password = ?";
+	private String LOGIN_USER = "select * from Utilisateur where email = ? and password = ?";
 	private String CREATE_USER = "insert into Utilisateur (nom, prenom, email, password, codeProfil, codePromo) values (?,?,?,?,?,?)";
 
 	@Override
-	public User loginUser(String login, String password) throws BusinessException {
+	public User loginUser(String email, String password) throws BusinessException {
 
 		User user = new User();
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			PreparedStatement pst = cnx.prepareStatement(LOGIN_USER);
-			pst.setString(1, login);
+			pst.setString(1, email);
 			pst.setString(2, password);
 			ResultSet rs = pst.executeQuery();
 
