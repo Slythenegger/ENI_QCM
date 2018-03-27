@@ -23,8 +23,7 @@ public class LoginServlet extends HttpServlet {
 		
 		RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");		
 		rd.forward(request, response);
-		
-		
+				
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

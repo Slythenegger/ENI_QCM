@@ -7,31 +7,52 @@
 <head>
 <meta charset="UTF-8">
 <title>QCM</title>
+<link rel="stylesheet" href="asset/css/login.css">
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div>
-		<div>
-			<c:if test="${! empty exception }">
-				<p style="color: red">${exception}</p>
-			</c:if>
-		</div>
-		<form action="login" method="post">
-			<div>
-				<label>Email : </label><input type="email"
-					placeholder="Votre email..." name="email" required="required">
-			</div>
-			<div>
-				<label>Mot de passe : </label><input type="password"
-					placeholder="Votre mot de passe..." name="password"
-					required="required">
-			</div>
-			<div>
-				<input type="submit" value="Se connecter">
-			</div>
+	<div class="container centre">
+		<div class="row">
+			<div class="col-12">
+				<div class="main">
+					<div class="col-12">
+						<h3>Connexion</h3>
+						<c:if test="${! empty exception}">
+							<p class="exception">${exception}</p>
+						</c:if>
+					</div>
+					<div class="row">
+						<div class="col-12 col-sm-6 col-sm-offset-1">
 
-		</form>
+							<form action="login" method="post">
+								<div class="form-group">
+									<div class="col-md-8">
+										<input type="email" placeholder="Votre email..." name="email"
+											required="required" value="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-8">
+										<input type="password" placeholder="Votre mot de passe..."
+											name="password" required="required" value="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-offset-0 col-md-8">
+										<input class="btn btn-success btn btn-success" type="submit"
+											value="Se connecter" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </body>
