@@ -1,22 +1,22 @@
 package fr.eni.qcm;
 
 @SuppressWarnings("serial")
-public class BusinessExecption extends Exception {
+public class BusinessException extends Exception {
 	
 	private BusinessError error;
 	
-	public BusinessExecption() {
+	public BusinessException() {
 		super();
 	}
 	
-	public BusinessExecption(String message) {
+	public BusinessException(String message) {
 		super(message);
 	}
 	
-	public BusinessExecption(BusinessError error) {
+	public BusinessException(BusinessError error) {
 		this.error = error;
 	}
-	public BusinessExecption(BusinessError error, String message) {
+	public BusinessException(BusinessError error, String message) {
 		super(message);
 		this.error = error;
 	}

@@ -4,6 +4,7 @@ public enum BusinessError {
 	
 	// 000 - Misc
 	DATABASE_ERROR(1, "Une erreur est survenue lors de la connexion avec la base de données"),
+	DATABASE_INSERT(2, "Une erreur est survenue lirs de l'insertion dans la base de données"),
 	
 	
 	
