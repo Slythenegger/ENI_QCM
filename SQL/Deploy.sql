@@ -193,10 +193,8 @@ insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 2,'Php', 
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (2, 1,'Java EE', 2);
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (2, 2,'Php', 3);
 
-insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 1,1);
-insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 2,2);
+insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm, resultat) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 1,1, 15);
+insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm, resultat) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 2,2, 12);
 
 insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 60, 1);
 insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 20, 2);
-
-
