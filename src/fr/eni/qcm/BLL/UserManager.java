@@ -50,20 +50,30 @@ public class UserManager {
 
 		boolean valide = true;
 
+		if (user == null) {
+			valide = false;
+			return valide;
+		}
+
 		if (user.getNom() == null || user.getNom().trim().equals("")) {
 			valide = false;
+			return valide;
 		}
 		if (user.getPrenom() == null || user.getPrenom().trim().equals("")) {
 			valide = false;
+			return valide;
 		}
 		if (user.getEmail() == null || user.getEmail().trim().equals("")) {
 			valide = false;
+			return valide;
 		}
 		if (user.getPassword() == null || user.getPassword().trim().equals("")) {
 			valide = false;
+			return valide;
 		}
 		if (user.getRole() == null || user.getRole().trim().equals("")) {
 			valide = false;
+			return valide;
 		}
 
 		return valide;
