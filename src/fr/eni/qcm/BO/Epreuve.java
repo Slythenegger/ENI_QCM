@@ -3,7 +3,8 @@ package fr.eni.qcm.BO;
 import java.time.Instant;
 
 public class Epreuve {
-	private int idEpreuve, idTest, idUtilisateur, tempsEcoule, noteObtenue;
+	private int idEpreuve, idTest, idUtilisateur, tempsEcoule;
+	private float noteObtenue;
 	private String etat, niveauObtenu;
 	private Instant debut, fin;
 	
@@ -43,11 +44,11 @@ public class Epreuve {
 		this.tempsEcoule = tempsEcoule;
 	}
 
-	public int getNoteObtenue() {
+	public float getNoteObtenue() {
 		return noteObtenue;
 	}
 
-	public void setNoteObtenue(int nodeObtenue) {
+	public void setNoteObtenue(float nodeObtenue) {
 		this.noteObtenue = nodeObtenue;
 	}
 
