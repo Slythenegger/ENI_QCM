@@ -13,20 +13,37 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<form action="nouveau-candidat" method="post">
-<div class="form-group">
-<label></label>
-
-
-
-
-
-</div>
-
-
-
-
-
-</form>
+	<div class="container">
+		<div class="col-12">
+			<form action="nouveau-candidat" method="post">
+				<div class="form-group">
+					<label for="nom">Nom : </label> <input type="text" name="nom"
+						class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="prenom">Prénom : </label> <input type="text"
+						name="prenom" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="email">Email : </label> <input type="email"
+						name="email" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="password">Mot de passe : </label> <input
+						type="password" name="password" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="role">Rôle : </label> 
+					<select name="role">
+						<option>Test</option>
+					</select>				
+					<label for="promo">Promotion : </label> <select name="promo">
+						<option>Test</option>
+					</select>
+				</div>
+				<input type="submit" class="btn btn-info" value="Créer">
+			</form>
+		</div>
+	</div>
 </body>
 </html>

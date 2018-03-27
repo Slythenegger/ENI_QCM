@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.BO.Promo;
+import fr.eni.qcm.BO.Role;
 import fr.eni.qcm.BO.User;
 
 /**
@@ -88,6 +91,30 @@ public class UserDAOJdbcImpl implements UserDAO {
 			throw new BusinessException(BusinessError.DATABASE_INSERT);
 		}
 
+	}
+
+	/**
+	 * Méthode en charge de récuperer la liste des roles dans la base
+	 * @return
+	 * @throws BusinessException
+	 * @see fr.eni.qcm.DAL.UserDAO#findRole()
+	 */
+	@Override
+	public List<Role> findRole() throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Méthode en charge de récuperer la liste des promotions dans la base
+	 * @return
+	 * @throws BusinessException
+	 * @see fr.eni.qcm.DAL.UserDAO#findPromo()
+	 */
+	@Override
+	public List<Promo> findPromo() throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,6 +1,10 @@
 package fr.eni.qcm.DAL;
 
+import java.util.List;
+
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.BO.Promo;
+import fr.eni.qcm.BO.Role;
 import fr.eni.qcm.BO.User;
 
 public interface UserDAO {
@@ -22,6 +26,23 @@ public interface UserDAO {
 	 * @throws BusinessException
 	 */
 	public void createUser(User user)throws BusinessException;
+	
+	
+	/**
+	 * Méthode en charge de récupérer la lsite des roles en bases
+	 * @return
+	 * @throws BusinessException
+	 */
+	public List<Role> findRole()throws BusinessException;
+	
+	/**
+	 * Méthode en charge de récupérer la liste des promotions en base
+	 * @return
+	 * @throws BusinessException
+	 */
+	public List<Promo> findPromo()throws BusinessException;
+
+
 	
 	
 	
