@@ -439,6 +439,11 @@ insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) val
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('DUPUIS', 'jean-michel', 'jean-michel@hotmail.fr', 'jean-michel', 'STA', 'DL-127');
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('FARRUGIA', 'fabrice', 'fabrice@hotmail.fr', 'fabrice', 'FOR', null);
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('Rourour', 'robert', 'robert@hotmail.fr', 'robert', 'STA', null);
+
+insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Anglais', 'Un test qui sert à rien...', 30, 15, 8);
+insert into Epreuve(dateDedutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 10.5, 'ECA', 1, 1);
+
+
 /*
 
 insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une Servlet ?', 'unique', null, 1);
