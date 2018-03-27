@@ -1,4 +1,4 @@
-package fr.eni.qcm.dal;
+package fr.eni.qcm.DAL;
 
 import java.sql.Connection;
 import java.sql.SQLException;
