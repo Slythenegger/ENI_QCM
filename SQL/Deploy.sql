@@ -12,7 +12,7 @@ CREATE
   TABLE EPREUVE
   (
     idEpreuve         INTEGER NOT NULL IDENTITY,
-    dateDedutValidite DATETIME NOT NULL ,
+    dateDebutValidite DATETIME NOT NULL ,
     dateFinValidite   DATETIME NOT NULL ,
     tempsEcoule       INTEGER ,
     etat              CHAR (2) NOT NULL ,
@@ -441,7 +441,10 @@ insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) val
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('Rourour', 'robert', 'robert@hotmail.fr', 'robert', 'STA', null);
 
 insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Anglais', 'Un test qui sert à rien...', 30, 15, 8);
-insert into Epreuve(dateDedutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 10.5, 'ECA', 1, 1);
+insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Java', 'Java c est rigolo hi hi hi', 30, 15, 8);
+insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF PHP', 'Du dev OOP avec Fabien ;) ;)', 30, 15, 8);
+
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 10.5, 'ECA', 1, 1);
 
 
 /*
