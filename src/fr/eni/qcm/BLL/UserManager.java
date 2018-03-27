@@ -26,6 +26,9 @@ public class UserManager {
 		} else {
 
 			user = uDao.loginUser(email, password);
+			if (user == null) {
+				throw new BusinessException(BusinessError.DATABASE_NO_MATCH);
+			}
 		}
 
 		return user;
