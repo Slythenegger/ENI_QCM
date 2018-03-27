@@ -6,15 +6,30 @@ import fr.eni.qcm.BO.User;
 import fr.eni.qcm.DAL.DAOFactory;
 import fr.eni.qcm.DAL.UserDAO;
 
+/**
+ * Classe en charge de gérer les utilisateurs
+ * @author stropee2017
+ * @date 27 mars 2018
+ */
 public class UserManager {
 
 	private UserDAO uDao;
 
+	/**
+	 * Constructeur vide
+	 */
 	public UserManager() {
 
 		uDao = DAOFactory.getUserDAO();
 	}
 
+	/**
+	 * Méthode en charge de vérifier les informations saisies et d'envoyer le tout à la base
+	 * @param email
+	 * @param password
+	 * @return
+	 * @throws BusinessException
+	 */
 	public User loginUser(String email, String password) throws BusinessException {
 
 		User user = null;
@@ -34,6 +49,11 @@ public class UserManager {
 		return user;
 	}
 
+	/**
+	 * Méthode en charge de vérifier les informations saisies et d'envoyer le tout à la base
+	 * @param user
+	 * @throws BusinessException
+	 */
 	public void createUser(User user) throws BusinessException {
 
 		boolean valide = validate(user);
@@ -49,6 +69,11 @@ public class UserManager {
 
 	}
 
+	/**
+	 * Méthode en charge de vérifier le contenu d'un objet de type User
+	 * @param user
+	 * @return
+	 */
 	private boolean validate(User user) {
 
 		boolean valide = true;

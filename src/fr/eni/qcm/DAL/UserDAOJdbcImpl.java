@@ -9,11 +9,27 @@ import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.User;
 
+/**
+ * Classe en charge de faire des requêtes à la base de données
+ * @author stropee2017
+ * @date 27 mars 2018
+ */
 public class UserDAOJdbcImpl implements UserDAO {
 
 	private String LOGIN_USER = "select * from Utilisateur where email = ? and password = ?";
 	private String CREATE_USER = "insert into Utilisateur (nom, prenom, email, password, codeProfil, codePromo) values (?,?,?,?,?,?)";
 
+
+	
+	
+	/**
+	 * Méthode en charge de de vérifier l'existence de l'utilisateur en base
+	 * @param email
+	 * @param password
+	 * @return
+	 * @throws BusinessException
+	 * @see fr.eni.qcm.DAL.UserDAO#loginUser(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public User loginUser(String email, String password) throws BusinessException {
 
@@ -44,6 +60,12 @@ public class UserDAOJdbcImpl implements UserDAO {
 		return user;
 	}
 
+	/**
+	 * Méthode en charge de créer un nouvel utilisateur-candidat dans la base
+	 * @param user
+	 * @throws BusinessException
+	 * @see fr.eni.qcm.DAL.UserDAO#createUser(fr.eni.qcm.BO.User)
+	 */
 	@Override
 	public void createUser(User user) throws BusinessException {
 
