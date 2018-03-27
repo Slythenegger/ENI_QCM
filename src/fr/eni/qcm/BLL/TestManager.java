@@ -17,4 +17,8 @@ public class TestManager {
 	public List<Test> getAll() throws BusinessException {
 		return this.dao.selectAll();
 	}
+	
+	public Test getById(int id) throws BusinessException {
+		return this.dao.getById(id);
+	}
 }
