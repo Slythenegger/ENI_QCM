@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.qcm.BusinessException;
-import fr.eni.qcm.BLL.EpreuveManager;
 import fr.eni.qcm.BLL.TestManager;
-import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.Test;
 
 
@@ -26,7 +24,14 @@ public class ServletConsultationResultat extends HttpServlet {
 		RequestDispatcher rq = request.getRequestDispatcher("WEB-INF/jsp/consultationResultat.jsp");
 		
 		
+		
 		try {
+			if (request.getParameter("test") != null) {
+				int testID = Integer.parseInt(request.getParameter("test"));
+				Test selectedTest = tm.getById(testID);
+				request.setAttribute("test", selectedTest);
+			}
+			
 			List<Test> tests = tm.getAll();
 			request.setAttribute("tests", tests);			
 		} 
