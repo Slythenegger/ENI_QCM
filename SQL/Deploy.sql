@@ -22,6 +22,7 @@ go
  num_question int unique not null,
  marque bit
  );
+  alter table Questions_user add CONSTRAINT PK_question_user PRIMARY key (id_question,id_epreuve);
 
  create table Reponses(
  id_reponse int not null identity(1,1) primary key,
@@ -36,6 +37,7 @@ go
  id_question int unique not null,
  id_epreuve int unique not null,
  );
+ alter table Reponses_user add CONSTRAINT PK_reponse_user PRIMARY key (id_reponse, id_question,id_epreuve);
 
  create table Themes(
  id_theme int not null identity(1,1) primary key,
@@ -118,6 +120,7 @@ alter table Questions_user add constraint fk_questionU_epreuve foreign key (id_e
 alter table Reponses_user add constraint fk_1 foreign key (id_reponse) references Reponses (id_reponse); 
 alter table Reponses_user add constraint fk_2 foreign key (id_question) references Questions (id_question); 
 alter table Reponses_user add constraint fk_3 foreign key (id_epreuve) references Epreuves (id_epreuve); 
+alter table Users add constraint fk_user_role foreign key (role) references Roles (codeRole);
 
 
 insert into Promotions(nom) values ('DL-127');
@@ -144,24 +147,24 @@ insert into Questions (libelle, type, fichier_image, id_theme) values ('Lesquell
 insert into Questions (libelle, type, fichier_image, id_theme) values ('Que veut dire le EE de Java EE ?', 'unique', null, 1);
 
 insert into Questions (libelle, type, fichier_image, id_theme) values ('Quel est le framework le plus courant en php ?', 'unique', null, 2);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Par quoi commence forcÃ©ment une variable Php', 'unique', null, 2);
+insert into Questions (libelle, type, fichier_image, id_theme) values ('Par quoi commence forcément une variable Php', 'unique', null, 2);
 insert into Questions (libelle, type, fichier_image, id_theme) values ('Cochez les types primitif en php', 'multiple', null, 2);
 insert into Questions (libelle, type, fichier_image, id_theme) values ('Que peut-on faire en php ?', 'multiple', null, 2);
 
 insert into Reponses (libelle, correct, id_question) values ('Pour des traitements de requetes', 1, 1);
-insert into Reponses (libelle, correct, id_question) values ('Pour manger des cacahuÃ¨tes', 0, 1);
-insert into Reponses (libelle, correct, id_question) values ('Pour attraper un Ã©lÃ©phant', 0, 1);
+insert into Reponses (libelle, correct, id_question) values ('Pour manger des cacahuètes', 0, 1);
+insert into Reponses (libelle, correct, id_question) values ('Pour attraper un éléphant', 0, 1);
 insert into Reponses (libelle, correct, id_question) values ('Pour faire chier Max', 0, 1);
 insert into Reponses (libelle, correct, id_question) values ('A faire du Html dynamique', 1, 2);
-insert into Reponses (libelle, correct, id_question) values ('A insÃ©rer du code java dans une page Html', 1, 2);
+insert into Reponses (libelle, correct, id_question) values ('A insérer du code java dans une page Html', 1, 2);
 insert into Reponses (libelle, correct, id_question) values ('A faire la cuisine', 0, 2);
-insert into Reponses (libelle, correct, id_question) values ('Pour Ãªtre on fire sur le dancefloor', 0, 2);
+insert into Reponses (libelle, correct, id_question) values ('Pour être on fire sur le dancefloor', 0, 2);
 insert into Reponses (libelle, correct, id_question) values ('<h1>', 1, 3);
 insert into Reponses (libelle, correct, id_question) values ('<form>', 1, 3);
 insert into Reponses (libelle, correct, id_question) values ('<b26>', 0, 3);
 insert into Reponses (libelle, correct, id_question) values ('<input>', 1, 3);
 insert into Reponses (libelle, correct, id_question) values ('Entreprise Edition', 1, 4);
-insert into Reponses (libelle, correct, id_question) values ('EtÃ© Hiver',0, 4);
+insert into Reponses (libelle, correct, id_question) values ('Eté Hiver',0, 4);
 insert into Reponses (libelle, correct, id_question) values ('Euh Excsuez-moi',0, 4);
 insert into Reponses (libelle, correct, id_question) values ('Hey salut !',0, 4);
 insert into Reponses (libelle, correct, id_question) values ('Symfony', 1, 5);
@@ -169,7 +172,7 @@ insert into Reponses (libelle, correct, id_question) values ('Mozart', 0, 5);
 insert into Reponses (libelle, correct, id_question) values ('Beethoven', 0, 5);
 insert into Reponses (libelle, correct, id_question) values ('De Bussy', 0, 5);
 insert into Reponses (libelle, correct, id_question) values ('$', 1, 6);
-insert into Reponses (libelle, correct, id_question) values ('â‚¬', 0, 6);
+insert into Reponses (libelle, correct, id_question) values ('€', 0, 6);
 insert into Reponses (libelle, correct, id_question) values ('LOL', 0, 6);
 insert into Reponses (libelle, correct, id_question) values ('Choisis-moi', 0, 6);
 insert into Reponses (libelle, correct, id_question) values ('int', 1, 7);
@@ -178,11 +181,11 @@ insert into Reponses (libelle, correct, id_question) values ('boolean', 1, 7);
 insert into Reponses (libelle, correct, id_question) values ('float', 1, 7);
 insert into Reponses (libelle, correct, id_question) values ('du web', 1, 8);
 insert into Reponses (libelle, correct, id_question) values ('du miel', 0, 8);
-insert into Reponses (libelle, correct, id_question) values ('du  dÃ©veloppement web', 1, 8);
+insert into Reponses (libelle, correct, id_question) values ('du  développement web', 1, 8);
 insert into Reponses (libelle, correct, id_question) values ('des pages html dynamiques', 1, 8);
 
-insert into Qcms (nom, niveau) values ('ECF-DÃ©veloppement web', 'DL');
-insert into Qcms (nom, niveau) values ('ECF-DÃ©veloppement web avancÃ©', 'DL');
+insert into Qcms (nom, niveau) values ('ECF-Développement web', 'DL');
+insert into Qcms (nom, niveau) values ('ECF-Développement web avancé', 'DL');
 insert into Qcms (nom, niveau) values ('ECF-SQL', 'CDI');
 
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 1,'Java EE', 4);
