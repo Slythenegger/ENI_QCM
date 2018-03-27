@@ -25,7 +25,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 		epr.setFin(rs.getTimestamp(3).toInstant());
 		epr.setTempsEcoule(rs.getInt(4));
 		epr.setEtat(rs.getString(5));
-		epr.setNoteObtenue(rs.getInt(6));
+		epr.setNoteObtenue(rs.getFloat(6));
 		epr.setNiveauObtenu(rs.getString(7));
 		epr.setIdTest(rs.getInt(8));
 		epr.setIdUtilisateur(rs.getInt(9));
