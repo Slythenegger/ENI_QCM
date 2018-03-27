@@ -2,8 +2,8 @@ package fr.eni.qcm.BO;
 
 public class User {
 	
-	private int idUser, idPromo;
-	private String login, password, nom, prenom, email, role;
+	private int idUser;
+	private String  password, nom, prenom, email, role, idPromo;
 	
 	
 	
@@ -12,9 +12,11 @@ public class User {
 	}
 
 
+
 	public int getIdUser() {
 		return idUser;
 	}
+
 
 
 	public void setIdUser(int idUser) {
@@ -22,29 +24,11 @@ public class User {
 	}
 
 
-	public int getIdPromo() {
-		return idPromo;
-	}
-
-
-	public void setIdPromo(int idPromo) {
-		this.idPromo = idPromo;
-	}
-
-
-	public String getLogin() {
-		return login;
-	}
-
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 
 	public String getPassword() {
 		return password;
 	}
+
 
 
 	public void setPassword(String password) {
@@ -52,9 +36,11 @@ public class User {
 	}
 
 
+
 	public String getNom() {
 		return nom;
 	}
+
 
 
 	public void setNom(String nom) {
@@ -62,9 +48,11 @@ public class User {
 	}
 
 
+
 	public String getPrenom() {
 		return prenom;
 	}
+
 
 
 	public void setPrenom(String prenom) {
@@ -72,9 +60,11 @@ public class User {
 	}
 
 
+
 	public String getEmail() {
 		return email;
 	}
+
 
 
 	public void setEmail(String email) {
@@ -82,14 +72,32 @@ public class User {
 	}
 
 
+
 	public String getRole() {
 		return role;
 	}
 
 
+
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+
+
+	public String getIdPromo() {
+		return idPromo;
+	}
+
+
+
+	public void setIdPromo(String idPromo) {
+		this.idPromo = idPromo;
+	}
+
+
+	
+
 	
 	
 	
