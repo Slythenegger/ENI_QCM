@@ -5,141 +5,441 @@ if DB_ID('BDD_QCM') is not null
 go
 create database BDD_QCM;
 go
-Use BDD_QCM;
 
-create table Questions(
-id_question int not null identity(1,1) primary key,
-libelle text not null, 
-type varchar(30) not null,
-fichier_image varchar(255),
-id_theme int not null
-);
+use BDD_QCM;
 go
- 
- create table Questions_user(
- id_question int unique not null,
- id_epreuve int unique not null,
- num_question int unique not null,
- marque bit
- );
-  alter table Questions_user add CONSTRAINT PK_question_user PRIMARY key (id_question,id_epreuve);
+CREATE
+  TABLE EPREUVE
+  (
+    idEpreuve         INTEGER NOT NULL IDENTITY,
+    dateDedutValidite DATETIME NOT NULL ,
+    dateFinValidite   DATETIME NOT NULL ,
+    tempsEcoule       INTEGER ,
+    etat              CHAR (2) NOT NULL ,
+    note_obtenue FLOAT ,
+    niveau_obtenu CHAR (3) ,
+    idTest        INTEGER NOT NULL ,
+    idUtilisateur INTEGER NOT NULL ,
+    CONSTRAINT EPREUVE_PK PRIMARY KEY CLUSTERED (idEpreuve)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+ALTER TABLE EPREUVE
+ADD
+CHECK ( niveau_obtenu IN ('A', 'ECA', 'NA') )
+GO
 
- create table Reponses(
- id_reponse int not null identity(1,1) primary key,
- id_question int not null,
- libelle text not null,
- correct bit not null, 
- );
- go
+CREATE
+  TABLE PROFIL
+  (
+    codeProfil CHAR (3) NOT NULL ,
+    libelle    VARCHAR (100) NOT NULL ,
+    CONSTRAINT PROFIL_PK PRIMARY KEY CLUSTERED (codeProfil)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
 
- create table Reponses_user(
- id_reponse int unique not null,
- id_question int unique not null,
- id_epreuve int unique not null,
- );
- alter table Reponses_user add CONSTRAINT PK_reponse_user PRIMARY key (id_reponse, id_question,id_epreuve);
+CREATE
+  TABLE PROMOTION
+  (
+    codePromo CHAR (8) NOT NULL ,
+    Libelle   VARCHAR (200) NOT NULL ,
+    CONSTRAINT PROMOTION_PK PRIMARY KEY CLUSTERED (codePromo)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
 
- create table Themes(
- id_theme int not null identity(1,1) primary key,
- nom varchar(255) unique not null,
- );
- go
+CREATE
+  TABLE PROPOSITION
+  (
+    idProposition INTEGER NOT NULL ,
+    enonce        VARCHAR (500) NOT NULL ,
+    estBonne BIT NOT NULL ,
+    idQuestion INTEGER NOT NULL ,
+    CONSTRAINT PROPOSITION_PK PRIMARY KEY CLUSTERED (idProposition, idQuestion)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
 
- create table Sections(
- id_section int not null identity(1,1) primary key,
- nom varchar(255) not null,
- id_theme int not null,
- id_qcm int not null,
- nb_questions int not null 
- );
- go
+CREATE
+  TABLE QUESTION
+  (
+    idQuestion INTEGER NOT NULL IDENTITY,
+    enonce     VARCHAR (500) NOT NULL ,
+    media VARBINARY ,
+    points  INTEGER NOT NULL ,
+    idTheme INTEGER NOT NULL ,
+    CONSTRAINT QUESTION_PK PRIMARY KEY CLUSTERED (idQuestion)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+CREATE
+  TABLE QUESTION_TIRAGE
+  (
+    estMarquee BIT NOT NULL ,
+    idQuestion INTEGER NOT NULL ,
+    numordre   INTEGER NOT NULL ,
+    idEpreuve  INTEGER NOT NULL ,
+    CONSTRAINT QUESTION_TIRAGE_PK PRIMARY KEY CLUSTERED (idQuestion, idEpreuve)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+CREATE
+  TABLE REPONSE_TIRAGE
+  (
+    idProposition INTEGER NOT NULL ,
+    idQuestion    INTEGER NOT NULL ,
+    idEpreuve     INTEGER NOT NULL ,
+    CONSTRAINT REPONSE_TIRAGE_PK PRIMARY KEY CLUSTERED (idQuestion, idEpreuve,
+    idProposition)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+CREATE
+  TABLE SECTION_TEST
+  (
+    nbQuestionsATirer INTEGER NOT NULL ,
+    idTest            INTEGER NOT NULL ,
+    idTheme           INTEGER NOT NULL ,
+    CONSTRAINT SECTION_TEST_PK PRIMARY KEY CLUSTERED (idTest, idTheme)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+CREATE
+  TABLE TEST
+  (
+    idTest      INTEGER NOT NULL IDENTITY,
+    libelle     VARCHAR (100) NOT NULL ,
+    description VARCHAR (200) NOT NULL ,
+    duree       INTEGER NOT NULL ,
+    seuil_haut  INTEGER NOT NULL ,
+    seuil_bas   INTEGER NOT NULL ,
+    CONSTRAINT TEST_PK PRIMARY KEY CLUSTERED (idTest)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+CREATE
+  TABLE THEME
+  (
+    idTheme INTEGER NOT NULL ,
+    libelle VARCHAR (200) NOT NULL ,
+    CONSTRAINT THEME_PK PRIMARY KEY CLUSTERED (idTheme)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+CREATE
+  TABLE UTILISATEUR
+  (
+    idUtilisateur INTEGER NOT NULL IDENTITY,
+    nom           VARCHAR (250) NOT NULL ,
+    prenom        VARCHAR (250) NOT NULL ,
+    email         VARCHAR (250) NOT NULL ,
+    password      VARCHAR (100) NOT NULL ,
+    codeProfil    CHAR (3) NOT NULL ,
+    codePromo     CHAR (8) ,
+    CONSTRAINT UTILISATEUR_PK PRIMARY KEY CLUSTERED (idUtilisateur)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default" ,
+  CONSTRAINT UTILISATEUR_EMAIL_UQ UNIQUE NONCLUSTERED (email) ON "default"
+  )
+  ON "default"
+GO
+
+ALTER TABLE UTILISATEUR
+ADD CONSTRAINT Candidat_Promotion_FK FOREIGN KEY
+(
+codePromo
+)
+REFERENCES PROMOTION
+(
+codePromo
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE EPREUVE
+ADD CONSTRAINT Epreuve_Candidat_FK FOREIGN KEY
+(
+idUtilisateur
+)
+REFERENCES UTILISATEUR
+(
+idUtilisateur
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE EPREUVE
+ADD CONSTRAINT Epreuve_Test_FK FOREIGN KEY
+(
+idTest
+)
+REFERENCES TEST
+(
+idTest
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE PROPOSITION
+ADD CONSTRAINT Proposition_Question_FK FOREIGN KEY
+(
+idQuestion
+)
+REFERENCES QUESTION
+(
+idQuestion
+)
+ON
+DELETE CASCADE ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE QUESTION
+ADD CONSTRAINT Question_Theme_FK FOREIGN KEY
+(
+idTheme
+)
+REFERENCES THEME
+(
+idTheme
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE REPONSE_TIRAGE
+ADD CONSTRAINT Reponse_Proposition_FK FOREIGN KEY
+(
+idProposition,
+idQuestion
+)
+REFERENCES PROPOSITION
+(
+idProposition ,
+idQuestion
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE REPONSE_TIRAGE
+ADD CONSTRAINT Reponse_Tirage_FK FOREIGN KEY
+(
+idQuestion,
+idEpreuve
+)
+REFERENCES QUESTION_TIRAGE
+(
+idQuestion ,
+idEpreuve
+)
+ON
+DELETE CASCADE ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE SECTION_TEST
+ADD CONSTRAINT Section_Test_FK FOREIGN KEY
+(
+idTest
+)
+REFERENCES TEST
+(
+idTest
+)
+ON
+DELETE CASCADE ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE SECTION_TEST
+ADD CONSTRAINT Section_Theme_FK FOREIGN KEY
+(
+idTheme
+)
+REFERENCES THEME
+(
+idTheme
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE QUESTION_TIRAGE
+ADD CONSTRAINT Tirage_Epreuve_FK FOREIGN KEY
+(
+idEpreuve
+)
+REFERENCES EPREUVE
+(
+idEpreuve
+)
+ON
+DELETE CASCADE ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE QUESTION_TIRAGE
+ADD CONSTRAINT Tirage_Question_FK FOREIGN KEY
+(
+idQuestion
+)
+REFERENCES QUESTION
+(
+idQuestion
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE UTILISATEUR
+ADD CONSTRAINT Utilisateur_Profil_FK FOREIGN KEY
+(
+codeProfil
+)
+REFERENCES PROFIL
+(
+codeProfil
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+-- Rapport récapitulatif d'Oracle SQL Developer Data Modeler : 
+-- 
+-- CREATE TABLE                            11
+-- CREATE INDEX                             0
+-- ALTER TABLE                             13
+-- CREATE VIEW                              0
+-- CREATE PACKAGE                           0
+-- CREATE PACKAGE BODY                      0
+-- CREATE PROCEDURE                         0
+-- CREATE FUNCTION                          0
+-- CREATE TRIGGER                           0
+-- ALTER TRIGGER                            0
+-- CREATE DATABASE                          0
+-- CREATE DEFAULT                           0
+-- CREATE INDEX ON VIEW                     0
+-- CREATE ROLLBACK SEGMENT                  0
+-- CREATE ROLE                              0
+-- CREATE RULE                              0
+-- CREATE PARTITION FUNCTION                0
+-- CREATE PARTITION SCHEME                  0
+-- 
+-- DROP DATABASE                            0
+-- 
+-- ERRORS                                   0
+-- WARNINGS                                 0
 
 
-
- create table Qcms(
- id_qcm int not null identity(1,1) primary key,
- nom varchar(255) not null,
- niveau varchar(255) not null,  
- );
-
- go
- create table Sessions(
- id_session int not null identity(1,1) primary key,
- id_user  int not null,
- id_qcm int not null,
- date_inscription datetime not null,
- temps_limite int not null,
- date_prevue datetime not null,
- resultat int null
- );
- go
+-- Données
 
 
+insert into PROMOTION(codePromo, Libelle) values ('DL-127', 'Developpeur Logiciel 127');
+insert into PROMOTION(codePromo, Libelle) values ('CDI-72', 'Concepteur Développeur Informatique 72');
+insert into PROMOTION(codePromo, Libelle) values ('DL-128', 'Developpeur Logiciel 128');
+insert into PROMOTION(codePromo, Libelle) values ('CDI-73', 'Concepteur Développeur Informatique 73');
 
- create table Epreuves(
- id_epreuve int not null identity(1,1) primary key,
- date_passage datetime not null,
- temps_restant int not null,
- id_session int not null
- );
+insert into Profil (codeProfil, libelle) values ('STA', 'stagiaire');
+insert into Profil (codeProfil, libelle) values ('FOR', 'formateur');
+insert into Profil (codeProfil, libelle) values ('CAN', 'candidat');
+insert into Profil (codeProfil, libelle) values ('RES', 'responsable de formation');
 
- create table Users(
- id_user int not null identity(1,1) primary key,
- login varchar(255) not null, 
- password varchar(255) not null,
- nom varchar(255) not null,
- prenom varchar(255) not null,
- email varchar(255) not null,
- role char(3) not null,
- id_promo int null
- );
- go
-
- create table Roles(
- codeRole char(3) primary key,
- libelle varchar(255) not null
- );
-
- create table Promotions(
- id_promo int not null identity(1,1) primary key,
- nom varchar(255)
- );
- go
-
-
-alter table Reponses add constraint fk_reponse_question foreign key (id_question) references Questions (id_question);
-alter table Questions add constraint fk_question_theme foreign key (id_theme) references Themes (id_theme);
-alter table Sections add constraint fk_theme_section foreign key (id_theme) references Themes (id_theme);
-alter table Sections add constraint fk_qcm_section foreign key (id_qcm) references Qcms (id_qcm);
-alter table Sessions add constraint fk_user_session foreign key (id_user) references Users (id_user);
-alter table Sessions add constraint fk_qcm_session foreign key (id_qcm) references Qcms (id_qcm);
-alter table Users add constraint fk_promotion_user foreign key (id_promo) references Promotions (id_promo);
-alter table Epreuves add constraint fk_session_epreuve foreign key (id_session) references Sessions (id_session);
-alter table Questions_user add constraint fk_questionU_question foreign key (id_question) references Questions (id_question);
-alter table Questions_user add constraint fk_questionU_epreuve foreign key (id_epreuve) references Epreuves (id_epreuve);
-alter table Reponses_user add constraint fk_1 foreign key (id_reponse) references Reponses (id_reponse); 
-alter table Reponses_user add constraint fk_2 foreign key (id_question) references Questions (id_question); 
-alter table Reponses_user add constraint fk_3 foreign key (id_epreuve) references Epreuves (id_epreuve); 
-alter table Users add constraint fk_user_role foreign key (role) references Roles (codeRole);
-
-
-insert into Promotions(nom) values ('DL-127');
-insert into Promotions(nom) values ('CDI-72');
-
-insert into Roles (codeRole, libelle) values ('STA', 'stagiaire');
-insert into Roles (codeRole, libelle) values ('FOR', 'formateur');
-insert into Roles (codeRole, libelle) values ('CAN', 'candidat');
-insert into Roles (codeRole, libelle) values ('RES', 'responsable de formation');
-
-insert into Users(login, password, nom, prenom, email, role) values ('michel', 'michel', 'Michel', 'DUPONT', 'michel@hotmail.fr', 'STA');
-insert into Users(login, password, nom, prenom, email, role) values ('micheline', 'micheline', 'Micheline', 'DUPOND', 'micheline@hotmail.fr', 'CAN');
-insert into Users(login, password, nom, prenom, email, role) values ('fabrice', 'fabrice', 'fabrice', 'FARRUGIA', 'fabrice@hotmail.fr', 'FOR');
-insert into Users(login, password, nom, prenom, email, role) values ('robert', 'robert', 'Robert', 'Rourour', 'robert@hotmail.fr', 'RES');
-
-insert into Themes (nom) values ('Java EE');
-insert into Themes (nom) values ('Php');
-insert into Themes (nom) values ('Java SE');
-insert into Themes (nom) values ('SQL Server');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('DUPONT', 'michel', 'michel@hotmail.fr', 'michel', 'STA', 'DL-127');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('DUPUIS', 'jean-michel', 'jean-michel@hotmail.fr', 'jean-michel', 'STA', 'DL-127');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('FARRUGIA', 'fabrice', 'fabrice@hotmail.fr', 'fabrice', 'FOR', null);
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('Rourour', 'robert', 'robert@hotmail.fr', 'robert', 'STA', null);
+/*
 
 insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une Servlet ?', 'unique', null, 1);
 insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une JSP ?', 'multiple', null, 1);
@@ -198,3 +498,6 @@ insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qc
 
 insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 60, 1);
 insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 20, 2);
+
+
+*/
