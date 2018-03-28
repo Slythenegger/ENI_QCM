@@ -12,13 +12,14 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="container">
 	<c:import url="topBar.jsp"></c:import>
-	
+	<div class="container">
+		<h1>Bienvenue ${user.prenom}</h1>
+		<div>
+			<p>Vous êtes sur l'application en ligne de l'ENI ecole
+				informatique.</p>				
+		</div>
 
-	<h1>Bienvenue ${user.prenom}</h1>
-
-
-</div>
+	</div>
 </body>
 </html>

@@ -425,6 +425,11 @@ GO
 -- Données
 
 
+
+
+
+
+
 insert into PROMOTION(codePromo, Libelle) values ('DL-127', 'Developpeur Logiciel 127');
 insert into PROMOTION(codePromo, Libelle) values ('CDI-72', 'Concepteur Développeur Informatique 72');
 insert into PROMOTION(codePromo, Libelle) values ('DL-128', 'Developpeur Logiciel 128');
