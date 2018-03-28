@@ -22,7 +22,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite, idTest, idUtilisateur) values (?,?,?,?)";
 	private final String FIND_USER_EPREUVE = "select e.etat, e.note_obtenue, e.niveau_obtenu, e.idTest, t.libelle from EPREUVE e, TEST t where e.idTest = t.idTest and idUtilisateur = ?";
 
-	private final String CREATE_USER_EPREUVE="insert into EPREUVE(dateDebutValidite, dateFinValidite,etat, idTest, idUtilisateur) values (?,?,?,?,?)";
+	
 	
 	// Construit un object Epreuve depuis un ResultSet
 	private Epreuve buildEpreuve(ResultSet rs) throws SQLException {
@@ -63,16 +63,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 		return epreuves;
 	}
 
-	@Override
-	public Epreuve Create(Date dateDebut, Date dateFin, int idTest, int idUser) throws BusinessException {
-		try (Connection cnx = ConnectionProvider.getConnection()) {
-
-			PreparedStatement pst = cnx.prepareStatement(CREATE_USER_EPREUVE);
-			pst.setDate(1, (java.sql.Date) dateDebut);
-			pst.setDate(2, (java.sql.Date) dateFin);
-			pst.setInt(3, idTest);
-			pst.setInt(4, idUser);
-		} catch (SQLException e) {
+	
 	public Boolean Create(Instant dateDebut, Instant dateFin, int idTest, int idUser) throws BusinessException {
 		boolean bool=false;
 		try(Connection cnx =ConnectionProvider.getConnection()){
@@ -89,8 +80,6 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
-
-		return null;
 		
 		
 		return bool;
@@ -175,14 +164,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see fr.eni.qcm.DAL.EpreuveDAO#getUserTest(int)
-	 */
-	@Override
-	public List<EpreuveCandidat> getUserTest(int userId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	
