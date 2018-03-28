@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Epreuve;
+import fr.eni.qcm.BO.Resultat;
 import fr.eni.qcm.DAL.DAOFactory;
 import fr.eni.qcm.DAL.EpreuveDAO;
 
@@ -16,5 +17,9 @@ public class EpreuveManager {
 	
 	public List<Epreuve> getUserEpreuve(int userID) throws BusinessException {
 		return this.dao.getUserEpreuve(userID);
+	}
+	
+	public List<Resultat> getResultatForTest(int testID) throws BusinessException {
+		return this.dao.getResultatForTest(testID);
 	}
 }

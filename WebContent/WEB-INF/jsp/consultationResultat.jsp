@@ -30,8 +30,23 @@
 		</c:forEach>
 	</c:if>
 	
-	<c:if test="${!empty test}">
+	<c:if test="${!empty test && !empty resultats}">
 		<h2>Résultat pour ${test.libelle}</h2>
+		
+			<table>
+				<tr>
+					<th>Nom, prénom</th>
+					<th>Résultat</th>
+				</tr>
+				
+				<c:forEach var="resultat" items="${resultats}">
+					<tr>
+						<td>${resultat.nom} ${resultat.prenom}</td>
+						<td>${resultat.noteObtenue}/20</td>
+					</tr>
+				</c:forEach>
+				
+			</table>		
 	</c:if>
 </body>
 </html>
