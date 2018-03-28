@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
+	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
 		
 	<c:if test="${empty tests}">
@@ -25,7 +26,7 @@
 		
 		<ul class="list-inline">
 			<c:forEach var="test" items="${tests}">
-				<li class="list-inline-item"><a href="<c:out value="${pageContext.servletContext.contextPath}/ServletConsultationResultat?test=${test.idTest}"/>">${test.libelle}</a></li>
+				<li class="list-inline-item"><a href="<c:out value="${pageContext.servletContext.contextPath}/resultats?test=${test.idTest}"/>">${test.libelle}</a></li>
 				
 			</c:forEach>
 		</ul>
