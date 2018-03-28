@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			user = um.loginUser(request.getParameter("email"), request.getParameter("password"));
 			session.setAttribute("user", user);
-			RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/accueilTest.jsp");		
+			RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");		
 			rd.forward(request, response);			
 			
 		} catch (BusinessException e) {
