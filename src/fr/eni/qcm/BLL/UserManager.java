@@ -19,6 +19,9 @@ import fr.eni.qcm.DAL.UserDAO;
 public class UserManager {
 
 	private UserDAO uDao;
+	public List<User> getAll() throws BusinessException{
+		return this.uDao.selectAll();
+	}
 
 	/**
 	 * Constructeur vide
@@ -50,6 +53,10 @@ public class UserManager {
 	public List<Promo> findPromos() throws BusinessException {
 
 		return uDao.findPromos();
+	}
+	
+	public List<User> findPromo(String codepromo) throws BusinessException{
+		return uDao.selectPromo(codepromo);
 	}
 
 	/**

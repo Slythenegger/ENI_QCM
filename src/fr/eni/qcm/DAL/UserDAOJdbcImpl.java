@@ -28,6 +28,8 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private final String SELECT_CANDI_BY_NAME ="select * from utilisateur where codeProfil=? and nom=? ";
 	private String FIND_ROLES = "select * from Profil";
 	private String FIND_PROMOS = "select * from Promotion";
+	private final String SELECT_ALL="select * from Utilisateur";
+	
 
 	/**
 	 * Méthode en charge de de vérifier l'existence de l'utilisateur en base
@@ -138,16 +140,17 @@ public class UserDAOJdbcImpl implements UserDAO {
 	}
 
 	@Override
-	public User selectPromo(int idpromo) throws BusinessException {
-		User user = new User();		
+	public List<User> selectPromo(String idpromo) throws BusinessException {
+		List<User> users = new ArrayList<>();		
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			PreparedStatement pst = cnx.prepareStatement(SELECT_PROMO);
-			pst.setInt(1, idpromo);
+			pst.setString(1, idpromo);
 			ResultSet rs = pst.executeQuery();
-
-			if (rs.next()) {
+			while (rs.next())
+			{
+				User user=new User();
 				user.setIdUser(rs.getInt(1));
 				user.setNom(rs.getString(2));
 				user.setPrenom(rs.getString(3));
@@ -155,14 +158,14 @@ public class UserDAOJdbcImpl implements UserDAO {
 				user.setPassword(rs.getString(5));
 				user.setRole(rs.getString(6));
 				user.setIdPromo(rs.getString(7));
-			} else
-				user = null;
+				users.add(user);
+			}
 
 		} catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 
-		return user;
+		return users;
 	}
 
 	/**
@@ -233,4 +236,38 @@ public class UserDAOJdbcImpl implements UserDAO {
 
 		return promos;
 	}
+
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.UserDAO#selectAll()
+	 */
+	@Override
+	public List<User> selectAll() throws BusinessException{
+		
+		List<User> users = new ArrayList<>();
+		try
+		(Connection cnx= ConnectionProvider.getConnection()){
+			Statement stmt= cnx.createStatement();
+			ResultSet rs=stmt.executeQuery(SELECT_ALL);
+			while(rs.next()) {
+				User user=new User();
+				user.setIdUser(rs.getInt(1));
+				user.setNom(rs.getString(2));
+				user.setPrenom(rs.getString(3));
+				user.setEmail(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setRole(rs.getString(6));
+				user.setIdPromo(rs.getString(7));
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return users;
+	}
+
+	
+
+	
+	
 }
