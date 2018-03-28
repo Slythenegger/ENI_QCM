@@ -1,6 +1,6 @@
 package fr.eni.qcm.BO;
 
-import java.util.Date;
+
 
 /**
  * @author wmodeste2017
@@ -11,69 +11,138 @@ public class Test {
 /**
  * 
  */
-private int id, seuilhaut, seuilbas;
+private int idTest;
+private float seuilHaut, seuilBas;
 private String libelle, description;
-private Date duree;
+private int duree;
 
 
 public Test() {
 	super();
 }
 
+
 /**
- * @param id
- * @param seuilhaut
- * @param seuilbas
+ * @param idTest
+ * @param seuilHaut
+ * @param seuilBas
  * @param libelle
  * @param description
  * @param duree
  */
-public Test(int id, int seuilhaut, int seuilbas, String libelle, String description, Date duree) {
+public Test(int idTest, float seuilHaut, float seuilBas, String libelle, String description, int duree) {
 	super();
-	this.id = id;
-	this.seuilhaut = seuilhaut;
-	this.seuilbas = seuilbas;
+	this.idTest = idTest;
+	this.seuilHaut = seuilHaut;
+	this.seuilBas = seuilBas;
 	this.libelle = libelle;
 	this.description = description;
 	this.duree = duree;
 }
 
-public int getId() {
-	return id;
+
+
+/**
+ * @return the idTest
+ */
+public int getIdTest() {
+	return idTest;
 }
-public void setId(int id) {
-	this.id = id;
+
+
+/**
+ * @param idTest the idTest to set
+ */
+public void setIdTest(int idTest) {
+	this.idTest = idTest;
 }
-public int getSeuilhaut() {
-	return seuilhaut;
+
+
+/**
+ * @return the seuilHaut
+ */
+public float getSeuilHaut() {
+	return seuilHaut;
 }
-public void setSeuilhaut(int seuilhaut) {
-	this.seuilhaut = seuilhaut;
+
+
+/**
+ * @param seuilHaut the seuilHaut to set
+ */
+public void setSeuilHaut(float seuilHaut) {
+	this.seuilHaut = seuilHaut;
 }
-public int getSeuilbas() {
-	return seuilbas;
+
+
+/**
+ * @return the seuilBas
+ */
+public float getSeuilBas() {
+	return seuilBas;
 }
-public void setSeuilbas(int seuilbas) {
-	this.seuilbas = seuilbas;
+
+
+/**
+ * @param seuilBas the seuilBas to set
+ */
+public void setSeuilBas(float seuilBas) {
+	this.seuilBas = seuilBas;
 }
+
+
+/**
+ * @return the libelle
+ */
 public String getLibelle() {
 	return libelle;
 }
+
+
+/**
+ * @param libelle the libelle to set
+ */
 public void setLibelle(String libelle) {
 	this.libelle = libelle;
 }
+
+
+/**
+ * @return the description
+ */
 public String getDescription() {
 	return description;
 }
+
+
+/**
+ * @param description the description to set
+ */
 public void setDescription(String description) {
 	this.description = description;
 }
-public Date getDuree() {
+
+
+/**
+ * @return the duree
+ */
+public int getDuree() {
 	return duree;
 }
-public void setDuree(Date duree) {
+
+
+/**
+ * @param duree the duree to set
+ */
+public void setDuree(int duree) {
 	this.duree = duree;
 }
+
+
+
+
+
+
+
 
 
 

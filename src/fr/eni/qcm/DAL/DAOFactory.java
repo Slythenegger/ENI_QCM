@@ -14,7 +14,14 @@ public class DAOFactory {
 		return new UserDAOJdbcImpl();
 	}
 
-	public static TestDAO getTestDAO() {
-		return new TestDAOJdbcImpl();
+	/**
+	 *	Methode servant à :
+	 * @return
+	 */
+	public static PromoDAO getPromoDAO() {
+		// TODO Auto-generated method stub
+		return new PromoDAOJdbcImpl();
 	}
+
+	
 }
