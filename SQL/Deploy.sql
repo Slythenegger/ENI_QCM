@@ -466,6 +466,14 @@ insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, nive
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 16, 'ACQ', 3, 2);
 
 
+-- QUESTIONS
+insert into THEME(libelle) values('Vocabulaire');
+
+insert into QUESTION(enonce, media, points, idTheme) values ('Que veux dire "motherfucker" ?', null, 1, 1);
+insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculeur de maman', 0, 1);
+insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculer', 1, 1);
+insert into PROPOSITION(enonce, estBonne, idQuestion) values ('cigarete', 0, 1);
+
 /*
 
 insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une Servlet ?', 'unique', null, 1);

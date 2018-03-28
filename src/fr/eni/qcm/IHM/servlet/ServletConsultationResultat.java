@@ -43,6 +43,9 @@ public class ServletConsultationResultat extends HttpServlet {
 		catch (BusinessException e) {
 			e.printStackTrace();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		rq.forward(request, response);
 	}
