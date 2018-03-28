@@ -21,11 +21,17 @@
 	<c:if test="${!empty tests}">
 		<h2>Liste des tests</h2>
 		<c:forEach var="test" items="${tests}">
+			<a href="<c:out value="${pageContext.servletContext.contextPath}/ServletConsultationResultat?test=${test.idTest}"/>">
 			<div class="test">
 				<div class="nom">${test.libelle}</div>
 				<div class="description">${test.description}</div>
 			</div>
+			</a>
 		</c:forEach>
+	</c:if>
+	
+	<c:if test="${!empty test}">
+		<h2>Résultat pour ${test.libelle}</h2>
 	</c:if>
 </body>
 </html>
