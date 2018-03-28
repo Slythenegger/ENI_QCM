@@ -1,5 +1,6 @@
 package fr.eni.qcm.BLL;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,10 @@ public class EpreuveManager {
 	public List<Epreuve> getUserEpreuve(int userID) throws BusinessException {
 		return this.dao.getUserEpreuve(userID);
 	}
-
-	public void createEpreuve(Date dateDebut, Date dateFin, int idTest, int idUser) throws BusinessException {
-		this.dao.Create(dateDebut, dateFin, idTest, idUser);
+	
+	public void createEpreuve(Instant dateFin, Instant dateDebut, int idTest, int idUser)throws BusinessException{
+	System.out.println("on est passé ici");
+		this.dao.Create(dateFin, dateDebut, idTest, idUser);	
 	}
 
 	public List<Resultat> getResultatForTest(int testID) throws BusinessException {
