@@ -12,6 +12,7 @@ import java.util.List;
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Epreuve;
+import fr.eni.qcm.BO.Resultat;
 
 public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 
@@ -52,6 +53,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 			}			
 		} 
 		catch (SQLException e) {
+			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 		
@@ -74,6 +76,48 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 		
 		
 		return null;
+	}
+
+
+
+	@Override
+	public List<Resultat> getResultatForTest(int testID) throws BusinessException {
+		String query = "select * from EPREUVE as e left join UTILISATEUR as u "
+					+ "on e.idUtilisateur = u.idUtilisateur "
+					+ "where e.idTest = ?";
+		
+		List<Resultat> resultats = new ArrayList<>();
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pst = cnx.prepareStatement(query);
+			pst.setInt(1, testID);
+			
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				Resultat res = new Resultat();
+				
+				res.setIdEpreuve(rs.getInt(1));
+				res.setDebut(rs.getTimestamp(2).toInstant());
+				res.setFin(rs.getTimestamp(3).toInstant());
+				res.setTempsEcoule(rs.getInt(4));
+				res.setEtat(rs.getString(5));
+				res.setNoteObtenue(rs.getFloat(6));
+				res.setNiveauObtenu(rs.getString(7));
+				res.setIdTest(rs.getInt(8));
+				res.setIdUtilisateur(rs.getInt(9));
+				res.setNom(rs.getString(11));
+				res.setPrenom(rs.getString(12));
+				
+				resultats.add(res);
+			}			
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+
+		return resultats;
 	}
 
 }

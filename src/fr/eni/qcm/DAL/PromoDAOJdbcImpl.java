@@ -54,7 +54,7 @@ private final String SELECT_ALL="select * from PROMOTION";
 		
 		Promo promo = new Promo();
 		promo.setCodePromo(rs.getString(1));
-		promo.setLibellePromo(rs.getString(2));
+		promo.setLibelle(rs.getString(2));
 
 		return promo;
 	}
