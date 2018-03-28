@@ -33,14 +33,14 @@ public interface UserDAO {
 	 * @return
 	 * @throws BusinessException
 	 */
-	public List<Role> findRole()throws BusinessException;
+	public List<Role> findRoles()throws BusinessException;
 	
 	/**
 	 * Méthode en charge de récupérer la liste des promotions en base
 	 * @return
 	 * @throws BusinessException
 	 */
-	public List<Promo> findPromo()throws BusinessException;
+	public List<Promo> findPromos()throws BusinessException;
 
 
 	

@@ -9,10 +9,6 @@ body {
 	flex-direction: column;	
 }
 
-.exception {
-	color: red;
-}
-
 .centre {
 	display: flex;
 	flex-direction: column;

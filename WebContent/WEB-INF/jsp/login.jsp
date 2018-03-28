@@ -20,7 +20,7 @@
 					<div class="col-12">
 						<h3>Connexion</h3>
 						<c:if test="${! empty exception}">
-							<p class="exception">${exception}</p>
+							<p class="text-danger">${exception}</p>
 						</c:if>
 					</div>
 					<div class="row">
