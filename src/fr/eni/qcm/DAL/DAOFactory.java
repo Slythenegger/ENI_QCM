@@ -20,8 +20,22 @@ public class DAOFactory {
 	 * Méthode en charge de  fournir un objet de typer UserDAO
 	 * @return
 	 */
+	public static TestDAO getTestDAO() {
+		return new TestDAOJdbcImpl();
+	}
+	
 	public static UserDAO getUserDAO() {
 		return new UserDAOJdbcImpl();
 	}
 
+	/**
+	 *	Methode servant à :
+	 * @return
+	 */
+	public static PromoDAO getPromoDAO() {
+		// TODO Auto-generated method stub
+		return new PromoDAOJdbcImpl();
+	}
+
+	
 }

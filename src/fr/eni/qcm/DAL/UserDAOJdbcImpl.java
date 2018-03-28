@@ -24,6 +24,8 @@ public class UserDAOJdbcImpl implements UserDAO {
 
 	private String LOGIN_USER = "select * from Utilisateur where email = ? and password = ?";
 	private String CREATE_USER = "insert into Utilisateur (nom, prenom, email, password, codeProfil, codePromo) values (?,?,?,?,?,?)";
+	private final String SELECT_PROMO ="select * from Utilisateur where codePromo=?";
+	private final String SELECT_CANDI_BY_NAME ="select * from utilisateur where codeProfil=? and nom=? ";
 	private String FIND_ROLES = "select * from Profil";
 	private String FIND_PROMOS = "select * from Promotion";
 
@@ -103,6 +105,64 @@ public class UserDAOJdbcImpl implements UserDAO {
 			throw new BusinessException(BusinessError.DATABASE_INSERT);
 		}
 
+	}
+
+	@Override
+	public User selectCandidatByName(String name) throws BusinessException {
+		String codeprof="CAN";
+		User user = new User();		
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			PreparedStatement pst = cnx.prepareStatement(SELECT_CANDI_BY_NAME);
+			pst.setString(1, name);
+			pst.setString(2, codeprof);
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				user.setIdUser(rs.getInt(1));
+				user.setNom(rs.getString(2));
+				user.setPrenom(rs.getString(3));
+				user.setEmail(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setRole(rs.getString(6));
+				user.setIdPromo(rs.getString(7));
+			} else
+				user = null;
+
+		} catch (SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+
+		return user;
+	}
+
+	@Override
+	public User selectPromo(int idpromo) throws BusinessException {
+		User user = new User();		
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			PreparedStatement pst = cnx.prepareStatement(SELECT_PROMO);
+			pst.setInt(1, idpromo);
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				user.setIdUser(rs.getInt(1));
+				user.setNom(rs.getString(2));
+				user.setPrenom(rs.getString(3));
+				user.setEmail(rs.getString(4));
+				user.setPassword(rs.getString(5));
+				user.setRole(rs.getString(6));
+				user.setIdPromo(rs.getString(7));
+			} else
+				user = null;
+
+		} catch (SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+
+		return user;
 	}
 
 	/**

@@ -26,6 +26,8 @@ public interface UserDAO {
 	 * @throws BusinessException
 	 */
 	public void createUser(User user)throws BusinessException;
+	public User selectCandidatByName(String name)throws BusinessException;
+	public User selectPromo(int idpromo)throws BusinessException;
 	
 	
 	/**
