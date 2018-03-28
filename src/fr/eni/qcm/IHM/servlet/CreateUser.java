@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BLL.UserManager;
@@ -44,6 +45,8 @@ public class CreateUser extends HttpServlet {
 		UserManager um = new UserManager();
 		List<Role> roles = null;
 		List<Promo> promos = null;
+		
+		HttpSession session = request.getSession();
 
 		try {
 			roles = um.findRoles();
@@ -52,8 +55,8 @@ public class CreateUser extends HttpServlet {
 		} catch (BusinessException e) {
 			request.setAttribute("exception", e.getError().getDescription());
 		}
-		request.setAttribute("roles", roles);
-		request.setAttribute("promos", promos);
+		session.setAttribute("roles", roles);
+		session.setAttribute("promos", promos);
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/creationCandidat.jsp");
 		rd.forward(request, response);
 	}
@@ -74,7 +77,7 @@ public class CreateUser extends HttpServlet {
 
 		UserManager um = new UserManager();
 		User user = new User();
-
+	
 		user.setNom(request.getParameter("nom"));
 		user.setPrenom(request.getParameter("prenom"));
 		user.setEmail(request.getParameter("email"));
@@ -84,15 +87,17 @@ public class CreateUser extends HttpServlet {
 
 		try {
 			um.createUser(user);
+			request.setAttribute("info", "Candidat ajouté avec succès !S");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+			rd.forward(request, response);
 
 		} catch (BusinessException e) {
-
 			request.setAttribute("newUser", user);
 			request.setAttribute("exception", e.getError().getDescription());
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/creationCandidat.jsp");
 			rd.forward(request, response);
-
-		}
+		}		
+		
 
 	}
 
