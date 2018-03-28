@@ -9,12 +9,27 @@ package fr.eni.qcm.BO;
  */
 public class Resultat extends Epreuve {
 	private int IdUtilisateur;
-	private String nom, prenom;
+	private String nom, prenom, acquis;
+	private Test test;
 	
 	public Resultat() {
 		
 	}
 
+	
+	public String getAcquis() {
+		switch (this.getNiveauObtenu()) {
+		case "ACQ": return "Acquis";
+		case "ECA": return "En cours d'aquisition";
+		case "NAC": return "Non acquis";
+		default:
+			break;
+		}
+		
+		return "";
+	}
+	
+	
 	public int getIdUtilisateur() {
 		return IdUtilisateur;
 	}
@@ -37,6 +52,14 @@ public class Resultat extends Epreuve {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public Test getTest() {
+		return test;
+	}
+
+	public void setTest(Test test) {
+		this.test = test;
 	}
 
 	@Override
