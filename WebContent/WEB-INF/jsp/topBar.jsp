@@ -10,7 +10,7 @@
 		<a class="nav-item nav-link" href="#">Home</a> <a
 			class="nav-item nav-link" href="#">Features</a> <a
 			class="nav-item nav-link" href="#">Pricing</a> <a
-			class="nav-item nav-link" href="<c:out value="${pageContext.servletContext.contextPath}/ServletConsultationResultat"/>">Résultat</a>
+			class="nav-item nav-link" href="<c:out value="${pageContext.servletContext.contextPath}/resultats"/>">Résultat</a>
 	</div>
 </nav>
 <c:if test="${! empty info}">

@@ -17,7 +17,7 @@ import fr.eni.qcm.BO.Resultat;
 import fr.eni.qcm.BO.Test;
 
 
-@WebServlet("/ServletConsultationResultat")
+@WebServlet("/resultats")
 public class ServletConsultationResultat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
