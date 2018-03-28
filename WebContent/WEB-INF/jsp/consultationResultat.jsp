@@ -38,7 +38,8 @@
 				<thead>
 				<tr>
 					<th>Nom, prénom</th>
-					<th>Résultat</th>
+					<th>Acquis</th>
+					<th>Résultat</th>					
 				</tr>
 				</thead>
 				
@@ -46,7 +47,8 @@
 				<c:forEach var="resultat" items="${resultats}">
 					<tr>
 						<td>${resultat.nom} ${resultat.prenom}</td>
-						<td>${resultat.noteObtenue}/20</td>
+						<td>${resultat.acquis}</td>
+						<td>${resultat.noteObtenue}/20</td>						
 					</tr>
 				</c:forEach>
 				</tbody>
