@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeRole;
 import fr.eni.qcm.BLL.UserManager;
 import fr.eni.qcm.BO.Promo;
 import fr.eni.qcm.BO.Role;
@@ -25,7 +26,7 @@ import fr.eni.qcm.BO.User;
  * @date 27 mars 2018
  */
 @WebServlet("/nouveau-candidat")
-public class CreateUser extends HttpServlet {
+public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -76,7 +77,7 @@ public class CreateUser extends HttpServlet {
 			throws ServletException, IOException {
 
 		UserManager um = new UserManager();
-		User user = new User();
+		User user = new User();		
 	
 		user.setNom(request.getParameter("nom"));
 		user.setPrenom(request.getParameter("prenom"));

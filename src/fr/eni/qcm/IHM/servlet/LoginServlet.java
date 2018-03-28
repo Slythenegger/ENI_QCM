@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeRole;
 import fr.eni.qcm.BLL.UserManager;
 import fr.eni.qcm.BO.User;
 
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+						
 		RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");		
 		rd.forward(request, response);
 				
@@ -56,6 +57,13 @@ public class LoginServlet extends HttpServlet {
 		try {
 			user = um.loginUser(request.getParameter("email"), request.getParameter("password"));
 			session.setAttribute("user", user);
+			
+			session.setAttribute("stagiaire", CodeRole.CODE_STAGIAIRE);
+			session.setAttribute("formateur", CodeRole.CODE_FORMATEUR);
+			session.setAttribute("candidat", CodeRole.CODE_CANDIDAT);
+			session.setAttribute("responsable", CodeRole.CODE_RESPONSABLE);
+			
+						
 			RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");		
 			rd.forward(request, response);			
 			

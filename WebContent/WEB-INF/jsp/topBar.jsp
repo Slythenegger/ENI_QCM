@@ -5,12 +5,17 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="#">ENI</a>
+	<a class="navbar-brand" href="accueil"><img alt="logo-eni" src="asset/img/logo-eni.png"></a>
 	<div class="navbar-nav">
-		<a class="nav-item nav-link" href="#">Home</a> <a
-			class="nav-item nav-link" href="#">Features</a> <a
-			class="nav-item nav-link" href="#">Pricing</a> <a
-			class="nav-item nav-link" href="<c:out value="${pageContext.servletContext.contextPath}/resultats"/>">Résultat</a>
+		<a class="nav-item nav-link" href="accueil">Accueil</a>
+		<c:if test="${user.role == responsable}">
+			<a class="nav-item nav-link" href="nouveau-candidat">Créer candidat</a>
+		</c:if>		
+		<c:if test="${user.role == responsable}">
+			<a class="nav-item nav-link"
+				href="<c:out value="${pageContext.servletContext.contextPath}/resultats"/>">Résultat</a>
+		</c:if>
+		<a class="nav-item nav-link" href="login">Se déconnecter</a>
 	</div>
 </nav>
 <c:if test="${! empty info}">
