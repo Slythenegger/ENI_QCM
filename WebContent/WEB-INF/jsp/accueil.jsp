@@ -17,8 +17,35 @@
 		<h1>Bienvenue ${user.prenom}</h1>
 		<div>
 			<p>Vous êtes sur l'application en ligne de l'ENI ecole
-				informatique.</p>				
+				informatique.</p>
 		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nom du test</th>
+					<th>Résulat</th>
+					<th>Note</th>
+					<th>Etat</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:forEach items="${epreuves}" var="epr">
+					<tr>
+						<td>${epr.libelleTest}</td>
+						<td>${epr.niveauObtenu}</td>
+						<td>${epr.noteObtenue}/20</td>
+						<td>${epr.etat}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+
+
+
+
+
 
 	</div>
 </body>

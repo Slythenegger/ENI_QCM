@@ -35,7 +35,9 @@ public class LoginServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-						
+				
+		HttpSession session = request.getSession();
+		session.setAttribute("user", null);		
 		RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");		
 		rd.forward(request, response);
 				
@@ -70,11 +72,9 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("enCours", CodeEtatEpreuve.EN_COURS);
 			session.setAttribute("passe", CodeEtatEpreuve.PASSE);
 			session.setAttribute("annule", CodeEtatEpreuve.ANNULE);
-			session.setAttribute("termine", CodeEtatEpreuve.TERMINE);			
-		
-						
-			RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");		
-			rd.forward(request, response);			
+			session.setAttribute("termine", CodeEtatEpreuve.TERMINE);		
+								
+			response.sendRedirect("accueil");
 			
 		} catch (BusinessException e) {
 			request.setAttribute("exception", e.getError().getDescription());
