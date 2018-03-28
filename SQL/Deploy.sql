@@ -32,7 +32,7 @@ WITH
 GO
 ALTER TABLE EPREUVE
 ADD
-CHECK ( niveau_obtenu IN ('A', 'ECA', 'NA') )
+CHECK ( niveau_obtenu IN ('ACQ', 'ECA', 'NAC') )
 GO
 
 CREATE
@@ -435,8 +435,15 @@ insert into Profil (codeProfil, libelle) values ('FOR', 'formateur');
 insert into Profil (codeProfil, libelle) values ('CAN', 'candidat');
 insert into Profil (codeProfil, libelle) values ('RES', 'responsable de formation');
 
+
+-- Stagiaires DL 127
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('DUPONT', 'michel', 'michel@hotmail.fr', 'michel', 'STA', 'DL-127');
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('DUPUIS', 'jean-michel', 'jean-michel@hotmail.fr', 'jean-michel', 'STA', 'DL-127');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('MARMUD', 'siraf', 'siraf@hotmail.fr', 'siraf', 'STA', 'DL-127');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('MARMAD', 'firas', 'firas@hotmail.fr', 'firas', 'STA', 'DL-127');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('MOUMOUNE', 'sarif', 'sarif@hotmail.fr', 'sarif', 'STA', 'DL-127');
+insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('MARMOUN', 'frasi', 'frasi@hotmail.fr', 'frasi', 'STA', 'DL-127');
+
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('FARRUGIA', 'fabrice', 'fabrice@hotmail.fr', 'fabrice', 'FOR', null);
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('Rourour', 'robert', 'robert@hotmail.fr', 'robert', 'STA', null);
 
@@ -445,7 +452,13 @@ insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('EC
 insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF PHP', 'Du dev OOP avec Fabien ;) ;)', 30, 15, 8);
 
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 10.5, 'ECA', 1, 1);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 16, 'ECA', 1, 2);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 16, 'ACQ', 1, 2);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 7, 'NAC', 1, 3);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 19, 'ACQ', 1, 4);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 12, 'ECA', 1, 5);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 9, 'NAC', 1, 6);
+
+select * from EPREUVE;
 
 /*
 
