@@ -4,57 +4,54 @@
 package fr.eni.qcm.BO;
 
 /**
- * @author wmodeste2017
- *	28 mars 2018
+ * Classe en charge de 
+ * @author stropee2017
+ * @date 27 mars 2018
  */
 public class Promo {
-private String codePromo, libellePromo;
+	
+	private String codePromo, libelle;
+	
+	/**
+	 * Constructeur vide
+	 */
+	public Promo() {
+		// TODO Auto-generated constructor stub
+	}
 
-/**
- * @return the codePromo
- */
-public String getCodePromo() {
-	return codePromo;
-}
+	/**
+	 *Getter pour codePromo
+	 * @return the codePromo
+	 */
+	public String getCodePromo() {
+		return codePromo;
+	}
 
-/**
- * 
- */
-public Promo() {
-	super();
-}
+	/**
+	 * Setter pour codePromo
+	 * @param codePromo the codePromo to set
+	 */
+	public void setCodePromo(String codePromo) {
+		this.codePromo = codePromo;
+	}
 
-/**
- * @param codePromo
- * @param libellePromo
- */
-public Promo(String codePromo, String libellePromo) {
-	super();
-	this.codePromo = codePromo;
-	this.libellePromo = libellePromo;
-}
+	/**
+	 *Getter pour libelle
+	 * @return the libelle
+	 */
+	public String getLibelle() {
+		return libelle;
+	}
 
-/**
- * @param codePromo the codePromo to set
- */
-public void setCodePromo(String codePromo) {
-	this.codePromo = codePromo;
-}
+	/**
+	 * Setter pour libelle
+	 * @param libelle the libelle to set
+	 */
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 
-/**
- * @return the libellePromo
- */
-public String getLibellePromo() {
-	return libellePromo;
-}
-
-/**
- * @param libellePromo the libellePromo to set
- */
-public void setLibellePromo(String libellePromo) {
-	this.libellePromo = libellePromo;
-}
-
-
-
+	
+	
+	
 }
