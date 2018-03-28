@@ -463,11 +463,11 @@ insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, nive
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 12, 'ECA', 1, 5);
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 9, 'NAC', 1, 6);
 
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 5, 'NAC', 2, 4);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'PL', 5, 'NAC', 2, 4);
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 6, 'NAC', 2, 5);
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 7, 'NAC', 2, 6);
 
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 15, 'ACQ', 3, 1);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'EC', 15, 'ACQ', 3, 4);
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 16, 'ACQ', 3, 2);
 
 
