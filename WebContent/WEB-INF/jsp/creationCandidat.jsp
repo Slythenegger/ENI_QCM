@@ -14,7 +14,9 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="changeEvent()">
+
 	<div class="container">
+		<c:import url="topBar.jsp"></c:import>
 		<div class="col-12">
 			<form action="nouveau-candidat" method="post">
 				<fieldset>
