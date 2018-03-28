@@ -45,6 +45,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 			}
 		} 
 		catch (SQLException e) {
+			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 		

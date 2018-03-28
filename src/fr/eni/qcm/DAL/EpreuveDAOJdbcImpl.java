@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fr.eni.qcm.BusinessError;
@@ -16,6 +17,7 @@ import fr.eni.qcm.BO.Resultat;
 public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 
 	private final String GET_USER_EPREUVE = "select * from EPREUVE where idUtilisateur = ?";
+	private final String CREATE_USER_EPREUVE="insert into EPREUVE(dateDebutValidite, dateFinValidite, idTest, idUtilisateur) values (?,?,?,?)";
 	
 	// Construit un object Epreuve depuis un ResultSet
 	private Epreuve buildEpreuve(ResultSet rs) throws SQLException {
@@ -56,6 +58,24 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 		}
 		
 		return epreuves;
+	}
+
+
+	@Override
+	public Epreuve Create(Date dateDebut, Date dateFin, int idTest, int idUser) throws BusinessException {
+		try(Connection cnx =ConnectionProvider.getConnection()){
+			
+			PreparedStatement pst= cnx.prepareStatement(CREATE_USER_EPREUVE);
+			pst.setDate(1, (java.sql.Date) dateDebut);
+			pst.setDate(2, (java.sql.Date) dateFin);
+			pst.setInt(3,idTest);
+			pst.setInt(4, idUser);
+		}catch(SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+		
+		
+		return null;
 	}
 
 
