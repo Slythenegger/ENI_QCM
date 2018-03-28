@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.CodeRole;
 import fr.eni.qcm.BLL.UserManager;
 import fr.eni.qcm.BO.User;
@@ -63,6 +64,14 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("candidat", CodeRole.CODE_CANDIDAT);
 			session.setAttribute("responsable", CodeRole.CODE_RESPONSABLE);
 			
+			session.setAttribute("attente", CodeEtatEpreuve.EN_ATTENTE);
+			session.setAttribute("pret", CodeEtatEpreuve.PRET);
+			session.setAttribute("plannifie", CodeEtatEpreuve.PLANNFIE);
+			session.setAttribute("enCours", CodeEtatEpreuve.EN_COURS);
+			session.setAttribute("passe", CodeEtatEpreuve.PASSE);
+			session.setAttribute("annule", CodeEtatEpreuve.ANNULE);
+			session.setAttribute("termine", CodeEtatEpreuve.TERMINE);			
+		
 						
 			RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");		
 			rd.forward(request, response);			
