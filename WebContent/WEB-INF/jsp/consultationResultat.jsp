@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
+	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
 		
 	<c:if test="${empty tests}">
