@@ -9,7 +9,7 @@ public class Epreuve {
 	private Instant debut, fin;
 	
 	public Epreuve() {
-		
+
 	}
 
 	public int getIdEpreuve() {

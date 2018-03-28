@@ -10,7 +10,6 @@ package fr.eni.qcm.BO;
 public class Resultat extends Epreuve {
 	private int IdUtilisateur;
 	private String nom, prenom, acquis;
-	private Test test;
 	
 	public Resultat() {
 		
@@ -52,14 +51,6 @@ public class Resultat extends Epreuve {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
-	}
-
-	public Test getTest() {
-		return test;
-	}
-
-	public void setTest(Test test) {
-		this.test = test;
 	}
 
 	@Override
