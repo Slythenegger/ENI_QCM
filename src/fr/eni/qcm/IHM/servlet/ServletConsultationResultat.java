@@ -1,6 +1,7 @@
 package fr.eni.qcm.IHM.servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -41,6 +42,9 @@ public class ServletConsultationResultat extends HttpServlet {
 			request.setAttribute("tests", tests);			
 		} 
 		catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		

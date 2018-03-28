@@ -14,9 +14,8 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="changeEvent()">
-
-	<div class="container">
-		<c:import url="topBar.jsp"></c:import>
+<c:import url="topBar.jsp"></c:import>
+	<div class="container">		
 		<div class="col-12">
 			<form action="nouveau-candidat" method="post">
 				<fieldset>
@@ -84,6 +83,7 @@
 									<c:when test="${newUser.role == role.codeRole}">
 										<option selected="selected" value="${role.codeRole}">${role.libelle}</option>
 									</c:when>
+									<c:when test="${role.codeRole == formateur or role.codeRole == responsable}"></c:when>
 									<c:otherwise>
 										<option value="${role.codeRole}">${role.libelle}</option>
 									</c:otherwise>
@@ -96,7 +96,7 @@
 								<c:choose>
 									<c:when test="${newUser.idPromo == promo.codePromo}">
 										<option selected="selected" value="${promo.codePromo}">${promo.codePromo}</option>
-									</c:when>
+									</c:when>									
 									<c:otherwise>
 										<option value="${promo.codePromo}">${promo.codePromo}</option>
 									</c:otherwise>

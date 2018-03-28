@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeEtatEpreuve;
+import fr.eni.qcm.CodeRole;
 import fr.eni.qcm.BLL.UserManager;
 import fr.eni.qcm.BO.User;
 
@@ -33,7 +35,9 @@ public class LoginServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+				
+		HttpSession session = request.getSession();
+		session.setAttribute("user", null);		
 		RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");		
 		rd.forward(request, response);
 				
@@ -56,8 +60,21 @@ public class LoginServlet extends HttpServlet {
 		try {
 			user = um.loginUser(request.getParameter("email"), request.getParameter("password"));
 			session.setAttribute("user", user);
-			RequestDispatcher rd  = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");		
-			rd.forward(request, response);			
+			
+			session.setAttribute("stagiaire", CodeRole.CODE_STAGIAIRE);
+			session.setAttribute("formateur", CodeRole.CODE_FORMATEUR);
+			session.setAttribute("candidat", CodeRole.CODE_CANDIDAT);
+			session.setAttribute("responsable", CodeRole.CODE_RESPONSABLE);
+			
+			session.setAttribute("attente", CodeEtatEpreuve.EN_ATTENTE);
+			session.setAttribute("pret", CodeEtatEpreuve.PRET);
+			session.setAttribute("plannifie", CodeEtatEpreuve.PLANNFIE);
+			session.setAttribute("enCours", CodeEtatEpreuve.EN_COURS);
+			session.setAttribute("passe", CodeEtatEpreuve.PASSE);
+			session.setAttribute("annule", CodeEtatEpreuve.ANNULE);
+			session.setAttribute("termine", CodeEtatEpreuve.TERMINE);		
+								
+			response.sendRedirect("accueil");
 			
 		} catch (BusinessException e) {
 			request.setAttribute("exception", e.getError().getDescription());
