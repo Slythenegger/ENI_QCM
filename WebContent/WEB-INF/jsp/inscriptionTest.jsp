@@ -36,6 +36,7 @@ var tag = document.getElementById(tab[param]);
 <body>
 
 <c:import url="topBar.jsp"></c:import>
+<div class="container">
 <h1>Inscription test</h1>
 
 <form method="POST" action="${pageContext.request.contextPath}/ServletTraitementInscriptionTest">  
@@ -45,7 +46,7 @@ var tag = document.getElementById(tab[param]);
 <legend> Selection du test</legend>
 <label for="idTest">Nom  du test : </label>
 <select name="idTest">
-<option></option>
+<option value=""></option>
 	
 		<c:forEach var="tests" items="${tests}">
 			<option value=${tests.idTest }>${tests.libelle}</option>
@@ -67,12 +68,12 @@ var tag = document.getElementById(tab[param]);
 
 Type de candidats: 
 <div>
-<input type="checkbox" name="usertype" value="PROM" onchange="changement(0);" /> 
-<label >Promotion</label> <br>
-<input type="checkbox" name="usertype"  value="CAN" onchange="changement(1);"/> 
-<label >Stagiaire</label><br>
-<input type="checkbox" name="usertype" value="STA" onchange="changement(2)">
-<label >Candidat</label> <br>
+ 
+<label ><input type="checkbox" name="usertype" value="PROM" onchange="changement(0);" /> Promotion</label> <br>
+
+<label ><input type="checkbox" name="usertype"  value="CAN" onchange="changement(1);"/> Stagiaire</label><br>
+
+<label ><input type="checkbox" name="usertype" value="STA" onchange="changement(2)"> Candidat</label> <br>
 </div>
 <div id="candidat" style="display:none;">
 Nom du candidat : <input type="text" name="candiname"><br>
@@ -96,14 +97,16 @@ ${users.nom }
 <div id="prom" style="display:none;">
 Promotion des stagiaires: 
 <select name="codePromo">
+<option value=""></option>
 	<c:forEach var="promos" items="${promos}">
+			
 			<option value=${promos.codePromo }>${promos.libelle}</option>
 	</c:forEach>
 </select><br></div>
 </fieldset>
-<input type="submit" value="inscrire">
+<input type="submit" value="inscrire" class="btn">
 
 </form>
-
+</div>
 </body>
 </html>
