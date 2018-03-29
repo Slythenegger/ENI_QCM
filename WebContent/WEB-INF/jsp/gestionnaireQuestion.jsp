@@ -16,10 +16,21 @@
 </head>
 <body>
 	<c:import url="topBar.jsp"></c:import>
+
 	<div class="container">
-	
 		
-		<a class="btn btn-success" href="${pageContext.servletContext.contextPath}/creation-test">Créer un nouveau test</a>
+		<h4>Liste des tests</h4>
+		<div class="row">
+			<select class="col-6">
+				<c:forEach var="test" items="${tests}">
+				<option>${test.libelle}</option>
+				</c:forEach>
+			</select>
+			<div class="col-4"></div>
+			<a class="btn btn-success col-2" href="${pageContext.servletContext.contextPath}/creation-test">Créer un nouveau test</a>
+		</div>
+		
+		
 	</div>
 
 </body>
