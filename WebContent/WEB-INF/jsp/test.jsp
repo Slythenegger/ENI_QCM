@@ -8,7 +8,6 @@
 
 <meta charset="UTF-8">
 <title>QCM</title>
-<link rel="stylesheet" href="asset/css/accueil.css">
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -16,13 +15,20 @@
 <body>
 	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
-		<div class="debutTest">
-			<h2>${test.libelle}</h2>
-			<p>Description : ${test.description}</p>
-			<p>Durée du test : ${test.duree} minutes</p>
-			<p>${test.idTest }</p>
-			<a href="test?id=${test.idTest}"><input type="button" value="Commencer le test"></a>
-		</div>
+		<c:if test="${! empty exception}">
+			<p>${exception}</p>
+		</c:if>
+		<c:if test="${! empty liste }">
+			<c:forEach items="liste" var="li">
+				<p>${li.question.enonce}</p>
+				<c:forEach items="${li.reponses}" var="rep">
+					<p>${rep.enonce }</p>
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		<c:if test="${empty liste }">
+		<p>y a rien Michel !!</p>
+		</c:if>
 	</div>
 </body>
 </html>

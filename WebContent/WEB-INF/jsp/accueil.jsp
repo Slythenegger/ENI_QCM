@@ -31,7 +31,7 @@
 						<c:forEach items="${epreuves}" var="epr">
 							<c:if test="${epr.etat == plannifie}">
 								<p>
-									<a href="démarrer-test?idTest=${epr.idTest}">${epr.libelleTest}</a>
+									<a href="demarrer-test?idTest=${epr.idTest}">${epr.libelleTest}</a>
 								</p>
 							</c:if>
 						</c:forEach>

@@ -70,7 +70,7 @@ GO
 CREATE
   TABLE PROPOSITION
   (
-    idProposition INTEGER NOT NULL ,
+    idProposition INTEGER NOT NULL IDENTITY(1,1) ,
     enonce        VARCHAR (500) NOT NULL ,
     estBonne BIT NOT NULL ,
     idQuestion INTEGER NOT NULL ,
@@ -90,6 +90,7 @@ CREATE
   (
     idQuestion INTEGER NOT NULL IDENTITY,
     enonce     VARCHAR (500) NOT NULL ,
+	estMultichoix bit not null, 
     media VARBINARY ,
     points  INTEGER NOT NULL ,
     idTheme INTEGER NOT NULL ,
@@ -180,7 +181,7 @@ GO
 CREATE
   TABLE THEME
   (
-    idTheme INTEGER NOT NULL ,
+    idTheme INTEGER IDENTITY(1,1) NOT NULL ,
     libelle VARCHAR (200) NOT NULL ,
     CONSTRAINT THEME_PK PRIMARY KEY CLUSTERED (idTheme)
 WITH
@@ -472,57 +473,97 @@ insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, nive
 
 
 -- QUESTIONS
+insert into THEME(libelle) values('Java EE');
+insert into THEME(libelle) values('Php');
 insert into THEME(libelle) values('Vocabulaire');
 
+/*
 insert into QUESTION(enonce, media, points, idTheme) values ('Que veux dire "motherfucker" ?', null, 1, 1);
 insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculeur de maman', 0, 1);
 insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculer', 1, 1);
 insert into PROPOSITION(enonce, estBonne, idQuestion) values ('cigarete', 0, 1);
+*/
+
+
+
+
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('A quoi sert une Servlet ?', 0, null, 1, 1);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('A quoi sert une JSP ?', 1, null, 1, 1);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Lesquelles sont des balises HTML ?', 1, null, 1, 1);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que veut dire le EE de Java EE ?', 0, null, 1, 1);
+
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Quel est le framework le plus courant en php ?', 0, null, 1, 2);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Par quoi commence forcément une variable Php', 0, null, 1, 2);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Cochez les types primitif en php', 1, null, 1, 2);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que peut-on faire en php ?', 1, null, 1, 2);
+
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour des traitements de requetes', 1, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour manger des cacahuètes', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour attraper un éléphant', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour faire chier Max', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire du Html dynamique', 1, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A insérer du code java dans une page Html', 1, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire la cuisine', 0, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour être on fire sur le dancefloor', 0, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<h1>', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<form>', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<b26>', 0, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<input>', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Entreprise Edition', 1, 4);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Eté Hiver',0, 4);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Euh Excsuez-moi',0, 4);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Hey salut !',0, 4);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Symfony', 1, 5);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Mozart', 0, 5);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Beethoven', 0, 5);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('De Bussy', 0, 5);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('$', 1, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('€', 0, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('LOL', 0, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Choisis-moi', 0, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('int', 1, 7);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('string', 1, 7);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('boolean', 1, 7);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('float', 1, 7);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du web', 1, 8);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du miel', 0, 8);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du  développement web', 1, 8);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('des pages html dynamiques', 1, 8);
+
+
+
+
+insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,2,1);
+insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,3,2);
+
+
+select* from SECTION_TEST 
+where idTest=?;
+
+select top 4 * from QUESTION q, THEME th, SECTION_TEST s, TEST te
+where te.idTest=s.idTest
+and s.idTheme=th.idTheme
+and th.idTheme=q.idTheme
+and s.idTheme = 1
+order by RAND(1);
+
+
+select * from PROPOSITION p
+where idQuestion= ?;
+
+
+
+select  top 3 * from  PROPOSITION p,  QUESTION q
+INNER JOIN THEME th ON  th.idTheme = q.idTheme
+INNER JOIN SECTION_TEST s on s.idTheme = q.idTheme
+INNER JOIN TEST te on te.idTest = s.idTest
+where q.idQuestion = p.idQuestion
+order by p.idQuestion
+
+
+
 
 /*
-
-insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une Servlet ?', 'unique', null, 1);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une JSP ?', 'multiple', null, 1);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Lesquelles sont des balises HTML ?', 'multiple', null, 1);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Que veut dire le EE de Java EE ?', 'unique', null, 1);
-
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Quel est le framework le plus courant en php ?', 'unique', null, 2);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Par quoi commence forcément une variable Php', 'unique', null, 2);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Cochez les types primitif en php', 'multiple', null, 2);
-insert into Questions (libelle, type, fichier_image, id_theme) values ('Que peut-on faire en php ?', 'multiple', null, 2);
-
-insert into Reponses (libelle, correct, id_question) values ('Pour des traitements de requetes', 1, 1);
-insert into Reponses (libelle, correct, id_question) values ('Pour manger des cacahuètes', 0, 1);
-insert into Reponses (libelle, correct, id_question) values ('Pour attraper un éléphant', 0, 1);
-insert into Reponses (libelle, correct, id_question) values ('Pour faire chier Max', 0, 1);
-insert into Reponses (libelle, correct, id_question) values ('A faire du Html dynamique', 1, 2);
-insert into Reponses (libelle, correct, id_question) values ('A insérer du code java dans une page Html', 1, 2);
-insert into Reponses (libelle, correct, id_question) values ('A faire la cuisine', 0, 2);
-insert into Reponses (libelle, correct, id_question) values ('Pour être on fire sur le dancefloor', 0, 2);
-insert into Reponses (libelle, correct, id_question) values ('<h1>', 1, 3);
-insert into Reponses (libelle, correct, id_question) values ('<form>', 1, 3);
-insert into Reponses (libelle, correct, id_question) values ('<b26>', 0, 3);
-insert into Reponses (libelle, correct, id_question) values ('<input>', 1, 3);
-insert into Reponses (libelle, correct, id_question) values ('Entreprise Edition', 1, 4);
-insert into Reponses (libelle, correct, id_question) values ('Eté Hiver',0, 4);
-insert into Reponses (libelle, correct, id_question) values ('Euh Excsuez-moi',0, 4);
-insert into Reponses (libelle, correct, id_question) values ('Hey salut !',0, 4);
-insert into Reponses (libelle, correct, id_question) values ('Symfony', 1, 5);
-insert into Reponses (libelle, correct, id_question) values ('Mozart', 0, 5);
-insert into Reponses (libelle, correct, id_question) values ('Beethoven', 0, 5);
-insert into Reponses (libelle, correct, id_question) values ('De Bussy', 0, 5);
-insert into Reponses (libelle, correct, id_question) values ('$', 1, 6);
-insert into Reponses (libelle, correct, id_question) values ('€', 0, 6);
-insert into Reponses (libelle, correct, id_question) values ('LOL', 0, 6);
-insert into Reponses (libelle, correct, id_question) values ('Choisis-moi', 0, 6);
-insert into Reponses (libelle, correct, id_question) values ('int', 1, 7);
-insert into Reponses (libelle, correct, id_question) values ('string', 1, 7);
-insert into Reponses (libelle, correct, id_question) values ('boolean', 1, 7);
-insert into Reponses (libelle, correct, id_question) values ('float', 1, 7);
-insert into Reponses (libelle, correct, id_question) values ('du web', 1, 8);
-insert into Reponses (libelle, correct, id_question) values ('du miel', 0, 8);
-insert into Reponses (libelle, correct, id_question) values ('du  développement web', 1, 8);
-insert into Reponses (libelle, correct, id_question) values ('des pages html dynamiques', 1, 8);
 
 insert into Qcms (nom, niveau) values ('ECF-Développement web', 'DL');
 insert into Qcms (nom, niveau) values ('ECF-Développement web avancé', 'DL');

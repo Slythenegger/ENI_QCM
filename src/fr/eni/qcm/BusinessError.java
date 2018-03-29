@@ -7,7 +7,8 @@ public enum BusinessError {
 	DATABASE_INSERT(2, "Une erreur est survenue lors de l'insertion dans la base de données"),	
 	BLL_ERROR_CHAMP_VIDE(3, "Tous les champs doivent être correctement renseigné"),
 	DATABASE_NO_MATCH(4, "Login ou mot de passe incorrect !"), 
-	TEST_NO_MATCH(5, "Test introuvable !")
+	TEST_NO_MATCH(5, "Test introuvable !"), 
+	QUESTIONS_NO_MATCH(6, "Pas de questions trouvées pour ce test")
 	
 	
 	
