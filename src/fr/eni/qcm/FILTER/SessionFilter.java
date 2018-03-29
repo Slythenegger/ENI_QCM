@@ -14,32 +14,46 @@ import javax.servlet.http.HttpSession;
 
 
 public class SessionFilter implements Filter {
-    public SessionFilter() {
-
-    }
-
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {		
+	public void init(FilterConfig arg0) throws ServletException {
+		
 	}
 	
-	public void destroy() {
-	}
-
-
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;		
 		HttpSession session = req.getSession();
 		
-		String loginURL = request.getServletContext().getContextPath() + "/login";
+		String context = request.getServletContext().getContextPath();
 		String path = req.getRequestURI();
 		
-		if (session.getAttribute("user") != null || path.equals(loginURL)) {
+		
+		// URL public
+		if (
+			path.startsWith(context + "/vendor") ||
+			path.startsWith(context + "/asset") ||
+			path.startsWith(context + "/login")
+		) {
 			chain.doFilter(request, response);
-		} else {
-			res.sendRedirect(loginURL);
+			return;
 		}
+		
+		// Pas authentifié
+		if (session.getAttribute("user") == null) {
+			res.sendRedirect(context + "/login");
+			return;
+		}
+		
+		// TODO: ajout du filtre url en fonction des roles
+		chain.doFilter(request, response);
 	}
+	
+    public SessionFilter() {
 
+    }
+    
+	public void destroy() {
+		
+	}
 
 }
