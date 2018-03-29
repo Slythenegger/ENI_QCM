@@ -38,55 +38,92 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<User> users= new ArrayList<>();
+		UserManager umger= new UserManager();
+		
 		if (	request.getParameter("testDateDebut")== "" ||
 				request.getParameter("testDateFin")==""||
 				request.getParameter("testId")==""||
 				request.getParameter("testHeureDebut")==""||
 				request.getParameter("testHeureFin")==""
-				) {
+			) 
+		{
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscriptionTest.jsp");
 			rd.forward(request, response);
-		}
-		
-		if(request.getParameter("codePromo")!= "" && request.getParameter("codePromo")!=null) {
-			UserManager umger= new UserManager();
-			EpreuveManager emger= new EpreuveManager();
-			List<User> users= new ArrayList<>();
+		}else if(request.getParameter("codePromo")!= "" && request.getParameter("codePromo")!=null) 
+		{
 			try {
 				users=umger.findPromo(request.getParameter("codePromo"));
-				for (User user : users) {
-					
-					
-					int idtest = Integer.parseInt(request.getParameter("idTest"));
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-					Date dateDebut, dateFin = new Date();
-					try {
-						dateDebut=sdf.parse(request.getParameter("testDateDebut")
-											+" "+request.getParameter("testHeureDebut"));
-						
-						dateFin=sdf.parse(request.getParameter("testDateFin")
-											+" "+request.getParameter("testHeureFin"));
-						
-						Instant i = dateDebut.toInstant();
-						Instant i2 =dateFin.toInstant();
-						emger.createEpreuve(i,
-											i2,
-											idtest,
-											user.getIdUser());
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
 				
-			} catch (BusinessException e) {
+				
+				} catch (BusinessException e) 
+					{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+					}
+			
+		}else if(request.getParameter("stagname")!= "" && request.getParameter("stagname")!=null) 
+		{
+				System.out.println("c'est un stagiaire");
+				try {
+				users=umger.findStagiaire(request.getParameter("stagname"));
+				for(User user : users)
+						{
+					System.out.println(user.getNom());
+						}
+				
+					} catch (BusinessException e) 
+						{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+						}
+				
+			
+			}else if(request.getParameter("candiname")!= "" && request.getParameter("candiname")!= null) 
+			{
+				System.out.println("c'est un candidat");
+				try {
+					users=umger.findCandidat(request.getParameter("candiname"));
+					} catch (BusinessException e) 
+						{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+						}
+			}
+		
+		for (User user : users) {
+			
+			
+			int idtest = Integer.parseInt(request.getParameter("idTest"));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			Date dateDebut, dateFin = new Date();
+			try {
+				dateDebut=sdf.parse(request.getParameter("testDateDebut")
+									+" "+request.getParameter("testHeureDebut"));
+				
+				dateFin=sdf.parse(request.getParameter("testDateFin")
+									+" "+request.getParameter("testHeureFin"));
+				
+				Instant i = dateDebut.toInstant();
+				Instant i2 =dateFin.toInstant();
+				try {
+					createEpreuve(i,i2,
+										idtest,
+										user.getIdUser());
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(request.getParameter("stagname")!= "") {
-				System.out.println("c'est un stagiaire");
-			}
 		}
+		}
+	
+	public void createEpreuve( Instant dateDebut, Instant dateFin, int idTest,int id) throws BusinessException {
+		EpreuveManager emger= new EpreuveManager();
+		emger.createEpreuve(dateDebut,dateFin,idTest,id);
 	}
 
 }

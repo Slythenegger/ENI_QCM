@@ -20,6 +20,8 @@
 				de questions</a>
 			<a class="nav-item nav-link"
 				href="${pageContext.servletContext.contextPath}/resultats">Résultat</a>
+				<a class="nav-item nav-link"
+				href="${pageContext.servletContext.contextPath}/inscriptionTest">Inscription au test</a>
 		</c:if>
 		<c:choose>
 			<c:when test="${user != null}">
