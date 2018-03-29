@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>QCM</title>
+<link rel="stylesheet" href="asset/css/accueil.css">
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -14,32 +15,53 @@
 <body>
 	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
-		<h1>Bienvenue ${user.prenom}</h1>
-		<div>
-			<p>Vous êtes sur l'application en ligne de l'ENI ecole
-				informatique.</p>
+		<div class="col-md-12">
+			<h1>Bienvenue ${user.prenom}</h1>
+			<div>
+				<p>Vous êtes sur l'application en ligne de l'ENI ecole
+					informatique.</p>
+			</div>
+			<c:if test="${user.role == stagiaire or user.role == candidat}">
+				<div class="row">
+					<div class="col-md-6">
+						<h4>ECF à passer</h4>
+						<c:forEach items="${epreuves}" var="epr">
+							<c:if test="${epr.etat == plannifie or epr.etat == enCours}">
+								<p>
+									<a href="#">${epr.libelleTest}</a>
+								</p>
+							</c:if>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="margetop">
+					<h4>Historique</h4>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Nom du test</th>
+								<th>Résulat</th>
+								<th>Note</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${epreuves}" var="epr">
+								<c:if test="${epr.etat != plannifie and epr.etat != enCours}">
+									<tr>
+										<td>${epr.libelleTest}</td>
+										<td>${epr.niveauObtenu}</td>
+										<td>${epr.noteObtenue}/20</td>
+										<td><fmt:formatDate value="${epr.debutDate}" type="date" /></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
 		</div>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Nom du test</th>
-					<th>Résulat</th>
-					<th>Note</th>
-					<th>Etat</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<c:forEach items="${epreuves}" var="epr">
-					<tr>
-						<td>${epr.libelleTest}</td>
-						<td>${epr.niveauObtenu}</td>
-						<td>${epr.noteObtenue}/20</td>
-						<td>${epr.etat}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 	</div>
+
 </body>
 </html>
