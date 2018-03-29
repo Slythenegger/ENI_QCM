@@ -17,7 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BLL.EpreuveManager;
+import fr.eni.qcm.BLL.PromoManager;
+import fr.eni.qcm.BLL.TestManager;
 import fr.eni.qcm.BLL.UserManager;
+import fr.eni.qcm.BO.Promo;
+import fr.eni.qcm.BO.Test;
 import fr.eni.qcm.BO.User;
 
 /**
@@ -48,6 +52,24 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 				request.getParameter("testHeureFin")==""
 			) 
 		{
+			TestManager testmanager = new TestManager();
+			
+			List<Test> tests= new ArrayList<Test>();
+			PromoManager pmger = new PromoManager();
+			
+			List<Promo> promos= new ArrayList<Promo>();
+			
+			try {
+				users=umger.getAll();
+				tests=testmanager.getAll();
+				promos=pmger.getAll();
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("users", users);
+			request.setAttribute("promos", promos);
+			request.setAttribute("tests", tests);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscriptionTest.jsp");
 			rd.forward(request, response);
 		}else if(request.getParameter("codePromo")!= "" && request.getParameter("codePromo")!=null) 

@@ -46,7 +46,7 @@ var tag = document.getElementById(tab[param]);
 <legend> Selection du test</legend>
 <label for="idTest">Nom  du test : </label>
 <select name="idTest">
-<option></option>
+<option value=""></option>
 	
 		<c:forEach var="tests" items="${tests}">
 			<option value=${tests.idTest }>${tests.libelle}</option>
@@ -104,7 +104,7 @@ Promotion des stagiaires:
 	</c:forEach>
 </select><br></div>
 </fieldset>
-<input type="submit" value="inscrire">
+<input type="submit" value="inscrire" class="btn">
 
 </form>
 </div>
