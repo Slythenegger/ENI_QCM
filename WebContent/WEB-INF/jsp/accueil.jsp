@@ -21,12 +21,27 @@
 				<p>Vous êtes sur l'application en ligne de l'ENI ecole
 					informatique.</p>
 			</div>
+			<c:if test="${! empty exception }">
+				<p class="text-danger">${exception}</p>
+			</c:if>
 			<c:if test="${user.role == stagiaire or user.role == candidat}">
 				<div class="row">
 					<div class="col-md-6">
 						<h4>ECF à passer</h4>
 						<c:forEach items="${epreuves}" var="epr">
-							<c:if test="${epr.etat == plannifie or epr.etat == enCours}">
+							<c:if test="${epr.etat == plannifie}">
+								<p>
+									<a href="demarrer-test?idTest=${epr.idTest}">${epr.libelleTest}</a>
+								</p>
+							</c:if>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h4>ECF en cours</h4>
+						<c:forEach items="${epreuves}" var="epr">
+							<c:if test="${epr.etat == enCours}">
 								<p>
 									<a href="#">${epr.libelleTest}</a>
 								</p>
