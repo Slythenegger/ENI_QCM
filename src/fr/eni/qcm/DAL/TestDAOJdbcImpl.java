@@ -76,6 +76,31 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 		return test;
 	}
+	
+	@Override
+	public void insert(Test test) throws BusinessException {
+		String query = "insert into TEST(libelle, description, duree, seuil_haut, seuil_bas) values(?,?,?,?,?);";
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pst = cnx.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			pst.setString(1, test.getLibelle());
+			pst.setString(2, test.getDescription());
+			pst.setInt(3, test.getDuree());
+			pst.setFloat(4, test.getSeuilHaut());
+			pst.setFloat(5, test.getSeuilBas());
+			
+			pst.executeUpdate();
+			
+			ResultSet rs = pst.getGeneratedKeys();
+			rs.next();
+			test.setIdTest(rs.getInt(1));			
+		} 
+		catch (SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+	}
+	
 
 	/**
 	 * Méthode en charge de récupérer la lsite des questions/réponses d'un test

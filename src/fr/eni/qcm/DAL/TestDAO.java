@@ -11,6 +11,7 @@ public interface TestDAO {
 	List<Test> selectAll() throws BusinessException;
 	Test getById(int id) throws BusinessException;
 	public List<QuestionReponses> selectQuesRepByIdTest(int idTest)throws BusinessException;
+	void insert(Test test) throws BusinessException;
 	
 	
 	

@@ -42,4 +42,9 @@ public class TestManager {
 		
 	}
 
+
+	public void insert(Test test) throws BusinessException {
+		this.dao.insert(test);		
+	}
+
 }
