@@ -20,7 +20,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 	private final String SELECT_ALL = "select * from TEST";
 	private final String SELECT_BY_ID = "select * from TEST where idTest = ?";
 	private final String SELECT_SECTIONS = "select * from SECTION_TEST where idTest= ?";
-	private final String SELECT_QUESTIONS = "select top ? * from QUESTION q, THEME th, SECTION_TEST s, TEST te where te.idTest=s.idTest and s.idTheme=th.idTheme and th.idTheme=q.idTheme and s.idTheme = ? order by NEWID()";
+	private final String SELECT_QUESTIONS = "select top (?) * from QUESTION q, THEME th, SECTION_TEST s, TEST te where te.idTest=s.idTest and s.idTheme=th.idTheme and th.idTheme=q.idTheme and s.idTheme = ? order by NEWID()";
 	private final String SELECT_REPONSES = "select * from PROPOSITION  where idQuestion= ?";
 
 	private Test buildTest(ResultSet rs) throws SQLException {
@@ -87,7 +87,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 		List<Section> sections = new ArrayList<>();
 		List<Question> questions = new ArrayList<>();
-		List<Reponse> reponses = new ArrayList<>();
+
 		List<QuestionReponses> listeQR = new ArrayList<>();
 
 		ResultSet rs = null;
@@ -108,16 +108,16 @@ public class TestDAOJdbcImpl implements TestDAO {
 				section.setIdTest(rs.getInt(idTest));
 				section.setIdTheme(rs.getInt("idTheme"));
 
-				sections.add(section);
+				sections.add(section);				
 			}
 
 			rs.close();
 			pst.close();
 			// on récupère la liste des questions des sections du test
-			pst = cnx.prepareStatement(SELECT_QUESTIONS);
 
 			for (Section sec : sections) {
-
+				pst = cnx.prepareStatement(SELECT_QUESTIONS);
+				
 				pst.setInt(1, sec.getNbQuestions());
 				pst.setInt(2, sec.getIdTheme());
 				rs = pst.executeQuery();
@@ -133,16 +133,20 @@ public class TestDAOJdbcImpl implements TestDAO {
 					ques.setIdTheme(rs.getInt("idTheme"));
 
 					questions.add(ques);
+
 				}
+				rs.close();
+				pst.close();
 			}
 			rs.close();
 			pst.close();
 
 			// on récupère les réponses par rapport aux questions des sections du test
-			pst = cnx.prepareStatement(SELECT_REPONSES);
 
 			for (Question ques : questions) {
-
+				QuestionReponses qr = new QuestionReponses();
+				List<Reponse> reponses = new ArrayList<>();
+				pst = cnx.prepareStatement(SELECT_REPONSES);
 				pst.setInt(1, ques.getIdQuestion());
 				rs = pst.executeQuery();
 
@@ -156,22 +160,20 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 					reponses.add(rep);
 				}
-
-				QuestionReponses qr = new QuestionReponses();
 				qr.setQuestion(ques);
 				qr.setReponses(reponses);
 
 				listeQR.add(qr);
 
 			}
-			
+
 			cnx.commit();
 			rs.close();
 			pst.close();
-			cnx.close();			
+			cnx.close();
 
 		} catch (SQLException e) {
-
+			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 

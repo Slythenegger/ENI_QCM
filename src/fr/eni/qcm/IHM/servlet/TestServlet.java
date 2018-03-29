@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BLL.TestManager;
+import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.QuestionReponses;
+import fr.eni.qcm.BO.Reponse;
 
 /**
  * Servlet implementation class TestServlet
@@ -36,23 +38,28 @@ public class TestServlet extends HttpServlet {
 
 		if (request.getParameter("id") != null) {
 			try {
-				
+
 				liste = tm.getQuesRepByIdTest(Integer.parseInt(request.getParameter("id")));
-				session.setAttribute("liste", liste);
-				System.out.println("j'ai bien une liste");
+				session.setAttribute("liste", liste);			
+
+				QuestionReponses qr = liste.get(0);
+				Question q = qr.getQuestion();
+				List<Reponse> rep = qr.getReponses();
+				
+				request.setAttribute("question", q);
+				request.setAttribute("reponses", rep);
+
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");
 				rd.forward(request, response);
 
 			} catch (NumberFormatException | BusinessException e) {
-				System.out.println("Probleme");
-				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());
-				System.out.println(request.getAttribute("exception"));
+				
+				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());				
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 				rd.forward(request, response);
 			}
 
-		} else {
-			System.out.println("else");
+		} else {			
 			request.setAttribute("exception", BusinessError.TEST_NO_MATCH.getDescription());
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 			rd.forward(request, response);

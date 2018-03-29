@@ -20,6 +20,7 @@ public class QuestionReponses {
 	 * Constructeur
 	 */
 	public QuestionReponses() {
+		question = new Question();
 		this.reponses = new ArrayList<Reponse>();
 	}
 
@@ -28,7 +29,7 @@ public class QuestionReponses {
 	 * @return the question
 	 */
 	public Question getQuestion() {
-		return question;
+		return this.question;
 	}
 
 	/**
@@ -44,7 +45,7 @@ public class QuestionReponses {
 	 * @return the reponses
 	 */
 	public List<Reponse> getReponses() {
-		return reponses;
+		return this.reponses;
 	}
 
 	/**
