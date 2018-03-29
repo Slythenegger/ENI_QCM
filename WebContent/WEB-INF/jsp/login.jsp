@@ -13,6 +13,7 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<c:import url="topBar.jsp"></c:import>
 	<div class="container centre">
 		<div class="row">
 			<div class="col-12">
