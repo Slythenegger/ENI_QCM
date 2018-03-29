@@ -52,7 +52,7 @@ public class AccueilServlet extends HttpServlet {
 				request.setAttribute("exception", e.getError().getDescription());
 			}
 		}
-		request.setAttribute("epreuves", epreuves);
+		session.setAttribute("epreuves", epreuves);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 		rd.forward(request, response);

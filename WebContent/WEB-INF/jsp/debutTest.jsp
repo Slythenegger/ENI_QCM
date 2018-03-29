@@ -8,11 +8,20 @@
 
 <meta charset="UTF-8">
 <title>QCM</title>
+<link rel="stylesheet" href="asset/css/accueil.css">
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
+	<c:import url="topBar.jsp"></c:import>
+	<div class="container">
+		<div class="debutTest">
+			<h2>${test.libelle}</h2>
+			<p>Description : ${test.description}</p>
+			<p>Durée du test : ${test.duree} minutes</p>
+			<a href="#"><input type="button" value="Commencer le test"></a>
+		</div>
+	</div>
 </body>
 </html>

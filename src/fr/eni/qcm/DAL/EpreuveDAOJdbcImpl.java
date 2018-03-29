@@ -20,7 +20,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 
 	private final String GET_USER_EPREUVE = "select * from EPREUVE where idUtilisateur = ?";
 	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite, idTest, idUtilisateur) values (?,?,?,?)";
-	private final String FIND_USER_EPREUVE = "select e.etat, e.note_obtenue, e.niveau_obtenu, e.idTest, t.libelle, e.dateDebutValidite from EPREUVE e, TEST t where e.idTest = t.idTest and idUtilisateur = ?";
+	private final String FIND_USER_EPREUVE = "select e.etat, e.note_obtenue, e.niveau_obtenu, e.idTest, t.libelle, e.dateDebutValidite, e.idEpreuve, e.idTest from EPREUVE e, TEST t where e.idTest = t.idTest and idUtilisateur = ?";
 
 	
 	
@@ -152,6 +152,8 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 				ec.setIdTest(rs.getInt(4));
 				ec.setLibelleTest(rs.getString(5));
 				ec.setDebut(rs.getTimestamp(6).toInstant());
+				ec.setIdEpreuve(rs.getInt(7));
+				ec.setIdTest(rs.getInt(8));
 
 				epreuves.add(ec);
 			}			

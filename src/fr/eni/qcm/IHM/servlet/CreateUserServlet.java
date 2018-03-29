@@ -89,7 +89,7 @@ public class CreateUserServlet extends HttpServlet {
 		try {
 			um.createUser(user);
 			request.setAttribute("info", "Candidat ajouté avec succès !");
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/creationCandidat.jsp");
 			rd.forward(request, response);
 
 		} catch (BusinessException e) {
