@@ -17,6 +17,7 @@ import fr.eni.qcm.BLL.TestManager;
 import fr.eni.qcm.BLL.UserManager;
 import fr.eni.qcm.BO.Promo;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.User;
 
 
 @WebServlet("/inscriptionTest")
@@ -30,14 +31,18 @@ public class ServletInscriptionTest extends HttpServlet {
 	//	UserManager usermanager = new UserManager();
 		List<Test> tests= new ArrayList<Test>();
 		PromoManager pmger = new PromoManager();
+		UserManager umger = new UserManager();
 		List<Promo> promos= new ArrayList<Promo>();
+		List<User> users=new ArrayList<>();
 		try {
+			users=umger.getAll();
 			tests=testmanager.getAll();
 			promos=pmger.getAll();
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		request.setAttribute("users", users);
 		request.setAttribute("promos", promos);
 		request.setAttribute("tests", tests);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscriptionTest.jsp");
@@ -46,6 +51,8 @@ public class ServletInscriptionTest extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	
 	}
 
 }

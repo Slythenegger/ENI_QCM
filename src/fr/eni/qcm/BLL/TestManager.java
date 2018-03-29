@@ -21,4 +21,5 @@ public class TestManager {
 	public Test getById(int id) throws BusinessException {
 		return this.dao.getById(id);
 	}
+	
 }
