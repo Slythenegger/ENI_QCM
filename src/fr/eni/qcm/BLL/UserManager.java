@@ -16,6 +16,14 @@ import fr.eni.qcm.DAL.UserDAO;
  * @author stropee2017
  * @date 27 mars 2018
  */
+/**
+ * @author wmodeste2017
+ *	29 mars 2018
+ */
+/**
+ * @author wmodeste2017
+ *	29 mars 2018
+ */
 public class UserManager {
 
 	private UserDAO uDao;
@@ -55,10 +63,25 @@ public class UserManager {
 		return uDao.findPromos();
 	}
 	
+	/**
+	 *	Methode servant à récupérer  une liste d'utilisateur appartenant à une promotion à l'aide 
+	 *	du code promo :
+	 * @param codepromo
+	 * @return
+	 * @throws BusinessException
+	 */
 	public List<User> findPromo(String codepromo) throws BusinessException{
 		return uDao.selectPromo(codepromo);
 	}
-
+	/**
+	 *	Methode servant à  retrouver un stagiaire à l'aide de son nom:
+	 * @param nom
+	 * @return
+	 * @throws BusinessException
+	 */
+	public List<User> findStagiaire(String nom) throws BusinessException {
+		return uDao.selectStagiaireByName(nom);
+	}
 	/**
 	 * Méthode en charge de vérifier les informations saisies et d'envoyer le tout à
 	 * la base
@@ -138,6 +161,17 @@ public class UserManager {
 		}
 
 		return true;
+	}
+
+	/**
+	 *	Methode servant à retrouver un candidat avec son nom :
+	 * @param parameter
+	 * @return
+	 * @throws BusinessException 
+	 */
+	public List<User> findCandidat(String nom) throws BusinessException {
+		// TODO Auto-generated method stub
+		return uDao.selectCandidatByName(nom);
 	}
 
 }

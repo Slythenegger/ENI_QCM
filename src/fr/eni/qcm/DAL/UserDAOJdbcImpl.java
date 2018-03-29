@@ -10,6 +10,7 @@ import java.util.List;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeRole;
 import fr.eni.qcm.BO.Promo;
 import fr.eni.qcm.BO.Role;
 import fr.eni.qcm.BO.User;
@@ -73,6 +74,17 @@ public class UserDAOJdbcImpl implements UserDAO {
 
 		return user;
 	}
+	private User buildUser(ResultSet rs)throws SQLException{
+		User user= new User();
+		user.setIdUser(rs.getInt(1));
+		user.setNom(rs.getString(2));
+		user.setPrenom(rs.getString(3));
+		user.setEmail(rs.getString(4));
+		user.setPassword(rs.getString(5));
+		user.setRole(rs.getString(6));
+		user.setIdPromo(rs.getString(7));
+		return user;
+	}
 
 	/**
 	 * Méthode en charge de créer un nouvel utilisateur-candidat dans la base
@@ -110,33 +122,27 @@ public class UserDAOJdbcImpl implements UserDAO {
 	}
 
 	@Override
-	public User selectCandidatByName(String name) throws BusinessException {
-		String codeprof="CAN";
-		User user = new User();		
+	public List<User> selectCandidatByName(String name) throws BusinessException {
+		String codeprof= CodeRole.CODE_CANDIDAT;
+		List<User> users = new ArrayList<>();		
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			PreparedStatement pst = cnx.prepareStatement(SELECT_CANDI_BY_NAME);
-			pst.setString(1, name);
-			pst.setString(2, codeprof);
+			pst.setString(2, name);
+			pst.setString(1, codeprof);
 			ResultSet rs = pst.executeQuery();
 
-			if (rs.next()) {
-				user.setIdUser(rs.getInt(1));
-				user.setNom(rs.getString(2));
-				user.setPrenom(rs.getString(3));
-				user.setEmail(rs.getString(4));
-				user.setPassword(rs.getString(5));
-				user.setRole(rs.getString(6));
-				user.setIdPromo(rs.getString(7));
-			} else
-				user = null;
+			while (rs.next()) {
+				User user=this.buildUser(rs);
+				users.add(user);
+			} 
 
 		} catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 
-		return user;
+		return users;
 	}
 
 	@Override
@@ -150,17 +156,9 @@ public class UserDAOJdbcImpl implements UserDAO {
 			ResultSet rs = pst.executeQuery();
 			while (rs.next())
 			{
-				User user=new User();
-				user.setIdUser(rs.getInt(1));
-				user.setNom(rs.getString(2));
-				user.setPrenom(rs.getString(3));
-				user.setEmail(rs.getString(4));
-				user.setPassword(rs.getString(5));
-				user.setRole(rs.getString(6));
-				user.setIdPromo(rs.getString(7));
+				User user= this.buildUser(rs);
 				users.add(user);
-			}
-
+				}
 		} catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
@@ -248,21 +246,42 @@ public class UserDAOJdbcImpl implements UserDAO {
 		(Connection cnx= ConnectionProvider.getConnection()){
 			Statement stmt= cnx.createStatement();
 			ResultSet rs=stmt.executeQuery(SELECT_ALL);
-			while(rs.next()) {
-				User user=new User();
-				user.setIdUser(rs.getInt(1));
-				user.setNom(rs.getString(2));
-				user.setPrenom(rs.getString(3));
-				user.setEmail(rs.getString(4));
-				user.setPassword(rs.getString(5));
-				user.setRole(rs.getString(6));
-				user.setIdPromo(rs.getString(7));
+			while (rs.next())
+			{
+				User user= this.buildUser(rs);
 				users.add(user);
-			}
+				}
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return users;
+	}
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.UserDAO#selectStagiaireByName(java.lang.String)
+	 */
+	@Override
+	public List<User> selectStagiaireByName(String name) throws BusinessException {
+		String codeprof= CodeRole.CODE_STAGIAIRE;
+		List<User> users = new ArrayList<>();		
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			PreparedStatement pst = cnx.prepareStatement(SELECT_CANDI_BY_NAME);
+			pst.setString(2, name);
+			pst.setString(1, codeprof);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				User user=this.buildUser(rs);
+				users.add(user);
+			} 
+
+		} catch (SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+
 		return users;
 	}
 
