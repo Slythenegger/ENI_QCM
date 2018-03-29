@@ -9,4 +9,10 @@ public interface TestDAO {
 
 	List<Test> selectAll() throws BusinessException;
 	Test getById(int id) throws BusinessException;
+	/**
+	 *	Methode servant à :
+	 * @return
+	 */
+	
+	
 }

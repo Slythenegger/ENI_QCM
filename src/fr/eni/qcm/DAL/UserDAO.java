@@ -27,7 +27,7 @@ public interface UserDAO {
 	 */
 	public void createUser(User user)throws BusinessException;
 	public User selectCandidatByName(String name)throws BusinessException;
-	public User selectPromo(int idpromo)throws BusinessException;
+	public List<User> selectPromo(String codepromo)throws BusinessException;
 	
 	
 	/**
@@ -43,6 +43,30 @@ public interface UserDAO {
 	 * @throws BusinessException
 	 */
 	public List<Promo> findPromos()throws BusinessException;
+
+
+	/**
+	 *	Methode servant à créer une liste contenant tout les utilisateur:
+	 * @return
+	 * @throws BusinessException 
+	 */
+	public List<User> selectAll() throws BusinessException;
+
+
+	/**
+	 *	Methode servant à récupérer la liste des utilisateurs en fonction de leur promotion:
+	 * @param idpromo
+	 * @return
+	 * @throws BusinessException
+	 */
+	
+
+
+	/**
+	 *	Methode servant à :
+	 * @return
+	 */
+	
 
 
 	

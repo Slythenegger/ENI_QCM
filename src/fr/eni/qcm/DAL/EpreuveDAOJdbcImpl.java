@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,8 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite, idTest, idUtilisateur) values (?,?,?,?)";
 	private final String FIND_USER_EPREUVE = "select e.etat, e.note_obtenue, e.niveau_obtenu, e.idTest, t.libelle from EPREUVE e, TEST t where e.idTest = t.idTest and idUtilisateur = ?";
 
+	
+	
 	// Construit un object Epreuve depuis un ResultSet
 	private Epreuve buildEpreuve(ResultSet rs) throws SQLException {
 		Epreuve epr = new Epreuve();
@@ -60,20 +63,26 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 		return epreuves;
 	}
 
-	@Override
-	public Epreuve Create(Date dateDebut, Date dateFin, int idTest, int idUser) throws BusinessException {
-		try (Connection cnx = ConnectionProvider.getConnection()) {
-
-			PreparedStatement pst = cnx.prepareStatement(CREATE_USER_EPREUVE);
-			pst.setDate(1, (java.sql.Date) dateDebut);
-			pst.setDate(2, (java.sql.Date) dateFin);
-			pst.setInt(3, idTest);
-			pst.setInt(4, idUser);
-		} catch (SQLException e) {
+	
+	public Boolean Create(Instant dateDebut, Instant dateFin, int idTest, int idUser) throws BusinessException {
+		boolean bool=false;
+		try(Connection cnx =ConnectionProvider.getConnection()){
+			
+			PreparedStatement pst= cnx.prepareStatement(CREATE_USER_EPREUVE);
+			pst.setTimestamp(1,  Timestamp.from(dateDebut));
+			pst.setTimestamp(2, Timestamp.from(dateFin));
+			pst.setString(3, "PL");
+			pst.setInt(4,idTest);
+			pst.setInt(5, idUser);
+			bool=pst.execute();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
-
-		return null;
+		
+		
+		return bool;
 	}
 
 	@Override
@@ -153,5 +162,11 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 
 		return epreuves;
 	}
+
+
+	
+
+
+	
 
 }
