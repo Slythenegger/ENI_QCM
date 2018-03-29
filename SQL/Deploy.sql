@@ -479,6 +479,10 @@ insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculeur de maman
 insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculer', 1, 1);
 insert into PROPOSITION(enonce, estBonne, idQuestion) values ('cigarete', 0, 1);
 
+
+
+select * from TEST
+
 /*
 
 insert into Questions (libelle, type, fichier_image, id_theme) values ('A quoi sert une Servlet ?', 'unique', null, 1);
