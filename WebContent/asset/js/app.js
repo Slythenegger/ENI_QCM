@@ -58,12 +58,12 @@ function createXHR(){
 function afficheListeCAN(rep){
 	var repJson = JSON.parse(rep);
 	var chaine = "<table class='table table-striped'>";
-	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th></tr>";
+	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th><th>Mail</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
 		if(repJson[i].role=="CAN" && repJson[i].nom.indexOf(username)==0){
 			chaine += "<tr>"		
-				chaine +="<td><input type='checkbox' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td>";
-				chaine +="<td>"+repJson[i].prenom + "</td>";
+				chaine +="<td><input type='radio' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td><td>"+repJson[i].prenom+"</td>";
+				chaine +="<td>"+repJson[i].email + "</td>";
 				chaine +="</tr>";
 		
 		}
@@ -77,12 +77,12 @@ function afficheListeCAN(rep){
 function afficheListeSTA(rep){
 	var repJson = JSON.parse(rep);
 	var chaine = "<table class='table table-striped'>";
-	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th></tr>";
+	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th><th>Mail</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
 		if(repJson[i].role=="STA" && repJson[i].nom.indexOf(username)==0){
 			chaine += "<tr>"		
-				chaine +="<td><input type='checkbox' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td>";
-				chaine +="<td>"+repJson[i].prenom + "</td>";
+				chaine +="<td><input type='radio' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td><td>"+repJson[i].prenom+"</td>";
+				chaine +="<td>"+repJson[i].email + "</td>";
 				chaine +="</tr>";
 		}
 		
