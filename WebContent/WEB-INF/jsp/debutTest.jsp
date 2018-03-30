@@ -19,8 +19,7 @@
 		<div class="debutTest">
 			<h2>${test.libelle}</h2>
 			<p>Description : ${test.description}</p>
-			<p>Durée du test : ${test.duree} minutes</p>
-			<p>${test.idTest }</p>
+			<p>Durée du test : ${test.duree} minutes</p>			
 			<a href="test?id=${test.idTest}"><input type="button" value="Commencer le test"></a>
 		</div>
 	</div>
