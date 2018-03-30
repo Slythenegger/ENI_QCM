@@ -1,15 +1,22 @@
 package fr.eni.qcm.BO;
 
 import java.time.Instant;
+import java.util.Date;
 
 public class Epreuve {
 	private int idEpreuve, idTest, idUtilisateur, tempsEcoule;
 	private float noteObtenue;
 	private String etat, niveauObtenu;
 	private Instant debut, fin;
-	
+
 	public Epreuve() {
 
+	}
+
+	public Date getDebutDate() {
+
+		Date dateDebut = Date.from(this.getDebut());
+		return dateDebut;
 	}
 
 	public int getIdEpreuve() {
@@ -90,5 +97,5 @@ public class Epreuve {
 				+ ", tempsEcoule=" + tempsEcoule + ", nodeObtenue=" + noteObtenue + ", etat=" + etat + ", niveauObtenu="
 				+ niveauObtenu + ", debut=" + debut + ", fin=" + fin + "]";
 	}
-	
+
 }

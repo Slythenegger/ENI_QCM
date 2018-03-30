@@ -23,26 +23,6 @@ public class ServletGestionnaireQuestion extends HttpServlet {
 		TestManager tm = new TestManager();
 		RequestDispatcher rq = request.getRequestDispatcher("WEB-INF/jsp/gestionnaireQuestion.jsp");
 		
-		Test selectedTest = null;
-		
-		try {
-			int testID = Integer.parseInt(request.getParameter("test"));
-			selectedTest = tm.getById(testID);
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		if (selectedTest != null) {			
-			request.setAttribute("test", selectedTest);			
-			rq.forward(request, response);
-			return;
-		}
-		
-		
-		
-		
 		try {
 			List<Test> tests = tm.getAll();
 			request.setAttribute("tests", tests);

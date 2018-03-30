@@ -22,4 +22,8 @@ public class TestManager {
 		return this.dao.getById(id);
 	}
 	
+	public void insert(Test test)throws BusinessException {
+		this.dao.insert(test);
+	}
+	
 }

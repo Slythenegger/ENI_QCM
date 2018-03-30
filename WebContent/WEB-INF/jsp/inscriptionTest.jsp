@@ -32,6 +32,8 @@ var tag = document.getElementById(tab[param]);
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="asset/js/app.js"></script>
+
 </head>
 <body>
 
@@ -46,7 +48,7 @@ var tag = document.getElementById(tab[param]);
 <legend> Selection du test</legend>
 <label for="idTest">Nom  du test : </label>
 <select name="idTest">
-<option></option>
+<option value=""></option>
 	
 		<c:forEach var="tests" items="${tests}">
 			<option value=${tests.idTest }>${tests.libelle}</option>
@@ -76,22 +78,15 @@ Type de candidats:
 <label ><input type="checkbox" name="usertype" value="STA" onchange="changement(2)"> Candidat</label> <br>
 </div>
 <div id="candidat" style="display:none;">
-Nom du candidat : <input type="text" name="candiname"><br>
+Nom du candidat : <input type="text" id="candiname" name="candiname" ><br>
+<div id="liste"></div>
 
-<c:forEach var="users" items="${users}">
-<c:if test="${users.role == candidat }" >
-${users.nom }
-</c:if>
-</c:forEach>
 </div>
 <div id="stag" style="display:none;">
-Nom du Stagiaire : <input type="text" name="stagname"><br>
+Nom du Stagiaire : <input type="text" id="stagname" name="stagname"><br>
+<div id="liste2"></div>
 
-<c:forEach var="users" items="${users}">
-<c:if test="${users.role == stagiaire }" ><br>
-${users.nom }
-</c:if>
-</c:forEach>
+
 
 </div>
 <div id="prom" style="display:none;">
@@ -102,11 +97,14 @@ Promotion des stagiaires:
 			
 			<option value=${promos.codePromo }>${promos.libelle}</option>
 	</c:forEach>
+
 </select><br></div>
 </fieldset>
-<input type="submit" value="inscrire">
+<input type="submit" value="inscrire" class="btn btn-primary">
 
 </form>
 </div>
+<span id="nb"></span>
+
 </body>
 </html>
