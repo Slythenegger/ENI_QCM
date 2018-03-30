@@ -63,6 +63,10 @@ public class UserManager {
 		return uDao.findPromos();
 	}
 	
+	public List<User> findPromo(String codepromo) throws BusinessException{
+		return uDao.selectPromo(codepromo);
+	}
+
 	/**
 	 *	Methode servant à récupérer  une liste d'utilisateur appartenant à une promotion à l'aide 
 	 *	du code promo :
@@ -70,9 +74,7 @@ public class UserManager {
 	 * @return
 	 * @throws BusinessException
 	 */
-	public List<User> findPromo(String codepromo) throws BusinessException{
-		return uDao.selectPromo(codepromo);
-	}
+	
 	/**
 	 *	Methode servant à  retrouver un stagiaire à l'aide de son nom:
 	 * @param nom
@@ -172,6 +174,17 @@ public class UserManager {
 	public List<User> findCandidat(String nom) throws BusinessException {
 		// TODO Auto-generated method stub
 		return uDao.selectCandidatByName(nom);
+	}
+
+	/**
+	 *	Methode servant à :
+	 * @param parameter
+	 * @throws BusinessException 
+	 */
+	public User findUser(String parameter) throws BusinessException {
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(parameter);
+		return uDao.selectUserById(id);
 	}
 
 }

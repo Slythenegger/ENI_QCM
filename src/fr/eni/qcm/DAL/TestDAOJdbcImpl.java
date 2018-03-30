@@ -100,7 +100,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 	}
-	
+
 
 	/**
 	 * Méthode en charge de récupérer la lsite des questions/réponses d'un test

@@ -1,10 +1,20 @@
 package fr.eni.qcm.BO;
 
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author stropee2017
  *
  */
-public class User {
+@XmlRootElement
+public class User implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int idUser;
 	private String  password, nom, prenom, email, role, idPromo;

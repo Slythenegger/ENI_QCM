@@ -55,6 +55,15 @@ public interface UserDAO {
 
 
 	/**
+	 *	Methode servant à selectionner un utilisateur à l'aide de son id:
+	 * @param id
+	 * @return
+	 * @throws BusinessException 
+	 */
+	public User selectUserById(int id) throws BusinessException;
+
+
+	/**
 	 *	Methode servant à récupérer la liste des utilisateurs en fonction de leur promotion:
 	 * @param idpromo
 	 * @return
