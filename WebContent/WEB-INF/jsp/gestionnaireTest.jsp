@@ -6,7 +6,7 @@
 <html>
 
 <head>
-	<title>Insert title here</title>
+	<title>QCM - gestionnaire de tests</title>
 	<c:import url="head.jsp"></c:import>
 </head>
 
