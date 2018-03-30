@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav id="top-bar" class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<a class="navbar-brand" href="accueil"><img alt="logo-eni"
 		src="asset/img/logo-eni.png"></a>
 	<div class="navbar-nav">
@@ -43,7 +43,7 @@
 					
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownQCM">
 						<a 	class="dropdown-item" 
-							href="${pageContext.servletContext.contextPath}/gestionnaire-question"
+							href="${pageContext.servletContext.contextPath}/gestionnaire-test"
 						>Gestionnaire de test</a>
 						<a 	class="dropdown-item" 
 							href="${pageContext.servletContext.contextPath}/gestionnaire-question"
