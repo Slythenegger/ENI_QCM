@@ -11,7 +11,21 @@
 </head>
 
 <body>
-	
 	<c:import url="topBar.jsp"></c:import>
+	
+	<div class="container">
+		<form action="gestionnaire-test" method="POST">
+		    <select onchange="this.form.submit()">
+		        <c:if test="${empty test}">
+		        	<option>Choisir un test</option>
+		        </c:if>
+		        
+				<c:forEach var="test" items="${tests}">
+					<option value="${test.idTest}">${test.libelle}</option>
+				</c:forEach>
+		    </select>
+		</form>
+	</div>
+
 </body>
 </html>
