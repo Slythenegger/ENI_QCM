@@ -1,39 +1,19 @@
 window.onload = init;
+var username="";
 
+
+function setUsername(){
+	username = this.value;
+	console.log(username);
+	getListeUsers()
+}
 function init(){
-	document.getElementById("stagname").onclick = searchStagiaire();
 	
-	getNbUsers();
+	document.getElementById("stagname").onkeyup = setUsername;
+	document.getElementById("candiname").onkeyup = setUsername;
 	getListeUsers();
 	
 	
-}
-
-function ajoutNote(){
-	var data = "note="+encodeURIComponent(document.getElementById("nouv").value);
-
-	console.log(data);
-	var xhr = createXHR();
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4){
-			if (xhr.status == 200){
-				afficheListeBS(xhr.responseText);
-			}
-			else{
-				erreur(xhr.responseText);
-			}
-		}
-	};
-	xhr.open("POST", 
-			"/TPPriseDeNotesCorrection/rest/notes", 
-			true);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("Content-type", 
-			"application/x-www-form-urlencoded");
-	
-	xhr.send(data);
-
-	document.getElementById("nouv").value = "";
 }
 
 function getListeUsers(){
@@ -41,7 +21,9 @@ function getListeUsers(){
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4){
 			if (xhr.status == 200){
-				afficheListeBS(xhr.responseText);
+				console.log(xhr.responseText)
+				afficheListeCAN(xhr.responseText);
+				afficheListeSTA(xhr.responseText);
 			}
 			else{
 				erreur(xhr.responseText);
@@ -56,24 +38,7 @@ function getListeUsers(){
 
 }
 
-function getNbNotes(){
-	var xhr = createXHR();
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4){
-			if (xhr.status == 200){
-				afficheNb(xhr.responseText);
-			}
-			else{
-				erreur(xhr.responseText);
-			}
-		}
-	};
-	xhr.open("GET", 
-			"/TPPriseDeNotesCorrection/rest/notes/nb", 
-			true);
-	xhr.send(null);
 
-}
 
 function createXHR(){
 	var xhr = null;
@@ -88,103 +53,50 @@ function createXHR(){
 	return xhr;
 }
 
-function supprime(id){
-	var xhr = createXHR();
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4){
-			if (xhr.status == 200){
-				afficheListeBS(xhr.responseText);
-			}
-			else{
-				erreur(xhr.responseText);
-			}
-		}
-	};
-	var data = "id="+id;
 
-	xhr.open("DELETE", 
-			"/TPPriseDeNotesCorrection/rest/notes", 
-			true);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("Content-type", 
-			"application/x-www-form-urlencoded");
-	
-	xhr.send(data);
 
-}
-
-function modif(id){
-	var ch = encodeURIComponent(document.getElementById("lib"+id).value);
-	console.log(ch);
-	var xhr = createXHR();
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4){
-			if (xhr.status == 200){
-				afficheListeBS(xhr.responseText);
-			}
-			else{
-				erreur(xhr.responseText);
-			}
-		}
-	};
-	var data = "note="+ch+"&id="+id;
-
-	xhr.open("PUT", 
-			"/TPPriseDeNotesCorrection/rest/notes", 
-			true);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("Content-type", 
-			"application/x-www-form-urlencoded");
-	
-	xhr.send(data);
-
-}
-
-function afficheListe(rep){
-	var repJson = JSON.parse(rep);
-	var chaine = "<ul>";
-	for (var i = 0 ; i < repJson.length; i++){
-		chaine +="<li>"+repJson[i].ixd + " : " +repJson[i].libelle;
-		chaine +="<input type='button' value='suppr' onClick='supprime("+repJson[i].id+")'>";
-		chaine +="</li>";
-	}
-	
-	chaine += "</ul>";
-	document.getElementById("liste").innerHTML=chaine;
-	getNbNotes();
-
-}function afficheListeBS(rep){
+function afficheListeCAN(rep){
 	var repJson = JSON.parse(rep);
 	var chaine = "<table class='table table-striped'>";
-	chaine += "<tr><th>id</th><th>Note</th><th>Date</th><th>&nbsp;</th><th>&nbsp;</th></tr>";
+	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
-		chaine += "<tr>"
-		chaine +="<td>"+repJson[i].id + "</td>";
-		var ch = repJson[i].libelle;
-		console.log("ch avant : " + ch);
-		ch = ch.replace("'", "&apos;");
-		ch = ch.replace("\"", "&quot;");
-		console.log("ch apres : " + ch);
-		chaine +="<td><input type='text' value='"+ch + "' id='lib"+repJson[i].id+"'></td>";
+		if(repJson[i].role=="CAN" && repJson[i].nom.indexOf(username)==0){
+			chaine += "<tr>"		
+				chaine +="<td><input type='checkbox' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td>";
+				chaine +="<td>"+repJson[i].prenom + "</td>";
+				chaine +="</tr>";
 		
-		var d = new Array();
-		d = new Date(repJson[i].date).toISOString();
+		}
 		
-		var da = d.substring(8,10)+ "/" + d.substring(5,7)+ "/"+ d.substring(0,4);
-		
-		chaine +="<td>"+da + "</td>";
-		chaine +="<td><button type='button'  class='btn btn-primary' onClick='modif("+repJson[i].id+")'>Modification</button></td>";
-		chaine +="<td><button type='button'  class='btn btn-danger' onClick='supprime("+repJson[i].id+")'>Suppression</button></td>";
-		chaine +="</tr>";
 	}
 	
 	chaine += "</table>";
 	document.getElementById("liste").innerHTML=chaine;
-	getNbNotes();
+
+}
+function afficheListeSTA(rep){
+	var repJson = JSON.parse(rep);
+	var chaine = "<table class='table table-striped'>";
+	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th></tr>";
+	for (var i = 0 ; i < repJson.length; i++){
+		if(repJson[i].role=="STA" && repJson[i].nom.indexOf(username)==0){
+			chaine += "<tr>"		
+				chaine +="<td><input type='checkbox' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td>";
+				chaine +="<td>"+repJson[i].prenom + "</td>";
+				chaine +="</tr>";
+		}
+		
+	}
+	
+	chaine += "</table>";
+	document.getElementById("liste2").innerHTML=chaine;
 
 }
 
 function afficheNb(rep){
 	document.getElementById("nb").innerHTML=rep;
 //	document.getElementById("echec").innerHTML="";
+}
+function searchStagiaire(rep){
+	
 }

@@ -84,34 +84,17 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 				e.printStackTrace();
 					}
 			
-		}else if(request.getParameter("stagname")!= "" && request.getParameter("stagname")!=null) 
-		{
-				System.out.println("c'est un stagiaire");
-				try {
-				users=umger.findStagiaire(request.getParameter("stagname"));
-				for(User user : users)
-						{
-					System.out.println(user.getNom());
-						}
-				
-					} catch (BusinessException e) 
-						{
+		}else if(request.getParameter("userid")!= "" && request.getParameter("userid")!=null){
+			try {
+				User user=umger.findUser(request.getParameter("userid"));
+				users.add(user);
+			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-						}
-				
-			
-			}else if(request.getParameter("candiname")!= "" && request.getParameter("candiname")!= null) 
-			{
-				System.out.println("c'est un candidat");
-				try {
-					users=umger.findCandidat(request.getParameter("candiname"));
-					} catch (BusinessException e) 
-						{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-						}
 			}
+			
+		}
+		
 		
 		for (User user : users) {
 			
