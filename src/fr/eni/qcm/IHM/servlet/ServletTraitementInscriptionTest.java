@@ -141,7 +141,10 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
+		rd.forward(request, response);
+	}
 	
 	public void createEpreuve( Instant dateDebut, Instant dateFin, int idTest,int id) throws BusinessException {
 		EpreuveManager emger= new EpreuveManager();

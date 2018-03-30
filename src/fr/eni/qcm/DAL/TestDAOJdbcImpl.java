@@ -116,15 +116,38 @@ public class TestDAOJdbcImpl implements TestDAO {
 		List<Section> sections = new ArrayList<>();
 		List<Question> questions = new ArrayList<>();
 
-		List<QuestionReponses> listeQR = new ArrayList<>();
+	@Override
+	public void insert(Test test) throws BusinessException {
+		String query = "insert into TEST(libelle, description, duree, seuil_haut, seuil_bas) values(?,?,?,?,?);";
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pst = cnx.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			pst.setString(1, test.getLibelle());
+			pst.setString(2, test.getDescription());
+			pst.setInt(3, test.getDuree());
+			pst.setFloat(4, test.getSeuilHaut());
+			pst.setFloat(5, test.getSeuilBas());
+			
+			pst.executeUpdate();
+			
+			ResultSet rs = pst.getGeneratedKeys();
+			rs.next();
+			test.setIdTest(rs.getInt(1));			
+		} 
+		catch (SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+	}
 
-		ResultSet rs = null;
-		PreparedStatement pst = null;
+	
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			cnx.setAutoCommit(false);
 
-			// On récupère la listes des sections du test
+
+
+	
 
 			pst = cnx.prepareStatement(SELECT_SECTIONS);
 			pst.setInt(1, idTest);

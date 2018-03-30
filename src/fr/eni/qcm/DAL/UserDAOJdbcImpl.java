@@ -30,6 +30,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private String FIND_ROLES = "select * from Profil";
 	private String FIND_PROMOS = "select * from Promotion";
 	private final String SELECT_ALL="select * from Utilisateur";
+	private final String SELECT_USER="select * from Utilisateur where idUtilisateur= ?";
 	
 
 	/**
@@ -283,6 +284,29 @@ public class UserDAOJdbcImpl implements UserDAO {
 		}
 
 		return users;
+	}
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.UserDAO#selectUserById(int)
+	 */
+	@Override
+	public User selectUserById(int id) throws BusinessException{
+		User user=new User();
+		
+		try(Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pst= cnx.prepareStatement(SELECT_USER);
+			pst.setInt(1, id);
+			ResultSet rs=pst.executeQuery();
+			if(rs.next()) {
+				user=this.buildUser(rs);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+			
+		return user;
 	}
 
 	
