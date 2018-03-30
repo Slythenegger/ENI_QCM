@@ -4,15 +4,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>QCM</title>
-<link rel="stylesheet" href="asset/css/accueil.css">
-<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<title>QCM</title>
+	<c:import url="head.jsp"></c:import>
 </head>
-<body>
+
+<body id="page-accueil">
 	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
 		<div class="col-md-12">
