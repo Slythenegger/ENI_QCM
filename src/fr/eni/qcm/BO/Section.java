@@ -3,13 +3,19 @@
  */
 package fr.eni.qcm.BO;
 
+import java.io.Serializable;
+
 /**
  * Classe en charge de stocké les sections pour un test donné
  * @author stropee2017
  * @date 29 mars 2018
  */
-public class Section {
+public class Section implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int nbQuestions, idTest, idTheme;
 	
 	/**

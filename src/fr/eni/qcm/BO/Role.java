@@ -3,13 +3,19 @@
  */
 package fr.eni.qcm.BO;
 
+import java.io.Serializable;
+
 /**
  * Classe en charge de 
  * @author stropee2017
  * @date 27 mars 2018
  */
-public class Role {
+public class Role implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codeRole, libelle;
 
 	

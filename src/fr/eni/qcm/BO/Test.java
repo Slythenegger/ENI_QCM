@@ -1,13 +1,17 @@
 package fr.eni.qcm.BO;
 
-
+import java.io.Serializable;
 
 /**
  * @author wmodeste2017
  *
  */
-public class Test {
+public class Test implements Serializable {
 	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 /**
  * 
  */

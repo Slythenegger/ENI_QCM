@@ -1,9 +1,14 @@
 package fr.eni.qcm.BO;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 
-public class Epreuve {
+public class Epreuve implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idEpreuve, idTest, idUtilisateur, tempsEcoule;
 	private float noteObtenue;
 	private String etat, niveauObtenu;
