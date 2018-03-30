@@ -8,6 +8,10 @@ package fr.eni.qcm.BO;
  *
  */
 public class Resultat extends Epreuve {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int IdUtilisateur;
 	private String nom, prenom, acquis;
 	
