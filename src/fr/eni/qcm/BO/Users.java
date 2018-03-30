@@ -3,6 +3,7 @@
  */
 package fr.eni.qcm.BO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import java.util.List;
  * @author wmodeste2017
  *	29 mars 2018
  */
-public class Users {
+public class Users implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<User> users;
 
 	public Users() {

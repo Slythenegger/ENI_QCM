@@ -3,12 +3,18 @@
  */
 package fr.eni.qcm.BO;
 
+
+
 /**
  * @author mfouques2017
  *
  */
-public class EpreuveCandidat extends Epreuve {
+public class EpreuveCandidat  extends Epreuve {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String libelleTest;	
 	
 	
