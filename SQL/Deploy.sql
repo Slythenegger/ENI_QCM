@@ -505,10 +505,10 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire du Html 
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A ins�rer du code java dans une page Html', 1, 2);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire la cuisine', 0, 2);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour �tre on fire sur le dancefloor', 0, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<h1>', 1, 3);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<form>', 1, 3);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<b26>', 0, 3);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('<input>', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('�a c est une balise', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('balise', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('encore une balise', 0, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('pas balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Entreprise Edition', 1, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Et� Hiver',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Euh Excsuez-moi',0, 4);
@@ -538,18 +538,13 @@ insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,3,2);
 
 
 select* from SECTION_TEST 
-where idTest=?;
+where idTest=2;
 
-select top 4 * from QUESTION q, THEME th, SECTION_TEST s, TEST te
-where te.idTest=s.idTest
-and s.idTheme=th.idTheme
-and th.idTheme=q.idTheme
-and s.idTheme = 1
-order by RAND(1);
+select top 4 * from QUESTION q, THEME th, SECTION_TEST s, TEST te where te.idTest=s.idTest and s.idTheme=th.idTheme and th.idTheme=q.idTheme and s.idTheme = 1 order by NEWID();
 
 
 select * from PROPOSITION p
-where idQuestion= ?;
+where idQuestion= 1;
 
 
 

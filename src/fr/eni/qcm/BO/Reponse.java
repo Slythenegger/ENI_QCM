@@ -79,7 +79,15 @@ public class Reponse {
 		this.correct = correct;
 	}
 	
-	
+	/**
+	 * Méthode en charge de 
+	 * @return
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.getEnonce();
+	}
 	
 
 }
