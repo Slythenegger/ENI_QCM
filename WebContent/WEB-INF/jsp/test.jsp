@@ -17,7 +17,14 @@
 			<p class="alert alert-danger">${exception}</p>
 		</c:if>
 		<c:if test="${! empty question}">
-		<h3>Question ${numQuestion + 1}</h3>
+			<h3>Question ${numQuestion + 1}</h3>
+			<c:if test="${! empty reponsesUser}">
+				<c:forEach items="${reponsesUser}" var="rep">
+					<p>${rep.idReponse}</p>
+					<p>${rep.idQuestion}</p>
+					<p>${rep.idEpreuve}</p>
+				</c:forEach>
+			</c:if>
 			<form action="test" method="post">
 				<div class="margetop margeleft">
 					<h4>${question}</h4>
@@ -31,8 +38,18 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${reponses}" var="rep">
-								<input name="reponseRadio" type="radio" value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
-									onchange="this.form.submit()">&nbsp;${rep}<br>
+								<c:choose>
+									<c:when test="${reponseUser.idReponse == rep.idReponse}">
+										<input name="reponseRadio" type="radio"
+											value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
+											onchange="this.form.submit()" checked="checked">&nbsp;${rep}<br>
+									</c:when>
+									<c:otherwise>
+										<input name="reponseRadio" type="radio"
+											value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
+											onchange="this.form.submit()">&nbsp;${rep}<br>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
