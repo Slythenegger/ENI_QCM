@@ -8,12 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.util.digester.RuleSet;
-
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
-import fr.eni.qcm.BO.QuestionReponses;
 import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.Section;
 import fr.eni.qcm.BO.Test;
@@ -111,12 +108,12 @@ public class TestDAOJdbcImpl implements TestDAO {
 	 * @see fr.eni.qcm.DAL.TestDAO#selectQuesRepByIdTest(int)
 	 */
 	@Override
-	public List<QuestionReponses> selectQuesRepByIdTest(int idTest) throws BusinessException {
+	public List<Question> selectQuesRepByIdTest(int idTest) throws BusinessException {
 
 		List<Section> sections = new ArrayList<>();
 		List<Question> questions = new ArrayList<>();
 
-		List<QuestionReponses> listeQR = new ArrayList<>();
+	
 
 		ResultSet rs = null;
 		PreparedStatement pst = null;
@@ -171,8 +168,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 			// on récupère les réponses par rapport aux questions des sections du test
 
-			for (Question ques : questions) {
-				QuestionReponses qr = new QuestionReponses();
+			for (Question ques : questions) {				
 				List<Reponse> reponses = new ArrayList<>();
 				pst = cnx.prepareStatement(SELECT_REPONSES);
 				pst.setInt(1, ques.getIdQuestion());
@@ -188,10 +184,10 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 					reponses.add(rep);
 				}
-				qr.setQuestion(ques);
-				qr.setReponses(reponses);
+			
+				ques.setReponses(reponses);
 
-				listeQR.add(qr);
+				
 
 			}
 
@@ -205,7 +201,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 
-		return listeQR;
+		return questions;
 	}
 
 }
