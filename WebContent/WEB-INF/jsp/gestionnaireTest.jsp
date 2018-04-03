@@ -65,7 +65,11 @@
 						<input type="number" name="seuilbas" class="form-control" required="required" value="${selected.seuilBas}">										
 					</div>
 				</div>
-						
+				
+				<c:forEach var="section" items="${selected.sections}">
+					<p>${section.libelle }</p>
+				</c:forEach>
+					
 				<a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/gestionnaire-test">Annuler</a>
 			
 				<input 

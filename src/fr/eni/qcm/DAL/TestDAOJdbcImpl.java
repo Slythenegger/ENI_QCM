@@ -14,6 +14,7 @@ import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.Section;
+import fr.eni.qcm.BO.SectionTest;
 import fr.eni.qcm.BO.Test;
 
 public class TestDAOJdbcImpl implements TestDAO {
@@ -56,15 +57,19 @@ public class TestDAOJdbcImpl implements TestDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
-		}
-
+		}		
+		
 		return tests;
 	}
 
 	@Override
 	public Test getById(int id) throws BusinessException {
+		String query = "SELECT * from SECTION_TEST as st left join THEME as t on st.idTheme = t.idTheme where st.idTest = ?;";
 		Test test = null;
+		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
+			
+			// Construction test
 			PreparedStatement pst = cnx.prepareStatement(SELECT_BY_ID);
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
@@ -72,10 +77,26 @@ public class TestDAOJdbcImpl implements TestDAO {
 			while (rs.next()) {
 				test = this.buildTest(rs);
 			}
-		} catch (SQLException e) {
+			
+			// Récupération des sections du test
+			pst = cnx.prepareStatement(query);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				SectionTest st = new SectionTest();
+				
+				st.setNbQuestions(rs.getInt(1));
+				st.setIdTheme(rs.getInt(3));
+				st.setLibelle(rs.getString(5));
+				
+				test.getSections().add(st);
+			}		
+		} 
+		catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
-
+		
 		return test;
 	}
 
