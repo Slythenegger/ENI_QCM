@@ -44,16 +44,17 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<User> users= new ArrayList<>();
 		UserManager umger= new UserManager();
+		TestManager testmanager = new TestManager();
 		
 		if (	request.getParameter("testDateDebut")== "" ||
 				request.getParameter("testDateFin")==""||
-				request.getParameter("testId")==""||
+				request.getParameter("idTest")==""||
 				request.getParameter("testHeureDebut")==""||
 				request.getParameter("testHeureFin")==""
 			) 
 		{
-			TestManager testmanager = new TestManager();
 			
+			request.setAttribute("exception", "Veuillez remplir tout les champs !");
 			List<Test> tests= new ArrayList<Test>();
 			PromoManager pmger = new PromoManager();
 			
@@ -66,13 +67,16 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				request.setAttribute("exception", e.getError().getDescription());
 			}
 			request.setAttribute("users", users);
 			request.setAttribute("promos", promos);
 			request.setAttribute("tests", tests);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscriptionTest.jsp");
 			rd.forward(request, response);
-		}else if(request.getParameter("codePromo")!= "" && request.getParameter("codePromo")!=null) 
+		}
+
+		else if(request.getParameter("codePromo")!= "" && request.getParameter("codePromo")!=null) 
 		{
 			try {
 				users=umger.findPromo(request.getParameter("codePromo"));
@@ -80,7 +84,7 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 				
 				} catch (BusinessException e) 
 					{
-				// TODO Auto-generated catch block
+				request.setAttribute("exception", e.getError().getDescription());
 				e.printStackTrace();
 					}
 			
@@ -90,44 +94,52 @@ public class ServletTraitementInscriptionTest extends HttpServlet {
 				users.add(user);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
+				request.setAttribute("exception", e.getError().getDescription());
 				e.printStackTrace();
 			}
 			
 		}
 		
-		
+	 if(users.size()<=1) {
+		 
+	
 		for (User user : users) {
 			
 			
-			int idtest = Integer.parseInt(request.getParameter("idTest"));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-			Date dateDebut, dateFin = new Date();
 			try {
-				dateDebut=sdf.parse(request.getParameter("testDateDebut")
-									+" "+request.getParameter("testHeureDebut"));
+				int idtest = Integer.parseInt(request.getParameter("idTest"));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+				Date dateDebut, dateFin = new Date();
 				
-				dateFin=sdf.parse(request.getParameter("testDateFin")
-									+" "+request.getParameter("testHeureFin"));
-				
-				Instant i = dateDebut.toInstant();
-				Instant i2 =dateFin.toInstant();
-				try {
-					createEpreuve(i,i2,
-										idtest,
-										user.getIdUser());
-				} catch (BusinessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} catch (ParseException e) {
+					dateDebut=sdf.parse(request.getParameter("testDateDebut")
+										+" "+request.getParameter("testHeureDebut"));
+					
+					dateFin=sdf.parse(request.getParameter("testDateFin")
+										+" "+request.getParameter("testHeureFin"));
+					
+						
+					
+					Instant i = dateDebut.toInstant();
+					Instant i2 =dateFin.toInstant();
+					
+						createEpreuve(i,i2,
+											idtest,
+											user.getIdUser());
+						}
+			 catch (NumberFormatException | ParseException | BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				request.setAttribute("exception", ((BusinessException) e).getError().getDescription());
 			}
-		}
+		 }
+					
+		
+			
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
 		rd.forward(request, response);
-	}
+	 }
+}
 	
 	public void createEpreuve( Instant dateDebut, Instant dateFin, int idTest,int id) throws BusinessException {
 		EpreuveManager emger= new EpreuveManager();
