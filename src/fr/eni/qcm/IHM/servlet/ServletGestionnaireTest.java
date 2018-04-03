@@ -70,8 +70,23 @@ public class ServletGestionnaireTest extends HttpServlet {
 
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doGet(req, resp);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Test test = new Test();
+		TestManager tm = new TestManager();
+		
+		try {
+			test.setLibelle(request.getParameter("libelle"));
+			test.setDescription(request.getParameter("description"));
+			test.setDuree(Integer.parseInt(request.getParameter("duree")));
+			test.setSeuilHaut(Float.parseFloat(request.getParameter("seuilhaut")));
+			test.setSeuilBas(Float.parseFloat(request.getParameter("seuilbas")));
+			
+			tm.insert(test);
+		} catch (Exception e) {
+
+		}
+		
+		this.doGet(request, response);
 	}
 	
 	

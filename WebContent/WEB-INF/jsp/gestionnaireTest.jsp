@@ -19,7 +19,7 @@
 		<div class="left-panel-title font-weight-bold">Tests</div>
 		<div class="left-panel-lb">
 			<c:forEach var="test" items="${tests}">
-				<a 	class="left-panel-lb-item"
+				<a 	class="left-panel-lb-item <c:if test="${test.idTest == selected.idTest}">selected</c:if>"
 					href="${pageContext.servletContext.contextPath}/gestionnaire-test?mode=update&testID=${test.idTest}"
 				>${test.libelle}</a>
 			</c:forEach>			
@@ -32,8 +32,9 @@
 		</div>	
 	</div>
 	
+	<div class="wrapper column">
 	<c:if test="${!empty mode}">
-	<div id="action-container" class="container">
+	<div id="action-container">
 		
 			<form action="gestionnaire-test" method="post">
 			<fieldset>
@@ -46,31 +47,35 @@
 							
 				<div class="form-group">
 					<label class="col-form-label col-9" for="description">Description</label>
-					<textarea rows="5" name="description" class="form-control col-9" required="required" value="${selected.description}"></textarea>								
+					<textarea rows="2" name="description" class="form-control col-9" required="required">${selected.description}</textarea>								
 				</div>
 				
-				<div class="form-group">
-					<label class="col-form-label col-9" for="duree">Durée (en minutes)</label>
-					<input type="number" name="duree" class="form-control col-9" required="required" value="${selected.duree}">
-				</div>
+				<div class="form-group row">
+					<div class="form-group col-5">
+						<label class="col-form-label" for="duree">Durée (en minutes)</label>
+						<input type="number" name="duree" class="form-control" required="required" value="${selected.duree}">
+					</div>
 				
-				<div class="form-group">
-					<label class="col-form-label col-9" for="duree">Seuil haut</label>
-					<input type="number" name="seuilhaut" class="form-control col-9" required="required" value="${selected.seuilHaut}">
+					<div class="form-group col-2">
+						<label class="col-form-label" for="duree">Seuil haut</label>
+						<input type="number" name="seuilhaut" class="form-control" required="required" value="${selected.seuilHaut}">
+					</div>
+					<div class="form-group col-2">
+						<label class="col-form-label" for="seuilbas">Seuil bas</label>
+						<input type="number" name="seuilbas" class="form-control" required="required" value="${selected.seuilBas}">										
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-form-label col-9" for="seuilbas">Seuil bas : </label>
-					<input type="number" name="seuilbas" class="form-control col-9" required="required" value="${selected.seuilBas}">										
-				</div>
-				
+						
 				<a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/gestionnaire-test">Annuler</a>
-				
+			
 				<input 
 					type="submit" 
 					class="btn btn-success" 
 					<c:if test="${mode == 'create'}">value="Créer"</c:if>
 					<c:if test="${mode == 'update'}">value="Sauvegarder"</c:if>
 				>
+				
+
 			</fieldset>
 			</form>
 		
@@ -79,7 +84,7 @@
 	
 	</div>
 	
-
+	</div>
 
 </body>
 </html>

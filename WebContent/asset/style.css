@@ -57,7 +57,11 @@ html {
 
 #page-gt #action-container {
 	padding: 2rem;
+    flex: auto;
+    height: 0px;
+    overflow-y: auto;
 }
+
 
 /* Wrapper */
 .wrapper {
@@ -97,8 +101,12 @@ html {
 	cursor: pointer;
 }
 
-.left-panel-lb-item:hover {
+.left-panel-lb-item.selected {
 	background-color: #343a40;
+}
+
+.left-panel-lb-item:hover {
+	background-color: #57616b;
 	text-decoration: none;
 }
 
