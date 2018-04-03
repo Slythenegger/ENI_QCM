@@ -16,5 +16,6 @@ public interface EpreuveDAO {
 	public List<Resultat> getResultatForTest(int testID) throws BusinessException;
 	public List<EpreuveCandidat> getUserTest(int userId) throws BusinessException;
 	public void ajoutReponseRadio(int idReponse, int idQuestion, int idEpreuve) throws BusinessException;
+	public void ajoutReponseBox(int idReponse, int idQuestion, int idEpreuve) throws BusinessException;
 	public List<ReponseUser> reponsesUser (int idEpreuve)throws BusinessException;
 }
