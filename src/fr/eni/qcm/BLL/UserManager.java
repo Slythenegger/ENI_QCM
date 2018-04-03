@@ -59,12 +59,19 @@ public class UserManager {
 	 * @throws BusinessException
 	 */
 	public List<Promo> findPromos() throws BusinessException {
-
-		return uDao.findPromos();
+List<Promo> promos=uDao.findPromos();
+if (promos==null) {
+	throw new BusinessException(BusinessError.PROMOS_NO_MATCH);
+}
+		return promos;
 	}
 	
 	public List<User> findPromo(String codepromo) throws BusinessException{
-		return uDao.selectPromo(codepromo);
+		List<User> promo = uDao.selectPromo(codepromo);
+		if(promo==null) {
+			throw new BusinessException(BusinessError.PROMO_NO_MATCH);
+		}
+		return promo;
 	}
 
 	/**
@@ -172,8 +179,11 @@ public class UserManager {
 	 * @throws BusinessException 
 	 */
 	public List<User> findCandidat(String nom) throws BusinessException {
-		// TODO Auto-generated method stub
-		return uDao.selectCandidatByName(nom);
+		List<User> users = uDao.selectCandidatByName(nom);
+		if (users==null) {
+			throw new BusinessException(BusinessError.USERS_NO_MATCH);
+		}
+		return users;
 	}
 
 	/**

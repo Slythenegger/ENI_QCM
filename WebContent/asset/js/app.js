@@ -2,15 +2,17 @@ window.onload = init;
 var username="";
 
 
+
 function setUsername(){
 	username = this.value;
-	console.log(username);
-	getListeUsers()
+	getListeUsers();
 }
 function init(){
 	
 	document.getElementById("stagname").onkeyup = setUsername;
 	document.getElementById("candiname").onkeyup = setUsername;
+	
+	
 	getListeUsers();
 	
 	
@@ -21,9 +23,11 @@ function getListeUsers(){
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4){
 			if (xhr.status == 200){
-				console.log(xhr.responseText)
+				
 				afficheListeCAN(xhr.responseText);
 				afficheListeSTA(xhr.responseText);
+			
+				
 			}
 			else{
 				erreur(xhr.responseText);
@@ -60,7 +64,7 @@ function afficheListeCAN(rep){
 	var chaine = "<table class='table table-striped'>";
 	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th><th>Mail</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
-		if(repJson[i].role=="CAN" && repJson[i].nom.includes(username)){
+		if(repJson[i].role=="CAN" && repJson[i].nom.toLowerCase().includes(username.toLowerCase())){
 			chaine += "<tr>"		
 				chaine +="<td><input type='radio' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td><td>"+repJson[i].prenom+"</td>";
 				chaine +="<td>"+repJson[i].email + "</td>";
@@ -79,7 +83,7 @@ function afficheListeSTA(rep){
 	var chaine = "<table class='table table-striped'>";
 	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th><th>Mail</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
-		if(repJson[i].role=="STA" && repJson[i].nom.includes(username)){
+		if(repJson[i].role=="STA" && repJson[i].nom.toLowerCase().includes(username.toLowerCase())){
 			chaine += "<tr>"		
 				chaine +="<td><input type='radio' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td><td>"+repJson[i].prenom+"</td>";
 				chaine +="<td>"+repJson[i].email + "</td>";

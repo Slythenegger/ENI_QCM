@@ -8,8 +8,11 @@ public enum BusinessError {
 	BLL_ERROR_CHAMP_VIDE(3, "Tous les champs doivent être correctement renseigné"),
 	DATABASE_NO_MATCH(4, "Login ou mot de passe incorrect !"), 
 	TEST_NO_MATCH(5, "Test introuvable !"), 
-	QUESTIONS_NO_MATCH(6, "Pas de questions trouvées pour ce test")
-	
+	QUESTIONS_NO_MATCH(6, "Pas de questions trouvées pour ce test"),
+	USERS_NO_MATCH(7, "Aucun utilisateur trouvé"),
+	USER_NO_MATCH(8, "Cet utilisateur n'existe pas"),
+	PROMOS_NO_MATCH(9, "Aucune promo n'a été trouvée"),
+	PROMO_NO_MATCH(10,"Cette promo n'existe pas")
 	
 	
 	
