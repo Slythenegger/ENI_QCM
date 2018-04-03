@@ -60,7 +60,7 @@ function afficheListeCAN(rep){
 	var chaine = "<table class='table table-striped'>";
 	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th><th>Mail</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
-		if(repJson[i].role=="CAN" && repJson[i].nom.indexOf(username)==0){
+		if(repJson[i].role=="CAN" && repJson[i].nom.includes(username)){
 			chaine += "<tr>"		
 				chaine +="<td><input type='radio' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td><td>"+repJson[i].prenom+"</td>";
 				chaine +="<td>"+repJson[i].email + "</td>";
@@ -79,7 +79,7 @@ function afficheListeSTA(rep){
 	var chaine = "<table class='table table-striped'>";
 	chaine += "<tr><th></th><th>Nom</th><th>Prenom</th><th>Mail</th></tr>";
 	for (var i = 0 ; i < repJson.length; i++){
-		if(repJson[i].role=="STA" && repJson[i].nom.indexOf(username)==0){
+		if(repJson[i].role=="STA" && repJson[i].nom.includes(username)){
 			chaine += "<tr>"		
 				chaine +="<td><input type='radio' name='userid' value='"+repJson[i].idUser+ "' id='lib"+"'></td><td>"+repJson[i].nom+"</td><td>"+repJson[i].prenom+"</td>";
 				chaine +="<td>"+repJson[i].email + "</td>";
