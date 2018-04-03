@@ -55,10 +55,15 @@ public class TestServlet extends HttpServlet {
 		Epreuve userEpreuve = null;
 		Question ques = null;
 		List<ReponseUser> reponsesUser = null;
+		int idTest = 0;
+		ReponseUser repUserEnCours = null;
 
-		if (request.getParameter("id") != null) {
+		if (request.getParameter("id") != null || session.getAttribute("idTest") != null) {
 			try {
-				int idTest = Integer.parseInt(request.getParameter("id"));
+				if (request.getParameter("id") != null)
+					idTest = Integer.parseInt(request.getParameter("id"));
+				else if (session.getAttribute("idTest") != null)
+					idTest = Integer.parseInt((String.valueOf(session.getAttribute("idTest"))));
 
 				List<Epreuve> epreuves = (List<Epreuve>) session.getAttribute("epreuves");
 				for (Epreuve epr : epreuves) {
@@ -66,29 +71,46 @@ public class TestServlet extends HttpServlet {
 						userEpreuve = epr;
 					}
 				}
-				if (request.getParameter("numQuestion") == null) {
+				if (session.getAttribute("numQuestion") == null && request.getParameter("numQuestion") == null) {
 					listeQuestions = tm.getQuesRepByIdTest(idTest, userEpreuve.getIdEpreuve());
 					nbQuestions = listeQuestions.size();
 					session.setAttribute("listeQuestions", listeQuestions);
 					session.setAttribute("idEpreuveEnCours", userEpreuve.getIdEpreuve());
 					session.setAttribute("nbQuestions", nbQuestions);
+					session.setAttribute("idTest", idTest);
 					ques = listeQuestions.get(0);
 
 				} else {
 					listeQuestions = (List<Question>) session.getAttribute("listeQuestions");
-					numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+					if (request.getParameter("numQuestion") != null) {
+						numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+						session.setAttribute("numQuestion", numQuestion);
+					} else {
+						numQuestion = Integer.parseInt((String.valueOf(session.getAttribute("numQuestion"))));
+					}
+
 					ques = listeQuestions.get(numQuestion);
 				}
 
 				List<Reponse> rep = ques.getReponses();
-				
-				reponsesUser = em.getReponsesUser(userEpreuve.getIdEpreuve());				
-				
-				request.setAttribute("reponsesUser", reponsesUser);
-				request.setAttribute("idTest", idTest);
-				request.setAttribute("numQuestion", numQuestion);
-				request.setAttribute("question", ques);
-				request.setAttribute("reponses", rep);
+
+				reponsesUser = em.getReponsesUser(userEpreuve.getIdEpreuve());
+				if (reponsesUser != null) {
+					
+					for (ReponseUser ru : reponsesUser) {
+						for (Reponse reponse : rep) {
+							if (ru.getIdQuestion() == ques.getIdQuestion()
+									&& reponse.getIdReponse() == ru.getIdReponse()) {
+								repUserEnCours = ru;
+							}
+						}
+					}
+				}
+				session.setAttribute("reponseUser", repUserEnCours);
+				session.setAttribute("question", ques);
+				session.setAttribute("reponses", rep);
+
+				session.setAttribute("numQuestion", numQuestion);
 
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");
 				rd.forward(request, response);
@@ -115,15 +137,22 @@ public class TestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+
 		EpreuveManager em = new EpreuveManager();
+		int numQuestion;
 
 		if (request.getParameter("reponseRadio") != null) {
 
-			String[] parts = request.getParameter("reponse").split("-");
+			String[] parts = request.getParameter("reponseRadio").split("-");
 			try {
 				em.ajoutReponse(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-			
-			
+				if (request.getParameter("numQuestion") != null) {
+					numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+					session.setAttribute("numQuestion", numQuestion);
+				}
+				response.sendRedirect("test");
+
 			} catch (NumberFormatException | BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
