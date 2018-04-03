@@ -55,6 +55,10 @@ html {
 	margin-bottom: 0px;
 }
 
+#page-gt #action-container {
+	padding: 2rem;
+}
+
 /* Wrapper */
 .wrapper {
 	display: flex;
@@ -73,6 +77,12 @@ html {
    	color: white;
 }
 
+.left-panel-title {
+	padding: 1rem;
+	padding-bottom: 0;
+	font-size: 1.6rem;
+}
+
 .left-panel-lb {
 	flex: auto;
     height: 0px;
@@ -81,13 +91,15 @@ html {
 }
 
 .left-panel-lb-item {
+	display: block;
 	padding: 0.15rem 1rem;
+	color: white !important;
 	cursor: pointer;
-
 }
 
 .left-panel-lb-item:hover {
 	background-color: #343a40;
+	text-decoration: none;
 }
 
 .left-panel-action {
