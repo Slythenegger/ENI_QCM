@@ -6,8 +6,8 @@
 <html>
 
 <head>
-	<title>QCM</title>
-	<c:import url="head.jsp"></c:import>
+<title>QCM</title>
+<c:import url="head.jsp"></c:import>
 </head>
 
 <body id="page-accueil">
@@ -26,18 +26,24 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h4>ECF à passer</h4>
+						<c:set var="cpt" value="${0}"></c:set>
 						<c:forEach items="${epreuves}" var="epr">
 							<c:if test="${epr.etat == plannifie}">
+								<c:set var="cpt" value="${cpt + 1}"></c:set>
 								<p>
 									<a href="demarrer-test?idTest=${epr.idTest}">${epr.libelleTest}</a>
 								</p>
 							</c:if>
 						</c:forEach>
+						<c:if test="${cpt == 0}">
+							<p>Vous n'êtes inscrit à aucun test.</p>
+						</c:if>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<h4>ECF en cours</h4>
+						<c:set var="cpt" value="${0}"></c:set>
 						<c:forEach items="${epreuves}" var="epr">
 							<c:if test="${epr.etat == enCours}">
 								<p>
@@ -45,6 +51,9 @@
 								</p>
 							</c:if>
 						</c:forEach>
+						<c:if test="${cpt == 0}">
+							<p>Vous n'avez pas de test en cours.</p>
+						</c:if>
 					</div>
 				</div>
 				<div class="margetop">

@@ -10,6 +10,7 @@ import java.util.List;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.Section;
@@ -22,6 +23,10 @@ public class TestDAOJdbcImpl implements TestDAO {
 	private final String SELECT_SECTIONS = "select * from SECTION_TEST where idTest= ?";
 	private final String SELECT_QUESTIONS = "select top (?) * from QUESTION q, THEME th, SECTION_TEST s, TEST te where te.idTest=s.idTest and s.idTheme=th.idTheme and th.idTheme=q.idTheme and s.idTheme = ? order by NEWID()";
 	private final String SELECT_REPONSES = "select * from PROPOSITION  where idQuestion= ?";
+	private final String INSERT_QUESTION_USER = "insert into QUESTION_TIRAGE (estMarquee, idQuestion, numOrdre, idEpreuve) values (?,?,?,?)";
+	//private final String INSERT_REPONSES_USER = "intert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?,?,?)";
+	private final String UPDATE_EPREUVE = "update EPREUVE SET etat = ? where idEpreuve = ?";
+
 
 	private Test buildTest(ResultSet rs) throws SQLException {
 		Test test = new Test();
@@ -73,31 +78,29 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 		return test;
 	}
-	
+
 	@Override
 	public void insert(Test test) throws BusinessException {
 		String query = "insert into TEST(libelle, description, duree, seuil_haut, seuil_bas) values(?,?,?,?,?);";
-		
+
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pst = cnx.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			
+
 			pst.setString(1, test.getLibelle());
 			pst.setString(2, test.getDescription());
 			pst.setInt(3, test.getDuree());
 			pst.setFloat(4, test.getSeuilHaut());
 			pst.setFloat(5, test.getSeuilBas());
-			
+
 			pst.executeUpdate();
-			
+
 			ResultSet rs = pst.getGeneratedKeys();
 			rs.next();
-			test.setIdTest(rs.getInt(1));			
-		} 
-		catch (SQLException e) {
+			test.setIdTest(rs.getInt(1));
+		} catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 	}
-
 
 	/**
 	 * Méthode en charge de récupérer la lsite des questions/réponses d'un test
@@ -108,13 +111,11 @@ public class TestDAOJdbcImpl implements TestDAO {
 	 * @see fr.eni.qcm.DAL.TestDAO#selectQuesRepByIdTest(int)
 	 */
 	@Override
-	public List<Question> selectQuesRepByIdTest(int idTest) throws BusinessException {
+	public List<Question> selectQuesRepByIdTest(int idTest, int idEpreuve) throws BusinessException {
 
 		List<Section> sections = new ArrayList<>();
 		List<Question> questions = new ArrayList<>();
-
 	
-
 		ResultSet rs = null;
 		PreparedStatement pst = null;
 
@@ -133,7 +134,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 				section.setIdTest(rs.getInt(idTest));
 				section.setIdTheme(rs.getInt("idTheme"));
 
-				sections.add(section);				
+				sections.add(section);
 			}
 
 			rs.close();
@@ -142,7 +143,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 			for (Section sec : sections) {
 				pst = cnx.prepareStatement(SELECT_QUESTIONS);
-				
+
 				pst.setInt(1, sec.getNbQuestions());
 				pst.setInt(2, sec.getIdTheme());
 				rs = pst.executeQuery();
@@ -167,8 +168,9 @@ public class TestDAOJdbcImpl implements TestDAO {
 			pst.close();
 
 			// on récupère les réponses par rapport aux questions des sections du test
-
-			for (Question ques : questions) {				
+			int cpt = -1;
+			for (Question ques : questions) {
+				cpt++;
 				List<Reponse> reponses = new ArrayList<>();
 				pst = cnx.prepareStatement(SELECT_REPONSES);
 				pst.setInt(1, ques.getIdQuestion());
@@ -184,12 +186,29 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 					reponses.add(rep);
 				}
-			
+
 				ques.setReponses(reponses);
-
+								
+				pst.close();
 				
+				pst = cnx.prepareStatement(INSERT_QUESTION_USER);
+				pst.setBoolean(1, false);
+				pst.setInt(2, ques.getIdQuestion());
+				pst.setInt(3, cpt);
+				pst.setInt(4, idEpreuve);	
+				pst.executeUpdate();
+				
+				rs.close();
+				pst.close();
 
-			}
+			}		
+			
+			// enfin on fait passé l'épreuve du stade plannifié à en cours
+			
+			pst = cnx.prepareStatement(UPDATE_EPREUVE);
+			pst.setString(1, CodeEtatEpreuve.EN_COURS );
+			pst.setInt(2, idEpreuve);		
+			pst.executeUpdate();			
 
 			cnx.commit();
 			rs.close();
@@ -203,5 +222,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 		return questions;
 	}
+
+	
 
 }

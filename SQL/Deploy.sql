@@ -498,19 +498,19 @@ insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Co
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que peut-on faire en php ?', 1, null, 1, 2);
 
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour des traitements de requetes', 1, 1);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour manger des cacahu�tes', 0, 1);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour attraper un �l�phant', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour manger des cacahuètes', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour attraper un éléphant', 0, 1);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour faire chier Max', 0, 1);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire du Html dynamique', 1, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A ins�rer du code java dans une page Html', 1, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A insérer du code java dans une page Html', 1, 2);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire la cuisine', 0, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour �tre on fire sur le dancefloor', 0, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('�a c est une balise', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour être on fire sur le dancefloor', 0, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('ça c est une balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('encore une balise', 0, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('pas balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Entreprise Edition', 1, 4);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Et� Hiver',0, 4);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Eté Hiver',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Euh Excsuez-moi',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Hey salut !',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Symfony', 1, 5);
@@ -518,7 +518,7 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Mozart', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Beethoven', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('De Bussy', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('$', 1, 6);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('�', 0, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('W', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('LOL', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Choisis-moi', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('int', 1, 7);
@@ -527,33 +527,18 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('boolean', 1, 7);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('float', 1, 7);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du web', 1, 8);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du miel', 0, 8);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du  d�veloppement web', 1, 8);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du  développement web', 1, 8);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('des pages html dynamiques', 1, 8);
 
 
 
 
-insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,2,1);
-insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,3,2);
+insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (4,2,1);
+insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (4,3,2);
 
+select * from QUESTION_TIRAGE
 
-select* from SECTION_TEST 
-where idTest=2;
-
-select top 4 * from QUESTION q, THEME th, SECTION_TEST s, TEST te where te.idTest=s.idTest and s.idTheme=th.idTheme and th.idTheme=q.idTheme and s.idTheme = 1 order by NEWID();
-
-
-select * from PROPOSITION p
-where idQuestion= 1;
-
-
-
-select  top 3 * from  PROPOSITION p,  QUESTION q
-INNER JOIN THEME th ON  th.idTheme = q.idTheme
-INNER JOIN SECTION_TEST s on s.idTheme = q.idTheme
-INNER JOIN TEST te on te.idTest = s.idTest
-where q.idQuestion = p.idQuestion
-order by p.idQuestion
+select * from EPREUVE
 
 
 
