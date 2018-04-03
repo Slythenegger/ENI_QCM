@@ -15,7 +15,6 @@ import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BLL.TestManager;
 import fr.eni.qcm.BO.Question;
-import fr.eni.qcm.BO.QuestionReponses;
 import fr.eni.qcm.BO.Reponse;
 
 /**
@@ -34,19 +33,18 @@ public class TestServlet extends HttpServlet {
 
 		TestManager tm = new TestManager();
 		HttpSession session = request.getSession();
-		List<QuestionReponses> liste = null;
+		List<Question> listeQuestions = null;
 
 		if (request.getParameter("id") != null) {
 			try {
 
-				liste = tm.getQuesRepByIdTest(Integer.parseInt(request.getParameter("id")));
-				session.setAttribute("liste", liste);			
+				listeQuestions = tm.getQuesRepByIdTest(Integer.parseInt(request.getParameter("id")));
+				session.setAttribute("liste", listeQuestions);			
 
-				QuestionReponses qr = liste.get(0);
-				Question q = qr.getQuestion();
+				Question qr = listeQuestions.get(0);				
 				List<Reponse> rep = qr.getReponses();
 				
-				request.setAttribute("question", q);
+				request.setAttribute("question", qr);
 				request.setAttribute("reponses", rep);
 
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");

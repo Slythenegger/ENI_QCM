@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
-import fr.eni.qcm.BO.QuestionReponses;
+import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Test;
 import fr.eni.qcm.DAL.DAOFactory;
 import fr.eni.qcm.DAL.TestDAO;
@@ -30,9 +30,9 @@ public class TestManager {
 		return test;
 	}
 	
-	public List<QuestionReponses> getQuesRepByIdTest(int idTest) throws BusinessException{
+	public List<Question> getQuesRepByIdTest(int idTest) throws BusinessException{
 		
-		List<QuestionReponses> liste = this.dao.selectQuesRepByIdTest(idTest);
+		List<Question> liste = this.dao.selectQuesRepByIdTest(idTest);
 		
 		if (liste == null)
 			throw new BusinessException(BusinessError.QUESTIONS_NO_MATCH);		
