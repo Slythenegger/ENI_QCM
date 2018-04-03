@@ -1,12 +1,12 @@
 package fr.eni.qcm.BLL;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.EpreuveCandidat;
+import fr.eni.qcm.BO.ReponseUser;
 import fr.eni.qcm.BO.Resultat;
 import fr.eni.qcm.DAL.DAOFactory;
 import fr.eni.qcm.DAL.EpreuveDAO;
@@ -21,10 +21,10 @@ public class EpreuveManager {
 	public List<Epreuve> getUserEpreuve(int userID) throws BusinessException {
 		return this.dao.getUserEpreuve(userID);
 	}
-	
-	public void createEpreuve(Instant dateFin, Instant dateDebut, int idTest, int idUser)throws BusinessException{
-	System.out.println("on est passé ici");
-		this.dao.Create(dateFin, dateDebut, idTest, idUser);	
+
+	public void createEpreuve(Instant dateFin, Instant dateDebut, int idTest, int idUser) throws BusinessException {
+		System.out.println("on est passé ici");
+		this.dao.Create(dateFin, dateDebut, idTest, idUser);
 	}
 
 	public List<Resultat> getResultatForTest(int testID) throws BusinessException {
@@ -33,5 +33,14 @@ public class EpreuveManager {
 
 	public List<EpreuveCandidat> getUserTest(int userId) throws BusinessException {
 		return this.dao.getUserTest(userId);
+	}
+
+	public void ajoutReponse(int idReponse, int idQuestion, int idEpreuve) throws BusinessException {
+		this.dao.ajoutReponseRadio(idReponse, idQuestion, idEpreuve);
+	}
+	
+	public List<ReponseUser> getReponsesUser(int idEpreuve)throws BusinessException {
+		
+		return this.dao.reponsesUser(idEpreuve);
 	}
 }
