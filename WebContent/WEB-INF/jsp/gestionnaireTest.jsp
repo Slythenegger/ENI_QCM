@@ -65,11 +65,17 @@
 						<input type="number" name="seuilbas" class="form-control" required="required" value="${selected.seuilBas}">										
 					</div>
 				</div>
+
+				<legend>Sections</legend>
+				<div class="section-items col-9">
+					<c:forEach var="section" items="${selected.sections}">
+						<div class="section-item">
+							<div class="libelle">${section.libelle }</div>
+							<div class="badge badge-light">${section.nbQuestions }</div>
+						</div>
+					</c:forEach>
+				</div>
 				
-				<c:forEach var="section" items="${selected.sections}">
-					<p>${section.libelle }</p>
-				</c:forEach>
-					
 				<a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/gestionnaire-test">Annuler</a>
 			
 				<input 

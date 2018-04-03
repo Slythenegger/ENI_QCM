@@ -116,3 +116,28 @@ html {
 	justify-content: center;
 	padding: 1rem;
 }
+
+.section-items {
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: 1rem;
+	padding-bottom: 2rem;
+	padding-left: 0;
+}
+
+.section-item {
+	display: flex;
+	border: solid 1px black;
+	padding: 0.5rem;
+	border-radius: 4px;
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+	cursor: pointer;
+	background-color: PowderBlue;
+}
+
+.section-item .libelle {
+	padding-right: 1rem;
+}
+
+
