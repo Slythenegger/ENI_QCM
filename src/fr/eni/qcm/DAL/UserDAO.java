@@ -26,7 +26,8 @@ public interface UserDAO {
 	 * @throws BusinessException
 	 */
 	public void createUser(User user)throws BusinessException;
-	public User selectCandidatByName(String name)throws BusinessException;
+	public List<User> selectCandidatByName(String name)throws BusinessException;
+	public List<User> selectStagiaireByName(String name)throws BusinessException;
 	public List<User> selectPromo(String codepromo)throws BusinessException;
 	
 	
@@ -51,6 +52,15 @@ public interface UserDAO {
 	 * @throws BusinessException 
 	 */
 	public List<User> selectAll() throws BusinessException;
+
+
+	/**
+	 *	Methode servant à selectionner un utilisateur à l'aide de son id:
+	 * @param id
+	 * @return
+	 * @throws BusinessException 
+	 */
+	public User selectUserById(int id) throws BusinessException;
 
 
 	/**

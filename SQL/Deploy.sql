@@ -396,7 +396,7 @@ DELETE
 UPDATE NO ACTION
 GO
 
--- Rapport récapitulatif d'Oracle SQL Developer Data Modeler : 
+-- Rapport rï¿½capitulatif d'Oracle SQL Developer Data Modeler : 
 -- 
 -- CREATE TABLE                            11
 -- CREATE INDEX                             0
@@ -423,7 +423,7 @@ GO
 -- WARNINGS                                 0
 
 
--- Données
+-- Donnï¿½es
 
 
 
@@ -432,9 +432,9 @@ GO
 
 
 insert into PROMOTION(codePromo, Libelle) values ('DL-127', 'Developpeur Logiciel 127');
-insert into PROMOTION(codePromo, Libelle) values ('CDI-72', 'Concepteur Développeur Informatique 72');
+insert into PROMOTION(codePromo, Libelle) values ('CDI-72', 'Concepteur Dï¿½veloppeur Informatique 72');
 insert into PROMOTION(codePromo, Libelle) values ('DL-128', 'Developpeur Logiciel 128');
-insert into PROMOTION(codePromo, Libelle) values ('CDI-73', 'Concepteur Développeur Informatique 73');
+insert into PROMOTION(codePromo, Libelle) values ('CDI-73', 'Concepteur Dï¿½veloppeur Informatique 73');
 
 insert into Profil (codeProfil, libelle) values ('STA', 'stagiaire');
 insert into Profil (codeProfil, libelle) values ('FOR', 'formateur');
@@ -453,7 +453,7 @@ insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) val
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('FARRUGIA', 'fabrice', 'fabrice@hotmail.fr', 'fabrice', 'FOR', null);
 insert into Utilisateur(nom, prenom, email, password, codeProfil, codePromo) values ('Rourour', 'robert', 'robert@hotmail.fr', 'robert', 'RES', null);
 
-insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Anglais', 'Un test qui sert à rien...', 30, 15, 8);
+insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Anglais', 'Un test qui sert ï¿½ rien...', 30, 15, 8);
 insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Java', 'Java c est rigolo hi hi hi', 30, 15, 8);
 insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF PHP', 'Du dev OOP avec Fabien ;) ;)', 30, 15, 8);
 
@@ -493,24 +493,24 @@ insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Le
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que veut dire le EE de Java EE ?', 0, null, 1, 1);
 
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Quel est le framework le plus courant en php ?', 0, null, 1, 2);
-insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Par quoi commence forcément une variable Php', 0, null, 1, 2);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Par quoi commence forcï¿½ment une variable Php', 0, null, 1, 2);
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Cochez les types primitif en php', 1, null, 1, 2);
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que peut-on faire en php ?', 1, null, 1, 2);
 
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour des traitements de requetes', 1, 1);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour manger des cacahuètes', 0, 1);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour attraper un éléphant', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour manger des cacahuï¿½tes', 0, 1);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour attraper un ï¿½lï¿½phant', 0, 1);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour faire chier Max', 0, 1);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire du Html dynamique', 1, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A insérer du code java dans une page Html', 1, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A insï¿½rer du code java dans une page Html', 1, 2);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('A faire la cuisine', 0, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour être on fire sur le dancefloor', 0, 2);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('ça c est une balise', 1, 3);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Pour ï¿½tre on fire sur le dancefloor', 0, 2);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('ï¿½a c est une balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('encore une balise', 0, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('pas balise', 1, 3);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Entreprise Edition', 1, 4);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Eté Hiver',0, 4);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Etï¿½ Hiver',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Euh Excsuez-moi',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Hey salut !',0, 4);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Symfony', 1, 5);
@@ -518,7 +518,7 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Mozart', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Beethoven', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('De Bussy', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('$', 1, 6);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('€', 0, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('ï¿½', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('LOL', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Choisis-moi', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('int', 1, 7);
@@ -527,7 +527,7 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('boolean', 1, 7);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('float', 1, 7);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du web', 1, 8);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du miel', 0, 8);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du  développement web', 1, 8);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du  dï¿½veloppement web', 1, 8);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('des pages html dynamiques', 1, 8);
 
 
@@ -560,8 +560,8 @@ order by p.idQuestion
 
 /*
 
-insert into Qcms (nom, niveau) values ('ECF-Développement web', 'DL');
-insert into Qcms (nom, niveau) values ('ECF-Développement web avancé', 'DL');
+insert into Qcms (nom, niveau) values ('ECF-Dï¿½veloppement web', 'DL');
+insert into Qcms (nom, niveau) values ('ECF-Dï¿½veloppement web avancï¿½', 'DL');
 insert into Qcms (nom, niveau) values ('ECF-SQL', 'CDI');
 
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 1,'Java EE', 4);

@@ -3,13 +3,19 @@
  */
 package fr.eni.qcm.BO;
 
+import java.io.Serializable;
+
 /**
  * Classe en charge de stockée les informations d'une réponse
  * @author stropee2017
  * @date 29 mars 2018
  */
-public class Reponse {
+public class Reponse implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idReponse, idQuestion;
 	private String enonce;
 	boolean correct;

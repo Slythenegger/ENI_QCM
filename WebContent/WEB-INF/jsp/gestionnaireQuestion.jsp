@@ -16,22 +16,20 @@
 </head>
 <body>
 	<c:import url="topBar.jsp"></c:import>
+
 	<div class="container">
-	
-		<c:if test="${empty test}">
-	
-		<h2>Liste des tests</h2>
-		<ul class="list-group col-12">
-			<c:forEach var="test" items="${tests}">
-	            <li class="list-group-item d-flex justify-content-between align-items-center">${test.libelle}
-	                <div>
-	                	<a href="${pageContext.request.contextPath}/gestionnaire-question?test=${test.idTest}" class="badge" title="Editer la liste"><i class="material-icons">create</i></a>
-	                </div>
-	            </li>			        		
-			</c:forEach>
-		</ul>
 		
-		</c:if>
+		<h4>Liste des tests</h4>
+		<div class="row">
+			<select class="col-6">
+				<c:forEach var="test" items="${tests}">
+				<option>${test.libelle}</option>
+				</c:forEach>
+			</select>
+			<div class="col-4"></div>
+			<a class="btn btn-success col-2" href="${pageContext.servletContext.contextPath}/creation-test">Créer un nouveau test</a>
+		</div>
+		
 		
 	</div>
 

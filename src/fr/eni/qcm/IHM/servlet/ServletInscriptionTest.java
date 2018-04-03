@@ -28,7 +28,7 @@ public class ServletInscriptionTest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		TestManager testmanager = new TestManager();
-	//	UserManager usermanager = new UserManager();
+	
 		List<Test> tests= new ArrayList<Test>();
 		PromoManager pmger = new PromoManager();
 		UserManager umger = new UserManager();

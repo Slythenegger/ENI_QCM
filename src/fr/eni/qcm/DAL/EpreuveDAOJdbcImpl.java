@@ -12,6 +12,7 @@ import java.util.List;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.EpreuveCandidat;
 import fr.eni.qcm.BO.Resultat;
@@ -66,12 +67,12 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	
 	public Boolean Create(Instant dateDebut, Instant dateFin, int idTest, int idUser) throws BusinessException {
 		boolean bool=false;
-		try(Connection cnx =ConnectionProvider.getConnection()){
+		try(Connection cnx = ConnectionProvider.getConnection()){
 			
 			PreparedStatement pst= cnx.prepareStatement(CREATE_USER_EPREUVE);
 			pst.setTimestamp(1,  Timestamp.from(dateDebut));
 			pst.setTimestamp(2, Timestamp.from(dateFin));
-			pst.setString(3, "PL");
+			pst.setString(3, CodeEtatEpreuve.PLANNFIE);
 			pst.setInt(4,idTest);
 			pst.setInt(5, idUser);
 			bool=pst.execute();
