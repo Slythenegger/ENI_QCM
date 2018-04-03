@@ -10,22 +10,27 @@
 	<c:import url="head.jsp"></c:import>
 </head>
 
-<body>
+<body id="page-gt">
 	<c:import url="topBar.jsp"></c:import>
 	
-	<div class="container">
-		<form action="gestionnaire-test" method="POST">
-		    <select onchange="this.form.submit()">
-		        <c:if test="${empty test}">
-		        	<option>Choisir un test</option>
-		        </c:if>
-		        
-				<c:forEach var="test" items="${tests}">
-					<option value="${test.idTest}">${test.libelle}</option>
-				</c:forEach>
-		    </select>
-		</form>
+	<div class="wrapper column">
+	
+	<div class="left-panel wrapper column bg-secondary">
+		<div class="left-panel-lb">
+			<c:forEach var="test" items="${tests}">
+				<div class="left-panel-lb-item">
+					<div class="left-panel-lb-item-name">${test.libelle}</div>
+				</div>
+			</c:forEach>			
+		</div>
+		<div class="left-panel-action">
+			<button class="btn btn-primary">Nouveau Test</button>
+		</div>	
 	</div>
+
+	</div>
+	
+
 
 </body>
 </html>

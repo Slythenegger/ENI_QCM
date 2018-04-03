@@ -44,4 +44,55 @@ html {
 	flex: auto;
 }
 
- 
+/* Page Gestionnaire Test */
+#page-gt {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+#page-gt #top-bar {
+	margin-bottom: 0px;
+}
+
+/* Wrapper */
+.wrapper {
+	display: flex;
+    flex: auto;
+}
+
+.wrapper.column {
+	flex-direction: column;
+}
+
+
+/* Left Panel LB */
+.left-panel {
+    min-width: 250px;
+    max-width: 250px;
+   	color: white;
+}
+
+.left-panel-lb {
+	flex: auto;
+    height: 0px;
+    overflow-y: auto;
+	padding: 1rem 0;
+}
+
+.left-panel-lb-item {
+	padding: 0.15rem 1rem;
+	cursor: pointer;
+
+}
+
+.left-panel-lb-item:hover {
+	background-color: #343a40;
+}
+
+.left-panel-action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+}
