@@ -2,15 +2,17 @@ window.onload = init;
 var username="";
 
 
+
 function setUsername(){
 	username = this.value;
-	console.log(username);
-	getListeUsers()
+	getListeUsers();
 }
 function init(){
 	
 	document.getElementById("stagname").onkeyup = setUsername;
 	document.getElementById("candiname").onkeyup = setUsername;
+	
+	
 	getListeUsers();
 	
 	
@@ -21,9 +23,11 @@ function getListeUsers(){
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4){
 			if (xhr.status == 200){
-				console.log(xhr.responseText)
+				
 				afficheListeCAN(xhr.responseText);
 				afficheListeSTA(xhr.responseText);
+			
+				
 			}
 			else{
 				erreur(xhr.responseText);

@@ -91,14 +91,14 @@ Nom du Stagiaire : <input type="text" id="stagname" name="stagname"><br>
 </div>
 <div id="prom" style="display:none;">
 Promotion des stagiaires: 
-<select name="codePromo">
+<select name="codePromo" id="codePromo">
 <option value=""></option>
-	<c:forEach var="promos" items="${promos}">
-			
+	<c:forEach var="promos" items="${promos}">			
 			<option value=${promos.codePromo }>${promos.libelle}</option>
 	</c:forEach>
 
-</select><br></div>
+</select><br>
+</div>
 </fieldset>
 <input type="submit" value="inscrire" class="btn btn-primary">
 
