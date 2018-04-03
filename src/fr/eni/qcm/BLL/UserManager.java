@@ -172,8 +172,11 @@ public class UserManager {
 	 * @throws BusinessException 
 	 */
 	public List<User> findCandidat(String nom) throws BusinessException {
-		// TODO Auto-generated method stub
-		return uDao.selectCandidatByName(nom);
+		List<User> users = uDao.selectCandidatByName(nom);
+		if (users==null) {
+			throw new BusinessException(BusinessError.USERS_NO_MATCH);
+		}
+		return users;
 	}
 
 	/**
