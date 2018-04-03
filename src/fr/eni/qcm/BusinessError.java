@@ -10,7 +10,9 @@ public enum BusinessError {
 	TEST_NO_MATCH(5, "Test introuvable !"), 
 	QUESTIONS_NO_MATCH(6, "Pas de questions trouvées pour ce test"),
 	USERS_NO_MATCH(7, "Aucun utilisateur trouvé"),
-	USER_NO_MATCH(8, "Cet utilisateur n'existe pas")
+	USER_NO_MATCH(8, "Cet utilisateur n'existe pas"),
+	PROMOS_NO_MATCH(9, "Aucune promo n'a été trouvée"),
+	PROMO_NO_MATCH(10,"Cette promo n'existe pas")
 	
 	
 	
