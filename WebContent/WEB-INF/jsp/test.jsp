@@ -26,11 +26,21 @@
 				</c:forEach>
 			</c:if>
 			
-			
+		
 			<form action="test" method="post">
-			
+			<c:choose>
+			<c:when test="${questionTir.estMarquee == false }">
 			<input type="submit" value="Marquer la question-${question.idQuestion}-${idEpreuveEnCours}" name="coche"  class="btn btn-info">
+			</c:when>
+			<c:when test="${questionTir.estMarquee == true}">
 			<input type="submit" value="Retirer la marque-${question.idQuestion}-${idEpreuveEnCours}" name="coche"  class="btn btn-info">
+			</c:when>
+			</c:choose>
+			
+			
+			
+			
+			
 				<div class="margetop margeleft">
 					<h4>${question}</h4>
 					

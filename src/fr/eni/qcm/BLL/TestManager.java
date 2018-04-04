@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
+import fr.eni.qcm.BO.QuestionTirage;
 import fr.eni.qcm.BO.Test;
 import fr.eni.qcm.DAL.DAOFactory;
 import fr.eni.qcm.DAL.TestDAO;
@@ -52,5 +53,17 @@ public class TestManager {
 	}
 	public void decocheQuest(int idQuestion, int idEpreuve)throws BusinessException{
 		this.dao.decoche( idQuestion,  idEpreuve);
+	}
+
+	/**
+	 *	Methode servant à :
+	 * @param idEpreuve
+	 * @param idQuestion
+	 * @return
+	 * @throws BusinessException 
+	 */
+	public QuestionTirage getQuestionTirage(int idEpreuve, int idQuestion) throws BusinessException {
+		QuestionTirage questT =this.dao.findQuestT(idEpreuve, idQuestion);
+		return questT;
 	}
 }
