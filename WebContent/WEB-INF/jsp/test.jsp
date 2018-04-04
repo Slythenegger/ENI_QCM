@@ -25,9 +25,15 @@
 					<p>${rep.idEpreuve}</p>
 				</c:forEach>
 			</c:if>
+			
+			
 			<form action="test" method="post">
+			
+			<input type="submit" value="Marquer la question-${question.idQuestion}-${idEpreuveEnCours}" name="coche"  class="btn btn-info">
+			<input type="submit" value="Retirer la marque-${question.idQuestion}-${idEpreuveEnCours}" name="coche"  class="btn btn-info">
 				<div class="margetop margeleft">
 					<h4>${question}</h4>
+					
 					<c:choose>
 						<c:when test="${question.estMulti}">
 							<c:forEach items="${reponses}" var="rep">

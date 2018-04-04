@@ -27,7 +27,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 	private final String INSERT_QUESTION_USER = "insert into QUESTION_TIRAGE (estMarquee, idQuestion, numOrdre, idEpreuve) values (?,?,?,?)";
 	//private final String INSERT_REPONSES_USER = "intert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?,?,?)";
 	private final String UPDATE_EPREUVE = "update EPREUVE SET etat = ? where idEpreuve = ?";
-
+	private final String UPDATE_COCHE=" update QUESTION_TIRAGE set estMarquee =? where idQuestion =? and idEpreuve=?";
 
 	private Test buildTest(ResultSet rs) throws SQLException {
 		Test test = new Test();
@@ -243,6 +243,45 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 		return questions;
 	}
+
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.TestDAO#coche(int, int)
+	 */
+	@Override
+	public void coche(int idQuestion, int idEpreuve)throws BusinessException {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pst = cnx.prepareStatement(UPDATE_COCHE);
+			pst.setBoolean(1, true);
+			pst.setInt(2, idQuestion);
+			pst.setInt(3, idEpreuve);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.TestDAO#decoche(int, int)
+	 */
+	@Override
+	public void decoche(int idQuestion, int idEpreuve) throws BusinessException {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pst = cnx.prepareStatement(UPDATE_COCHE);
+			pst.setBoolean(1, false);
+			pst.setInt(2, idQuestion);
+			pst.setInt(3, idEpreuve);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 
 	
 

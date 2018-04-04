@@ -138,6 +138,7 @@ public class TestServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		TestManager tm= new TestManager();
 
 		EpreuveManager em = new EpreuveManager();
 		int numQuestion;
@@ -151,7 +152,7 @@ public class TestServlet extends HttpServlet {
 					numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
 					session.setAttribute("numQuestion", numQuestion);
 				}
-				response.sendRedirect("test");
+				
 
 			} catch (NumberFormatException | BusinessException e) {
 				// TODO Auto-generated catch block
@@ -159,7 +160,31 @@ public class TestServlet extends HttpServlet {
 			}
 
 		}
-
+		System.out.println(request.getParameter("coche"));
+		if (!"".equals(request.getParameter("coche")) && request.getParameter("coche")!=null) {
+			System.out.println("yo");
+			String[]parts = request.getParameter("coche").split("-");
+			try {
+				if( "Marquer la question".equals(parts[0])) {
+					
+						tm.cocheQuest(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+						System.out.println("je suis ici");
+					
+				}else if("Retirer la marque".equals(parts[0])) {
+					
+						tm.decocheQuest(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+						
+					}
+			} catch (NumberFormatException | BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (request.getParameter("numQuestion") != null) {
+				numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+				session.setAttribute("numQuestion", numQuestion);
+			}
+			
+		}response.sendRedirect("test");
 	}
 
 }
