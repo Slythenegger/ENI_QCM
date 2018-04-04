@@ -28,12 +28,13 @@
 			
 		
 			<form action="test" method="post">
+			<input type="hidden"value="${question.idQuestion}-${idEpreuveEnCours}" name="hidden">
 			<c:choose>
 			<c:when test="${questionTir.estMarquee == false }">
-			<input type="submit" value="Marquer la question-${question.idQuestion}-${idEpreuveEnCours}" name="coche"  class="btn btn-info">
+			<input type="submit" value="Marquer la question" name="coche"  class="btn btn-info">
 			</c:when>
 			<c:when test="${questionTir.estMarquee == true}">
-			<input type="submit" value="Retirer la marque-${question.idQuestion}-${idEpreuveEnCours}" name="coche"  class="btn btn-info">
+			<input type="submit" value="Retirer la marque" name="coche"  class="btn btn-info">
 			</c:when>
 			</c:choose>
 			

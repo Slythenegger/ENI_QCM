@@ -173,16 +173,16 @@ public class TestServlet extends HttpServlet {
 		System.out.println(request.getParameter("coche"));
 		if (!"".equals(request.getParameter("coche")) && request.getParameter("coche")!=null) {
 			
-			String[]parts = request.getParameter("coche").split("-");
+			String[]parts = request.getParameter("hidden").split("-");
 			try {
-				if( "Marquer la question".equals(parts[0])) {
+				if( "Marquer la question".equals(request.getParameter("coche"))) {
 					
-						tm.cocheQuest(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+						tm.cocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
 						
 					
-				}else if("Retirer la marque".equals(parts[0])) {
+				}else if("Retirer la marque".equals(request.getParameter("coche"))) {
 					
-						tm.decocheQuest(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+						tm.decocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
 						
 					}
 			} catch (NumberFormatException | BusinessException e) {
