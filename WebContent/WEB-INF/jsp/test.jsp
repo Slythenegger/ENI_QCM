@@ -10,6 +10,7 @@
 <title>QCM</title>
 <c:import url="head.jsp"></c:import>
 </head>
+<script src="asset/js/compteur.js"></script>
 <body>
 	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
@@ -40,7 +41,12 @@
 			
 			<a href="${pageContext.servletContext.contextPath}/terminer-epreuve" class="btn btn-danger"> Terminer le test</a>
 			
-			
+			 </script>
+                <div id="compteur"></div>
+                <script language="JavaScript">
+                        duree="1800";
+                        t();
+                </script>
 			
 			
 				<div class="margetop margeleft">
