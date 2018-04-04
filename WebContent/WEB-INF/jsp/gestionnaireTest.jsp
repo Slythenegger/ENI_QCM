@@ -66,7 +66,7 @@
 					</div>
 				</div>
 
-				<legend>Sections</legend>
+				<legend>Sections <span id="new-section" class="badge badge-dark" data-toggle="modal" data-target="#modal-add-section">+</span></legend>
 				<div class="section-items col-9">
 					<c:forEach var="section" items="${selected.sections}">
 						<div class="section-item">
@@ -76,25 +76,73 @@
 					</c:forEach>
 				</div>
 				
+				
+				
 				<a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/gestionnaire-test">Annuler</a>
 			
-				<input 
+				<input
+					<c:if test="${mode == 'create'}">
+						name="new-test"
+						value="Créer"
+					</c:if>
+					<c:if test="${mode == 'update'}">
+						name="update-test"
+						value="Sauvegarder"
+					</c:if>
 					type="submit" 
 					class="btn btn-success" 
-					<c:if test="${mode == 'create'}">value="Créer"</c:if>
-					<c:if test="${mode == 'update'}">value="Sauvegarder"</c:if>
 				>
 				
 
 			</fieldset>
 			</form>
-		
+			
+			
+			
+			
+			
 	</div>
 	</c:if>
 	
 	</div>
 	
 	</div>
+	
+		<!-- Modal ajout section -->
+		<div class="modal fade" id="modal-add-section" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Ajouter une section</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="gestionnaire-test" method="post">
+	          <input name="test-id" hidden="true" value="${selected.idTest}">
+	          <div class="form-group">
+	            <label for="new-theme" class="col-form-label">Sections</label>
+	            <select name="new-theme" class="form-control">
+	            	<c:forEach var="theme" items="${themes}">
+	            		<option value="${theme.idTheme}">${theme.libelle}</option>
+	            	</c:forEach>
+	            </select>
+	          </div>
+	          <div class="form-group">
+	          	<label for="nbquestion" class="col-form-label">Nombre de questions</label>
+	          	<input type="number" name="nbquestion" class="form-control" required="required" value="0">
+	          </div>
+	          
+   	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+			<input name="new-form" type="submit" class="btn btn-success" value="Ajouter">
+	      </div>
+	        </form>
+	      </div>
 
+	    </div>
+	  </div>
+	</div>
 </body>
 </html>

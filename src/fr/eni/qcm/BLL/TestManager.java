@@ -6,6 +6,7 @@ import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 import fr.eni.qcm.DAL.DAOFactory;
 import fr.eni.qcm.DAL.TestDAO;
 
@@ -45,6 +46,10 @@ public class TestManager {
 
 	public void insert(Test test) throws BusinessException {
 		this.dao.insert(test);		
+	}
+	
+	public List<Theme> getAllThemes() throws BusinessException {
+		return this.dao.getAllThemes();
 	}
 
 }

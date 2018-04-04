@@ -140,4 +140,7 @@ html {
 	padding-right: 1rem;
 }
 
+#new-section {
+	cursor: pointer;
+}
 

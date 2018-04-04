@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 
 public interface TestDAO {
 
@@ -13,6 +14,6 @@ public interface TestDAO {
 	public List<Question> selectQuesRepByIdTest(int idTest, int idEpreuve)throws BusinessException;
 	void insert(Test test) throws BusinessException;
 	
-	
+	public List<Theme> getAllThemes() throws BusinessException;
 	
 }

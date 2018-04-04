@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BLL.TestManager;
+import fr.eni.qcm.BO.SectionTest;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 
 
 @WebServlet("/gestionnaire-test")
@@ -27,7 +28,10 @@ public class ServletGestionnaireTest extends HttpServlet {
 		
 		try {
 			List<Test> tests = tm.getAll();
+			List<Theme> themes = tm.getAllThemes();
+			
 			request.setAttribute("tests", tests);
+			request.setAttribute("themes", themes);
 			request.setAttribute("selected", selected);
 			
 			String mode = request.getParameter("mode");
@@ -53,6 +57,23 @@ public class ServletGestionnaireTest extends HttpServlet {
 				
 				if (test != null) {
 					request.setAttribute("selected", test);
+					
+					// Maj de la liste de theme
+					for (Theme t : themes) {
+						boolean present = false;
+						
+						for (SectionTest st : test.getSections()) {
+							if (st.getIdTheme() == t.getIdTheme()) {
+								present = true;
+							}
+						}
+						
+						if (present) {
+							themes.remove(t);
+						}
+					}
+					
+					request.setAttribute("themes", themes);
 				}
 				
 				rq.forward(request, response);
@@ -74,16 +95,22 @@ public class ServletGestionnaireTest extends HttpServlet {
 		Test test = new Test();
 		TestManager tm = new TestManager();
 		
-		try {
-			test.setLibelle(request.getParameter("libelle"));
-			test.setDescription(request.getParameter("description"));
-			test.setDuree(Integer.parseInt(request.getParameter("duree")));
-			test.setSeuilHaut(Float.parseFloat(request.getParameter("seuilhaut")));
-			test.setSeuilBas(Float.parseFloat(request.getParameter("seuilbas")));
-			
-			tm.insert(test);
-		} catch (Exception e) {
+		if (request.getParameter("new-test") != null) {
+			try {
+				test.setLibelle(request.getParameter("libelle"));
+				test.setDescription(request.getParameter("description"));
+				test.setDuree(Integer.parseInt(request.getParameter("duree")));
+				test.setSeuilHaut(Float.parseFloat(request.getParameter("seuilhaut")));
+				test.setSeuilBas(Float.parseFloat(request.getParameter("seuilbas")));
+				
+				tm.insert(test);
+			}
+			catch (Exception e) {
 
+			}
+		}	
+		else if (request.getParameter("new-section") != null) {
+			
 		}
 		
 		this.doGet(request, response);
