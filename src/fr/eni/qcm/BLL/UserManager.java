@@ -67,11 +67,11 @@ if (promos.size()==0) {
 	}
 	
 	public List<User> findPromo(String codepromo) throws BusinessException{
-		List<User> promo = uDao.selectPromo(codepromo);
-		if(promo.size()==0) {
+		List<User> users = uDao.selectPromo(codepromo);
+		if (users.size()==0) {
 			throw new BusinessException(BusinessError.PROMO_NO_MATCH);
 		}
-		return promo;
+		return users;
 	}
 
 	/**
