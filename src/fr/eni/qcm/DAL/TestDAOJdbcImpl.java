@@ -30,6 +30,8 @@ public class TestDAOJdbcImpl implements TestDAO {
 	private final String UPDATE_EPREUVE = "update EPREUVE SET etat = ? where idEpreuve = ?";
 	private final String UPDATE_COCHE=" update QUESTION_TIRAGE set estMarquee =? where idQuestion =? and idEpreuve=?";
 	private final String SELECT_QUESTION_TIRAGE="select * from QUESTION_TIRAGE where idQuestion =? and idEpreuve=?";
+	
+	
 	private Test buildTest(ResultSet rs) throws SQLException {
 		Test test = new Test();
 

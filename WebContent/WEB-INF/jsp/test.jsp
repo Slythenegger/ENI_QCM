@@ -38,6 +38,7 @@
 			</c:when>
 			</c:choose>
 			
+			<a href="${pageContext.servletContext.contextPath}/terminer-epreuve" class="btn btn-danger"> Terminer le test</a>
 			
 			
 			
