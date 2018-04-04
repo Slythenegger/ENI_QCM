@@ -432,9 +432,9 @@ GO
 
 
 insert into PROMOTION(codePromo, Libelle) values ('DL-127', 'Developpeur Logiciel 127');
-insert into PROMOTION(codePromo, Libelle) values ('CDI-72', 'Concepteur D�veloppeur Informatique 72');
+insert into PROMOTION(codePromo, Libelle) values ('CDI-72', 'Concepteur Développeur Informatique 72');
 insert into PROMOTION(codePromo, Libelle) values ('DL-128', 'Developpeur Logiciel 128');
-insert into PROMOTION(codePromo, Libelle) values ('CDI-73', 'Concepteur D�veloppeur Informatique 73');
+insert into PROMOTION(codePromo, Libelle) values ('CDI-73', 'Concepteur Développeur Informatique 73');
 
 insert into Profil (codeProfil, libelle) values ('STA', 'stagiaire');
 insert into Profil (codeProfil, libelle) values ('FOR', 'formateur');
@@ -493,7 +493,7 @@ insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Le
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que veut dire le EE de Java EE ?', 0, null, 1, 1);
 
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Quel est le framework le plus courant en php ?', 0, null, 1, 2);
-insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Par quoi commence forc�ment une variable Php', 0, null, 1, 2);
+insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Par quoi commence forcément une variable Php', 0, null, 1, 2);
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Cochez les types primitif en php', 1, null, 1, 2);
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('Que peut-on faire en php ?', 1, null, 1, 2);
 
@@ -518,7 +518,7 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Mozart', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Beethoven', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('De Bussy', 0, 5);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('$', 1, 6);
-insert into PROPOSITION (enonce, estBonne, idQuestion) values ('W', 0, 6);
+insert into PROPOSITION (enonce, estBonne, idQuestion) values ('£', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('LOL', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('Choisis-moi', 0, 6);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('int', 1, 7);
@@ -545,8 +545,8 @@ select * from EPREUVE
 
 /*
 
-insert into Qcms (nom, niveau) values ('ECF-D�veloppement web', 'DL');
-insert into Qcms (nom, niveau) values ('ECF-D�veloppement web avanc�', 'DL');
+insert into Qcms (nom, niveau) values ('ECF-Développement web', 'DL');
+insert into Qcms (nom, niveau) values ('ECF-Développement web avancé', 'DL');
 insert into Qcms (nom, niveau) values ('ECF-SQL', 'CDI');
 
 insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 1,'Java EE', 4);

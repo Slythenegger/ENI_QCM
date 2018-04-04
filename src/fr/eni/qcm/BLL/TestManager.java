@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
+import fr.eni.qcm.BO.QuestionTirage;
 import fr.eni.qcm.BO.Test;
 import fr.eni.qcm.BO.Theme;
 import fr.eni.qcm.DAL.DAOFactory;
@@ -47,9 +48,27 @@ public class TestManager {
 	public void insert(Test test) throws BusinessException {
 		this.dao.insert(test);		
 	}
+	public void cocheQuest(int idQuestion, int idEpreuve)throws BusinessException{
+		
+		this.dao.coche( idQuestion,  idEpreuve);
+	}
+	public void decocheQuest(int idQuestion, int idEpreuve)throws BusinessException{
+		this.dao.decoche( idQuestion,  idEpreuve);
+	}
 	
 	public List<Theme> getAllThemes() throws BusinessException {
 		return this.dao.getAllThemes();
 	}
 
+	/**
+	 *	Methode servant à :
+	 * @param idEpreuve
+	 * @param idQuestion
+	 * @return
+	 * @throws BusinessException 
+	 */
+	public QuestionTirage getQuestionTirage(int idEpreuve, int idQuestion) throws BusinessException {
+		QuestionTirage questT =this.dao.findQuestT(idEpreuve, idQuestion);
+		return questT;
+	}
 }

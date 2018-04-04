@@ -14,20 +14,20 @@ import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.EpreuveCandidat;
-import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.ReponseUser;
 import fr.eni.qcm.BO.Resultat;
 
 public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 
 	private final String GET_USER_EPREUVE = "select * from EPREUVE where idUtilisateur = ?";
-	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite, idTest, idUtilisateur) values (?,?,?,?)";
+	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite,etat, idTest, idUtilisateur) values (?,?,?,?,?)";
 	private final String FIND_USER_EPREUVE = "select e.etat, e.note_obtenue, e.niveau_obtenu, e.idTest, t.libelle, e.dateDebutValidite, e.idEpreuve, e.idTest, e.idUtilisateur from EPREUVE e, TEST t where e.idTest = t.idTest and idUtilisateur = ?";
 	private final String SELECT_REPONSE = "select * from REPONSE_TIRAGE where idQuestion = ? and idEpreuve = ?";
 	private final String INSERT_REPONSE = "insert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?, ?, ?) ";
 	private final String UPDATE_REPONSE = "update REPONSE_TIRAGE set idProposition = ? where idQuestion = ? and idEpreuve = ?";
+	private final String DELETE_REPONSE = "delete from REPONSE_TIRAGE where idProposition = ? and idQuestion = ? and idEpreuve = ?";
 	private final String SELECT_REPONSES_USER = "select * from REPONSE_TIRAGE where idEpreuve = ?";
-	
+
 	// Construit un object Epreuve depuis un ResultSet
 	private Epreuve buildEpreuve(ResultSet rs) throws SQLException {
 		Epreuve epr = new Epreuve();
@@ -180,19 +180,19 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			cnx.setAutoCommit(false);
-			
-			pst = cnx.prepareStatement(SELECT_REPONSE);		
+
+			pst = cnx.prepareStatement(SELECT_REPONSE);
 			pst.setInt(1, idQuestion);
 			pst.setInt(2, idEpreuve);
 			ResultSet rs = pst.executeQuery();
 
 			if (rs.next()) {
-				pst = cnx.prepareStatement(UPDATE_REPONSE);				
+				pst = cnx.prepareStatement(UPDATE_REPONSE);
 				pst.setInt(1, idReponse);
 				pst.setInt(2, idQuestion);
 				pst.setInt(3, idEpreuve);
 
-				pst.executeUpdate();				
+				pst.executeUpdate();
 
 			} else {
 				pst = cnx.prepareStatement(INSERT_REPONSE);
@@ -200,19 +200,20 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 				pst.setInt(2, idQuestion);
 				pst.setInt(3, idEpreuve);
 
-				pst.executeUpdate();			
+				pst.executeUpdate();
 
 			}
 
 			cnx.commit();
 
-		} catch (SQLException e) {			
+		} catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 	}
 
 	/**
-	 * Méthode en charge de 
+	 * Méthode en charge de récupérer les réponses saisies par l'utilisateur
+	 * 
 	 * @param idEpreuve
 	 * @return
 	 * @throws BusinessException
@@ -221,29 +222,80 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	@Override
 	public List<ReponseUser> reponsesUser(int idEpreuve) throws BusinessException {
 		List<ReponseUser> reponses = new ArrayList<>();
-		
-		try (Connection cnx = ConnectionProvider.getConnection()){
-			
-			
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
 			PreparedStatement pst = cnx.prepareStatement(SELECT_REPONSES_USER);
 			pst.setInt(1, idEpreuve);
 			ResultSet rs = pst.executeQuery();
-			
-			while(rs.next()) {
-				
+
+			while (rs.next()) {
+
 				ReponseUser rep = new ReponseUser();
 				rep.setIdReponse(rs.getInt("idProposition"));
 				rep.setIdQuestion(rs.getInt("idQuestion"));
-				rep.setIdEpreuve(idEpreuve);				
-				
+				rep.setIdEpreuve(idEpreuve);
+
 				reponses.add(rep);
-			}			
-			
-		} catch (SQLException e) {			
+			}
+
+		} catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
-		
+
 		return reponses;
+	}
+
+	/**
+	 * Méthode en charge de récupérer les réponses saisies par l'utilisateur
+	 * 
+	 * @param idReponses
+	 * @param idQuestion
+	 * @param idEpreuve
+	 * @throws BusinessException
+	 * @see fr.eni.qcm.DAL.EpreuveDAO#ajoutReponseBox(java.util.List, int, int)
+	 */
+	@Override
+	public void ajoutReponseBox(int idReponse, int idQuestion, int idEpreuve) throws BusinessException {
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+
+			PreparedStatement pst = cnx.prepareStatement(SELECT_REPONSES_USER);
+			pst.setInt(1, idQuestion);
+			pst.setInt(2, idEpreuve);
+			ResultSet rs = pst.executeQuery();
+
+			if (!rs.next()) {
+				pst = cnx.prepareStatement(INSERT_REPONSE);
+				pst.setInt(1, idReponse);
+				pst.setInt(2, idQuestion);
+				pst.setInt(3, idEpreuve);
+
+				pst.executeUpdate();
+
+			} else if (rs.getInt("idProposition") == idReponse) {
+				pst = cnx.prepareStatement(DELETE_REPONSE);
+				pst.setInt(1, idReponse);
+				pst.setInt(2, idQuestion);
+				pst.setInt(3, idEpreuve);
+
+				pst.executeUpdate();
+
+			} else {
+
+				pst = cnx.prepareStatement(INSERT_REPONSE);
+				pst.setInt(1, idReponse);
+				pst.setInt(2, idQuestion);
+				pst.setInt(3, idEpreuve);
+
+				pst.executeUpdate();
+			}
+
+		} catch (
+
+		SQLException e) {
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
 	}
 
 }

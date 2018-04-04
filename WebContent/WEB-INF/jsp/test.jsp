@@ -25,9 +25,27 @@
 					<p>${rep.idEpreuve}</p>
 				</c:forEach>
 			</c:if>
+			
+		
 			<form action="test" method="post">
+			<input type="hidden"value="${question.idQuestion}-${idEpreuveEnCours}" name="hidden">
+			<c:choose>
+			<c:when test="${questionTir.estMarquee == false }">
+			<input type="submit" value="Marquer la question" name="coche"  class="btn btn-info">
+			</c:when>
+			<c:when test="${questionTir.estMarquee == true}">
+			<input type="submit" value="Retirer la marque" name="coche"  class="btn btn-info">
+			</c:when>
+			</c:choose>
+			
+			<a href="${pageContext.servletContext.contextPath}/terminer-epreuve" class="btn btn-danger"> Terminer le test</a>
+			
+			
+			
+			
 				<div class="margetop margeleft">
 					<h4>${question}</h4>
+					
 					<c:choose>
 						<c:when test="${question.estMulti}">
 							<c:forEach items="${reponses}" var="rep">

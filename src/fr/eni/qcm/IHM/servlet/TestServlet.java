@@ -17,6 +17,7 @@ import fr.eni.qcm.BLL.EpreuveManager;
 import fr.eni.qcm.BLL.TestManager;
 import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.Question;
+import fr.eni.qcm.BO.QuestionTirage;
 import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.ReponseUser;
 
@@ -54,6 +55,7 @@ public class TestServlet extends HttpServlet {
 		List<Question> listeQuestions = null;
 		Epreuve userEpreuve = null;
 		Question ques = null;
+		QuestionTirage questT=null;
 		List<ReponseUser> reponsesUser = null;
 		int idTest = 0;
 		ReponseUser repUserEnCours = null;
@@ -79,17 +81,24 @@ public class TestServlet extends HttpServlet {
 					session.setAttribute("nbQuestions", nbQuestions);
 					session.setAttribute("idTest", idTest);
 					ques = listeQuestions.get(0);
-
+					questT=tm.getQuestionTirage(userEpreuve.getIdEpreuve(), ques.getIdQuestion());
+					
+					session.setAttribute("questionTir", questT);
 				} else {
 					listeQuestions = (List<Question>) session.getAttribute("listeQuestions");
 					if (request.getParameter("numQuestion") != null) {
 						numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+						
 						session.setAttribute("numQuestion", numQuestion);
+						
 					} else {
 						numQuestion = Integer.parseInt((String.valueOf(session.getAttribute("numQuestion"))));
+						
 					}
-
+					
 					ques = listeQuestions.get(numQuestion);
+					questT=tm.getQuestionTirage(userEpreuve.getIdEpreuve(), ques.getIdQuestion());
+					session.setAttribute("questionTir", questT);
 				}
 
 				List<Reponse> rep = ques.getReponses();
@@ -107,6 +116,7 @@ public class TestServlet extends HttpServlet {
 					}
 				}
 				session.setAttribute("reponseUser", repUserEnCours);
+				
 				session.setAttribute("question", ques);
 				session.setAttribute("reponses", rep);
 
@@ -138,6 +148,7 @@ public class TestServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		TestManager tm= new TestManager();
 
 		EpreuveManager em = new EpreuveManager();
 		int numQuestion;
@@ -151,7 +162,7 @@ public class TestServlet extends HttpServlet {
 					numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
 					session.setAttribute("numQuestion", numQuestion);
 				}
-				response.sendRedirect("test");
+				
 
 			} catch (NumberFormatException | BusinessException e) {
 				// TODO Auto-generated catch block
@@ -159,7 +170,31 @@ public class TestServlet extends HttpServlet {
 			}
 
 		}
-
+		System.out.println(request.getParameter("coche"));
+		if (!"".equals(request.getParameter("coche")) && request.getParameter("coche")!=null) {
+			
+			String[]parts = request.getParameter("hidden").split("-");
+			try {
+				if( "Marquer la question".equals(request.getParameter("coche"))) {
+					
+						tm.cocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+						
+					
+				}else if("Retirer la marque".equals(request.getParameter("coche"))) {
+					
+						tm.decocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+						
+					}
+			} catch (NumberFormatException | BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (request.getParameter("numQuestion") != null) {
+				numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+				session.setAttribute("numQuestion", numQuestion);
+			}
+			
+		}response.sendRedirect("test");
 	}
 
 }

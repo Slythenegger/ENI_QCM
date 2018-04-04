@@ -40,6 +40,9 @@ var tag = document.getElementById(tab[param]);
 <c:import url="topBar.jsp"></c:import>
 <div class="container">
 <h1>Inscription test</h1>
+<c:if test="${! empty exception }">
+				<p class="text-danger">${exception}</p>
+			</c:if>
 
 <form method="POST" action="${pageContext.request.contextPath}/ServletTraitementInscriptionTest">  
 
