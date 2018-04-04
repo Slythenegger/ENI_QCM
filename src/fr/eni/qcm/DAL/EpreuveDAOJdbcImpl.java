@@ -26,7 +26,7 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	private final String INSERT_REPONSE = "insert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?, ?, ?) ";
 	private final String UPDATE_REPONSE = "update REPONSE_TIRAGE set idProposition = ? where idQuestion = ? and idEpreuve = ?";
 	private final String DELETE_REPONSE = "delete from REPONSE_TIRAGE where idProposition = ? and idQuestion = ? and idEpreuve = ?";
-	private final String SELECT_REPONSES_USER = "select * from REPONSE_TIRAGE where idEpreuve = ?";
+	private final String SELECT_REPONSES_USER = "select * from REPONSE_TIRAGE where  idEpreuve = ?";
 
 	// Construit un object Epreuve depuis un ResultSet
 	private Epreuve buildEpreuve(ResultSet rs) throws SQLException {
@@ -257,24 +257,17 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 	 */
 	@Override
 	public void ajoutReponseBox(int idReponse, int idQuestion, int idEpreuve) throws BusinessException {
-
+		ResultSet rs;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
-			PreparedStatement pst = cnx.prepareStatement(SELECT_REPONSES_USER);
+			PreparedStatement pst = cnx.prepareStatement(SELECT_REPONSE);
 			pst.setInt(1, idQuestion);
 			pst.setInt(2, idEpreuve);
-			ResultSet rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
 			if (!rs.next()) {
+
 				pst = cnx.prepareStatement(INSERT_REPONSE);
-				pst.setInt(1, idReponse);
-				pst.setInt(2, idQuestion);
-				pst.setInt(3, idEpreuve);
-
-				pst.executeUpdate();
-
-			} else if (rs.getInt("idProposition") == idReponse) {
-				pst = cnx.prepareStatement(DELETE_REPONSE);
 				pst.setInt(1, idReponse);
 				pst.setInt(2, idQuestion);
 				pst.setInt(3, idEpreuve);
@@ -282,18 +275,39 @@ public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 				pst.executeUpdate();
 
 			} else {
+				System.out.println("on passe dans else ");
 
-				pst = cnx.prepareStatement(INSERT_REPONSE);
-				pst.setInt(1, idReponse);
-				pst.setInt(2, idQuestion);
-				pst.setInt(3, idEpreuve);
+				while (rs.next()) {
 
-				pst.executeUpdate();
+					System.out.println("on est dans le while");
+
+					if (rs.getInt("idProposition") == idReponse) {
+						System.out.println("on passe dans le delete");
+						pst = cnx.prepareStatement(DELETE_REPONSE);
+						pst.setInt(1, idReponse);
+						pst.setInt(2, idQuestion);
+						pst.setInt(3, idEpreuve);
+
+						pst.executeUpdate();
+
+					} else {
+						System.out.println("on passe dans le deuxième insert");
+						pst = cnx.prepareStatement(INSERT_REPONSE);
+						pst.setInt(1, idReponse);
+						pst.setInt(2, idQuestion);
+						pst.setInt(3, idEpreuve);
+
+						pst.executeUpdate();
+
+					}
+
+				}
 			}
 
 		} catch (
 
 		SQLException e) {
+			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
 	}
