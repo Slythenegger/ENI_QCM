@@ -1,6 +1,8 @@
 package fr.eni.qcm.BO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wmodeste2017
@@ -8,21 +10,18 @@ import java.io.Serializable;
  */
 public class Test implements Serializable {
 	
-/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-/**
- * 
- */
+private static final long serialVersionUID = 1L;
+
 private int idTest;
 private float seuilHaut, seuilBas;
 private String libelle, description;
 private int duree;
+private List<SectionTest> sections;
 
 
 public Test() {
 	super();
+	this.sections = new ArrayList<SectionTest>();
 }
 
 
@@ -139,6 +138,16 @@ public int getDuree() {
  */
 public void setDuree(int duree) {
 	this.duree = duree;
+}
+
+
+public List<SectionTest> getSections() {
+	return sections;
+}
+
+
+public void setSections(List<SectionTest> sections) {
+	this.sections = sections;
 }
 
 

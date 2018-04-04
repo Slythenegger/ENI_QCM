@@ -12,6 +12,20 @@ public interface TestDAO {
 	Test getById(int id) throws BusinessException;
 	public List<Question> selectQuesRepByIdTest(int idTest, int idEpreuve)throws BusinessException;
 	void insert(Test test) throws BusinessException;
+	/**
+	 *	Methode servant à marquer une question à l'aide de son id:
+	 * @param id
+	 * @param idEpreuve 
+	 * @throws BusinessException 
+	 */
+	void coche(int id, int idEpreuve) throws BusinessException;
+	/**
+	 *	Methode servant à démarquer une question à l'aide de son id :
+	 * @param id
+	 * @param idEpreuve 
+	 * @throws BusinessException 
+	 */
+	void decoche(int id, int idEpreuve) throws BusinessException;
 	
 	
 	

@@ -20,7 +20,7 @@ import fr.eni.qcm.BO.Resultat;
 public class EpreuveDAOJdbcImpl implements EpreuveDAO {
 
 	private final String GET_USER_EPREUVE = "select * from EPREUVE where idUtilisateur = ?";
-	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite, idTest, idUtilisateur) values (?,?,?,?)";
+	private final String CREATE_USER_EPREUVE = "insert into EPREUVE(dateDebutValidite, dateFinValidite,etat, idTest, idUtilisateur) values (?,?,?,?,?)";
 	private final String FIND_USER_EPREUVE = "select e.etat, e.note_obtenue, e.niveau_obtenu, e.idTest, t.libelle, e.dateDebutValidite, e.idEpreuve, e.idTest, e.idUtilisateur from EPREUVE e, TEST t where e.idTest = t.idTest and idUtilisateur = ?";
 	private final String SELECT_REPONSE = "select * from REPONSE_TIRAGE where idQuestion = ? and idEpreuve = ?";
 	private final String INSERT_REPONSE = "insert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?, ?, ?) ";

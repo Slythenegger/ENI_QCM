@@ -46,5 +46,11 @@ public class TestManager {
 	public void insert(Test test) throws BusinessException {
 		this.dao.insert(test);		
 	}
-
+	public void cocheQuest(int idQuestion, int idEpreuve)throws BusinessException{
+		
+		this.dao.coche( idQuestion,  idEpreuve);
+	}
+	public void decocheQuest(int idQuestion, int idEpreuve)throws BusinessException{
+		this.dao.decoche( idQuestion,  idEpreuve);
+	}
 }

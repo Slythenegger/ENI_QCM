@@ -14,6 +14,7 @@ import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.Section;
+import fr.eni.qcm.BO.SectionTest;
 import fr.eni.qcm.BO.Test;
 
 public class TestDAOJdbcImpl implements TestDAO {
@@ -26,7 +27,7 @@ public class TestDAOJdbcImpl implements TestDAO {
 	private final String INSERT_QUESTION_USER = "insert into QUESTION_TIRAGE (estMarquee, idQuestion, numOrdre, idEpreuve) values (?,?,?,?)";
 	//private final String INSERT_REPONSES_USER = "intert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?,?,?)";
 	private final String UPDATE_EPREUVE = "update EPREUVE SET etat = ? where idEpreuve = ?";
-
+	private final String UPDATE_COCHE=" update QUESTION_TIRAGE set estMarquee =? where idQuestion =? and idEpreuve=?";
 
 	private Test buildTest(ResultSet rs) throws SQLException {
 		Test test = new Test();
@@ -56,15 +57,19 @@ public class TestDAOJdbcImpl implements TestDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
-		}
-
+		}		
+		
 		return tests;
 	}
 
 	@Override
 	public Test getById(int id) throws BusinessException {
+		String query = "SELECT * from SECTION_TEST as st left join THEME as t on st.idTheme = t.idTheme where st.idTest = ?;";
 		Test test = null;
+		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
+			
+			// Construction test
 			PreparedStatement pst = cnx.prepareStatement(SELECT_BY_ID);
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
@@ -72,10 +77,26 @@ public class TestDAOJdbcImpl implements TestDAO {
 			while (rs.next()) {
 				test = this.buildTest(rs);
 			}
-		} catch (SQLException e) {
+			
+			// Récupération des sections du test
+			pst = cnx.prepareStatement(query);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				SectionTest st = new SectionTest();
+				
+				st.setNbQuestions(rs.getInt(1));
+				st.setIdTheme(rs.getInt(3));
+				st.setLibelle(rs.getString(5));
+				
+				test.getSections().add(st);
+			}		
+		} 
+		catch (SQLException e) {
 			throw new BusinessException(BusinessError.DATABASE_ERROR);
 		}
-
+		
 		return test;
 	}
 
@@ -222,6 +243,45 @@ public class TestDAOJdbcImpl implements TestDAO {
 
 		return questions;
 	}
+
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.TestDAO#coche(int, int)
+	 */
+	@Override
+	public void coche(int idQuestion, int idEpreuve)throws BusinessException {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pst = cnx.prepareStatement(UPDATE_COCHE);
+			pst.setBoolean(1, true);
+			pst.setInt(2, idQuestion);
+			pst.setInt(3, idEpreuve);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.TestDAO#decoche(int, int)
+	 */
+	@Override
+	public void decoche(int idQuestion, int idEpreuve) throws BusinessException {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pst = cnx.prepareStatement(UPDATE_COCHE);
+			pst.setBoolean(1, false);
+			pst.setInt(2, idQuestion);
+			pst.setInt(3, idEpreuve);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 
 	
 

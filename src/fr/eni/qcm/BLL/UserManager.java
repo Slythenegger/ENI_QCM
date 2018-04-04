@@ -60,18 +60,18 @@ public class UserManager {
 	 */
 	public List<Promo> findPromos() throws BusinessException {
 List<Promo> promos=uDao.findPromos();
-if (promos==null) {
+if (promos.size()==0) {
 	throw new BusinessException(BusinessError.PROMOS_NO_MATCH);
 }
 		return promos;
 	}
 	
 	public List<User> findPromo(String codepromo) throws BusinessException{
-		List<User> promo = uDao.selectPromo(codepromo);
-		if(promo==null) {
+		List<User> users = uDao.selectPromo(codepromo);
+		if (users.size()==0) {
 			throw new BusinessException(BusinessError.PROMO_NO_MATCH);
 		}
-		return promo;
+		return users;
 	}
 
 	/**
