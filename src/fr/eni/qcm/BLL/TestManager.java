@@ -30,9 +30,9 @@ public class TestManager {
 		return test;
 	}
 	
-	public List<Question> getQuesRepByIdTest(int idTest) throws BusinessException{
+	public List<Question> getQuesRepByIdTest(int idTest, int idEpreuve) throws BusinessException{
 		
-		List<Question> liste = this.dao.selectQuesRepByIdTest(idTest);
+		List<Question> liste = this.dao.selectQuesRepByIdTest(idTest, idEpreuve);
 		
 		if (liste == null)
 			throw new BusinessException(BusinessError.QUESTIONS_NO_MATCH);		

@@ -1,13 +1,13 @@
 package fr.eni.qcm.BLL;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.EpreuveCandidat;
+import fr.eni.qcm.BO.ReponseUser;
 import fr.eni.qcm.BO.Resultat;
 import fr.eni.qcm.BO.Test;
 import fr.eni.qcm.DAL.DAOFactory;
@@ -41,5 +41,14 @@ test = tmger.getById(idTest);
 
 	public List<EpreuveCandidat> getUserTest(int userId) throws BusinessException {
 		return this.dao.getUserTest(userId);
+	}
+
+	public void ajoutReponse(int idReponse, int idQuestion, int idEpreuve) throws BusinessException {
+		this.dao.ajoutReponseRadio(idReponse, idQuestion, idEpreuve);
+	}
+	
+	public List<ReponseUser> getReponsesUser(int idEpreuve)throws BusinessException {
+		
+		return this.dao.reponsesUser(idEpreuve);
 	}
 }

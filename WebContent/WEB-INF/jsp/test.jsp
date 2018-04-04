@@ -17,23 +17,53 @@
 			<p class="alert alert-danger">${exception}</p>
 		</c:if>
 		<c:if test="${! empty question}">
-			<div class="margetop margeleft">
-				<h4>${question}</h4>
-				<c:choose>
-					<c:when test="${question.estMulti}">
-						<c:forEach items="${reponses}" var="rep">
-							<input id="${rep.idReponse}" type="checkbox"
-								value="${rep.idReponse}" name="rep${rep.idReponse}]">&nbsp;${rep}<br>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<c:forEach items="${reponses}" var="rep">
-							<input name="reponse" type="radio" value="${rep.idReponse}">&nbsp;${rep}<br>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</div>
+			<h3>Question ${numQuestion + 1}</h3>
+			<c:if test="${! empty reponsesUser}">
+				<c:forEach items="${reponsesUser}" var="rep">
+					<p>${rep.idReponse}</p>
+					<p>${rep.idQuestion}</p>
+					<p>${rep.idEpreuve}</p>
+				</c:forEach>
+			</c:if>
+			<form action="test" method="post">
+				<div class="margetop margeleft">
+					<h4>${question}</h4>
+					<c:choose>
+						<c:when test="${question.estMulti}">
+							<c:forEach items="${reponses}" var="rep">
+								<input id="${rep.idReponse}" type="checkbox"
+									value="${rep.idReponse}" name="reponseBox"
+									onchange="this.form.submit()">&nbsp;${rep}<br>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${reponses}" var="rep">
+								<c:choose>
+									<c:when test="${reponseUser.idReponse == rep.idReponse}">
+										<input name="reponseRadio" type="radio"
+											value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
+											onchange="this.form.submit()" checked="checked">&nbsp;${rep}<br>
+									</c:when>
+									<c:otherwise>
+										<input name="reponseRadio" type="radio"
+											value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
+											onchange="this.form.submit()">&nbsp;${rep}<br>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</form>
 		</c:if>
+		<div class="margetop margeleft">
+			<c:if test="${numQuestion != 0}">
+				<a href="test?id=${idTest}&numQuestion=${numQuestion - 1}"><button>Précédente</button></a>
+			</c:if>
+			<c:if test="${numQuestion != nbQuestions-1}">
+				<a href="test?id=${idTest}&numQuestion=${numQuestion + 1}"><button>Suivante</button></a>
+			</c:if>
+		</div>
 	</div>
 </body>
 </html>

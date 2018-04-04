@@ -533,27 +533,12 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('des pages html d
 
 
 
-insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,2,1);
-insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (3,3,2);
+insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (4,2,1);
+insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (4,3,2);
 
+select * from QUESTION_TIRAGE
 
-select* from SECTION_TEST 
-where idTest=2;
-
-select top 4 * from QUESTION q, THEME th, SECTION_TEST s, TEST te where te.idTest=s.idTest and s.idTheme=th.idTheme and th.idTheme=q.idTheme and s.idTheme = 1 order by NEWID();
-
-
-select * from PROPOSITION p
-where idQuestion= 1;
-
-
-
-select  top 3 * from  PROPOSITION p,  QUESTION q
-INNER JOIN THEME th ON  th.idTheme = q.idTheme
-INNER JOIN SECTION_TEST s on s.idTheme = q.idTheme
-INNER JOIN TEST te on te.idTest = s.idTest
-where q.idQuestion = p.idQuestion
-order by p.idQuestion
+select * from EPREUVE
 
 
 

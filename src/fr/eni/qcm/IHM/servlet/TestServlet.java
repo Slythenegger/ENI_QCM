@@ -13,9 +13,12 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
+import fr.eni.qcm.BLL.EpreuveManager;
 import fr.eni.qcm.BLL.TestManager;
+import fr.eni.qcm.BO.Epreuve;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.Reponse;
+import fr.eni.qcm.BO.ReponseUser;
 
 /**
  * Servlet implementation class TestServlet
@@ -23,6 +26,20 @@ import fr.eni.qcm.BO.Reponse;
 @WebServlet("/test")
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	int numQuestion = 0;
+	int nbQuestions;
+
+	/**
+	 * Méthode en charge de
+	 * 
+	 * @throws ServletException
+	 * @see javax.servlet.GenericServlet#init()
+	 */
+	@Override
+	public void init() throws ServletException {
+		super.init();
+
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -32,32 +49,80 @@ public class TestServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		TestManager tm = new TestManager();
+		EpreuveManager em = new EpreuveManager();
 		HttpSession session = request.getSession();
 		List<Question> listeQuestions = null;
+		Epreuve userEpreuve = null;
+		Question ques = null;
+		List<ReponseUser> reponsesUser = null;
+		int idTest = 0;
+		ReponseUser repUserEnCours = null;
 
-		if (request.getParameter("id") != null) {
+		if (request.getParameter("id") != null || session.getAttribute("idTest") != null) {
 			try {
+				if (request.getParameter("id") != null)
+					idTest = Integer.parseInt(request.getParameter("id"));
+				else if (session.getAttribute("idTest") != null)
+					idTest = Integer.parseInt((String.valueOf(session.getAttribute("idTest"))));
 
-				listeQuestions = tm.getQuesRepByIdTest(Integer.parseInt(request.getParameter("id")));
-				session.setAttribute("liste", listeQuestions);			
+				List<Epreuve> epreuves = (List<Epreuve>) session.getAttribute("epreuves");
+				for (Epreuve epr : epreuves) {
+					if (epr.getIdTest() == idTest) {
+						userEpreuve = epr;
+					}
+				}
+				if (session.getAttribute("numQuestion") == null && request.getParameter("numQuestion") == null) {
+					listeQuestions = tm.getQuesRepByIdTest(idTest, userEpreuve.getIdEpreuve());
+					nbQuestions = listeQuestions.size();
+					session.setAttribute("listeQuestions", listeQuestions);
+					session.setAttribute("idEpreuveEnCours", userEpreuve.getIdEpreuve());
+					session.setAttribute("nbQuestions", nbQuestions);
+					session.setAttribute("idTest", idTest);
+					ques = listeQuestions.get(0);
 
-				Question qr = listeQuestions.get(0);				
-				List<Reponse> rep = qr.getReponses();
-				
-				request.setAttribute("question", qr);
-				request.setAttribute("reponses", rep);
+				} else {
+					listeQuestions = (List<Question>) session.getAttribute("listeQuestions");
+					if (request.getParameter("numQuestion") != null) {
+						numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+						session.setAttribute("numQuestion", numQuestion);
+					} else {
+						numQuestion = Integer.parseInt((String.valueOf(session.getAttribute("numQuestion"))));
+					}
+
+					ques = listeQuestions.get(numQuestion);
+				}
+
+				List<Reponse> rep = ques.getReponses();
+
+				reponsesUser = em.getReponsesUser(userEpreuve.getIdEpreuve());
+				if (reponsesUser != null) {
+					
+					for (ReponseUser ru : reponsesUser) {
+						for (Reponse reponse : rep) {
+							if (ru.getIdQuestion() == ques.getIdQuestion()
+									&& reponse.getIdReponse() == ru.getIdReponse()) {
+								repUserEnCours = ru;
+							}
+						}
+					}
+				}
+				session.setAttribute("reponseUser", repUserEnCours);
+				session.setAttribute("question", ques);
+				session.setAttribute("reponses", rep);
+
+				session.setAttribute("numQuestion", numQuestion);
 
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");
 				rd.forward(request, response);
 
 			} catch (NumberFormatException | BusinessException e) {
-				
-				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());				
+
+				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 				rd.forward(request, response);
 			}
 
-		} else {			
+		} else {
 			request.setAttribute("exception", BusinessError.TEST_NO_MATCH.getDescription());
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 			rd.forward(request, response);
@@ -71,8 +136,30 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		HttpSession session = request.getSession();
+
+		EpreuveManager em = new EpreuveManager();
+		int numQuestion;
+
+		if (request.getParameter("reponseRadio") != null) {
+
+			String[] parts = request.getParameter("reponseRadio").split("-");
+			try {
+				em.ajoutReponse(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+				if (request.getParameter("numQuestion") != null) {
+					numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+					session.setAttribute("numQuestion", numQuestion);
+				}
+				response.sendRedirect("test");
+
+			} catch (NumberFormatException | BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 
 }

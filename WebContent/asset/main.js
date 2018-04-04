@@ -1,6 +1,16 @@
 // Point d'entré
 window.onload = function() {
-	console.log("Start main.js");
+	var page = $("body").attr("id");
+	
+	switch (page) {
+		case "page-gt":  return pageGT();
+	}
 }
 
 
+
+
+// Page Gestionnaire Test
+function pageGT() {
+	console.log("in")
+}
