@@ -18,7 +18,8 @@ public class Reponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int idReponse, idQuestion;
 	private String enonce;
-	boolean correct;
+	private boolean correct, estRepondu;
+	
 	
 	/**
 	 * Constructeur vide
@@ -28,6 +29,24 @@ public class Reponse implements Serializable{
 	}
 	
 	
+	/**
+	 *Getter pour estRepondu
+	 * @return the estRepondu
+	 */
+	public boolean isEstRepondu() {
+		return estRepondu;
+	}
+
+
+	/**
+	 * Setter pour estRepondu
+	 * @param estRepondu the estRepondu to set
+	 */
+	public void setEstRepondu(boolean estRepondu) {
+		this.estRepondu = estRepondu;
+	}
+
+
 	/**
 	 *Getter pour idReponse
 	 * @return the idReponse

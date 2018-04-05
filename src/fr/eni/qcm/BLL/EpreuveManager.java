@@ -23,16 +23,14 @@ public class EpreuveManager {
 	public List<Epreuve> getUserEpreuve(int userID) throws BusinessException {
 		return this.dao.getUserEpreuve(userID);
 	}
-	
-	public void createEpreuve(Instant dateFin, Instant dateDebut, int idTest, int idUser)throws BusinessException{
-	
-TestManager tmger = new TestManager();
-Test test = new Test();
-test = tmger.getById(idTest);
 
+	public void createEpreuve(Instant dateFin, Instant dateDebut, int idTest, int idUser) throws BusinessException {
 
+		TestManager tmger = new TestManager();
+		Test test = new Test();
+		test = tmger.getById(idTest);
 
-		this.dao.Create(dateDebut, dateFin, test.getIdTest(), idUser);	
+		this.dao.Create(dateDebut, dateFin, test.getIdTest(), idUser);
 	}
 
 	public List<Resultat> getResultatForTest(int testID) throws BusinessException {
@@ -46,9 +44,15 @@ test = tmger.getById(idTest);
 	public void ajoutReponse(int idReponse, int idQuestion, int idEpreuve) throws BusinessException {
 		this.dao.ajoutReponseRadio(idReponse, idQuestion, idEpreuve);
 	}
-	
-	public List<ReponseUser> getReponsesUser(int idEpreuve)throws BusinessException {
-		
+
+	public List<ReponseUser> getReponsesUser(int idEpreuve) throws BusinessException {
+
 		return this.dao.reponsesUser(idEpreuve);
 	}
+	public void ajouterReponseBox (int idReponse, int idQuestion, int idEpreuve) throws BusinessException {
+		
+		this.dao.ajoutReponseBox(idReponse, idQuestion, idEpreuve);
+	}
+	
+	
 }

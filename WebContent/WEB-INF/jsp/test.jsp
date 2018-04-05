@@ -10,6 +10,7 @@
 <title>QCM</title>
 <c:import url="head.jsp"></c:import>
 </head>
+<script src="asset/js/compteur.js"></script>
 <body>
 	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
@@ -40,37 +41,43 @@
 			
 			<a href="${pageContext.servletContext.contextPath}/terminer-epreuve" class="btn btn-danger"> Terminer le test</a>
 			
-			
+			 
+                <div id="compteur"></div>
+                <script language="JavaScript">
+                        duree="1800";
+                        t();
+                </script>
 			
 			
 				<div class="margetop margeleft">
 					<h4>${question}</h4>
-					
-					<c:choose>
-						<c:when test="${question.estMulti}">
-							<c:forEach items="${reponses}" var="rep">
-								<input id="${rep.idReponse}" type="checkbox"
-									value="${rep.idReponse}" name="reponseBox"
-									onchange="this.form.submit()">&nbsp;${rep}<br>
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${reponses}" var="rep">
-								<c:choose>
-									<c:when test="${reponseUser.idReponse == rep.idReponse}">
-										<input name="reponseRadio" type="radio"
-											value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
-											onchange="this.form.submit()" checked="checked">&nbsp;${rep}<br>
-									</c:when>
-									<c:otherwise>
-										<input name="reponseRadio" type="radio"
-											value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
-											onchange="this.form.submit()">&nbsp;${rep}<br>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+
+
+
+
+					<c:if test="${question.estMulti}">
+						<c:set var="cpt" value="0"></c:set>
+						<c:forEach items="${reponses}" var="rep">
+							<c:set var="cpt" value="${cpt +1}"></c:set>							
+							${cpt}. <input id="${rep.idReponse}" type="checkbox"
+								value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
+								name="reponseBox${cpt}" onchange="this.form.submit()"
+								<c:if test="${rep.estRepondu}">
+										checked="checked"
+										</c:if>>&nbsp;${rep}<br>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${! question.estMulti}">
+						<c:forEach items="${reponses}" var="rep">
+							<input name="reponseRadio" type="radio"
+								value="${rep.idReponse}-${question.idQuestion}-${idEpreuveEnCours}"
+								onchange="this.form.submit()"
+								<c:if test="${rep.estRepondu}">
+										checked="checked"
+										</c:if>> &nbsp;${rep}<br>
+						</c:forEach>
+					</c:if>
 				</div>
 			</form>
 		</c:if>

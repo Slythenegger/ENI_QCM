@@ -45,6 +45,7 @@
 						<h4>ECF en cours</h4>
 						<c:set var="cpt" value="${0}"></c:set>
 						<c:forEach items="${epreuves}" var="epr">
+						<c:set var="cpt" value="${cpt +1}"></c:set>
 							<c:if test="${epr.etat == enCours}">
 								<p>
 									<a href="#">${epr.libelleTest}</a>

@@ -43,6 +43,14 @@ public class AccueilServlet extends HttpServlet {
 		List<EpreuveCandidat> epreuves = null;
 
 		EpreuveManager em = new EpreuveManager();
+		
+		session.setAttribute("listeQuestions", null);
+		session.setAttribute("nbQuestions", null);
+		session.setAttribute("idEpreuveEnCours",null);					
+		session.setAttribute("idTest", null);
+		
+		
+		
 
 		if (user.getRole().equals(CodeRole.CODE_STAGIAIRE) || user.getRole().equals(CodeRole.CODE_CANDIDAT)) {
 			try {

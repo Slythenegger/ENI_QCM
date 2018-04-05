@@ -102,30 +102,30 @@ public class TestServlet extends HttpServlet {
 				}
 
 				List<Reponse> rep = ques.getReponses();
-
 				reponsesUser = em.getReponsesUser(userEpreuve.getIdEpreuve());
-				if (reponsesUser != null) {
-					
+
+				for (Reponse r : rep) {
 					for (ReponseUser ru : reponsesUser) {
-						for (Reponse reponse : rep) {
-							if (ru.getIdQuestion() == ques.getIdQuestion()
-									&& reponse.getIdReponse() == ru.getIdReponse()) {
-								repUserEnCours = ru;
-							}
+						if (r.getIdReponse() == ru.getIdReponse()) {
+							r.setEstRepondu(true);
+						} else {
+							r.setEstRepondu(false);
 						}
+
 					}
+
 				}
-				session.setAttribute("reponseUser", repUserEnCours);
-				
+
 				session.setAttribute("question", ques);
 				session.setAttribute("reponses", rep);
-
+				session.setAttribute("nbRep", rep.size());
 				session.setAttribute("numQuestion", numQuestion);
 
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/test.jsp");
 				rd.forward(request, response);
 
 			} catch (NumberFormatException | BusinessException e) {
+				e.printStackTrace();
 
 				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
@@ -148,53 +148,79 @@ public class TestServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		TestManager tm= new TestManager();
+		TestManager tm = new TestManager();
 
 		EpreuveManager em = new EpreuveManager();
 		int numQuestion;
+
+		if (request.getParameter("numQuestion") != null) {
+			numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
+			session.setAttribute("numQuestion", numQuestion);
+		}
 
 		if (request.getParameter("reponseRadio") != null) {
 
 			String[] parts = request.getParameter("reponseRadio").split("-");
 			try {
 				em.ajoutReponse(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-				if (request.getParameter("numQuestion") != null) {
-					numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
-					session.setAttribute("numQuestion", numQuestion);
-				}
-				
+
+				response.sendRedirect("test");
 
 			} catch (NumberFormatException | BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+				rd.forward(request, response);
 			}
 
 		}
-		System.out.println(request.getParameter("coche"));
-		if (!"".equals(request.getParameter("coche")) && request.getParameter("coche")!=null) {
-			
-			String[]parts = request.getParameter("hidden").split("-");
+
+		int nbRep = Integer.parseInt(String.valueOf(session.getAttribute("nbRep")));
+		boolean cpt = false;
+		for (int i = 1; i <= nbRep; i++) {
+			if (request.getParameter("reponseBox" + i) != null) {
+				cpt = true;
+
+				System.out.println("Reponse Box" + request.getParameter("reponseBox" + i));
+				String[] parts = request.getParameter("reponseBox" + i).split("-");
+
+				try {
+					em.ajouterReponseBox(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),
+							Integer.parseInt(parts[2]));
+
+				} catch (NumberFormatException | BusinessException e) {
+					request.setAttribute("exception", e.getMessage());
+					RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+					rd.forward(request, response);
+				}
+
+			}
+
+		}
+		if (cpt)
+			response.sendRedirect("test");
+
+		if (!"".equals(request.getParameter("coche")) && request.getParameter("coche") != null) {
+
+			String[] parts = request.getParameter("hidden").split("-");
 			try {
 				if( "Marquer la question".equals(request.getParameter("coche"))) {
 					
 						tm.cocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-						
+						response.sendRedirect("test");
 					
 				}else if("Retirer la marque".equals(request.getParameter("coche"))) {
 					
 						tm.decocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-						
+						response.sendRedirect("test");
 					}
 			} catch (NumberFormatException | BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+				rd.forward(request, response);
 			}
-			if (request.getParameter("numQuestion") != null) {
-				numQuestion = Integer.parseInt(request.getParameter("numQuestion"));
-				session.setAttribute("numQuestion", numQuestion);
-			}
-			
-		}response.sendRedirect("test");
+
+		}
+
 	}
 
 }
