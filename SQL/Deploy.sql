@@ -457,18 +457,17 @@ insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('EC
 insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF Java', 'Java c est rigolo hi hi hi', 30, 15, 8);
 insert into Test(libelle, description, duree, seuil_haut, seuil_bas) values ('ECF PHP', 'Du dev OOP avec Fabien ;) ;)', 30, 15, 8);
 
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 10.5, 'ECA', 1, 1);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 16, 'ACQ', 1, 2);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '25-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 10.5, 'ECA', 1, 1);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '20-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 16, 'ACQ', 1, 4);
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 7, 'NAC', 1, 3);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 19, 'ACQ', 1, 4);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 12, 'ECA', 1, 5);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 9, 'NAC', 1, 6);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '30-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 19, 'ACQ', 1, 4);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '18-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 12, 'ECA', 1, 4);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '15-03-2018 9:00:00', 103), CONVERT(datetime, '26-03-2018 12:00:00', 103), 'TE', 9, 'NAC', 1, 6);
 
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'PL', 5, 'NAC', 2, 4);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 6, 'NAC', 2, 5);
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 7, 'NAC', 2, 6);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '12-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'PL', 5, 'NAC', 2, 4);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '01-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 6, 'NAC', 2, 4);
+insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 7, 'NAC', 2, 4);
 
-insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'EC', 15, 'ACQ', 3, 4);
 insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, niveau_obtenu, idTest, idUtilisateur) values (CONVERT(datetime, '28-03-2018 9:00:00', 103), CONVERT(datetime, '28-03-2018 12:00:00', 103), 'TE', 16, 'ACQ', 3, 2);
 
 
@@ -476,15 +475,6 @@ insert into Epreuve(dateDebutValidite, dateFinValidite, etat, note_obtenue, nive
 insert into THEME(libelle) values('Java EE');
 insert into THEME(libelle) values('Php');
 insert into THEME(libelle) values('Vocabulaire');
-
-/*
-insert into QUESTION(enonce, media, points, idTheme) values ('Que veux dire "motherfucker" ?', null, 1, 1);
-insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculeur de maman', 0, 1);
-insert into PROPOSITION(enonce, estBonne, idQuestion) values ('Enculer', 1, 1);
-insert into PROPOSITION(enonce, estBonne, idQuestion) values ('cigarete', 0, 1);
-*/
-
-
 
 
 insert into Question (enonce, estMultichoix, media, points, idTheme) values ('A quoi sert une Servlet ?', 0, null, 1, 1);
@@ -530,9 +520,6 @@ insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du miel', 0, 8);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('du  développement web', 1, 8);
 insert into PROPOSITION (enonce, estBonne, idQuestion) values ('des pages html dynamiques', 1, 8);
 
-
-
-
 insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (4,2,1);
 insert into SECTION_TEST (nbQuestionsATirer, idTest, idTheme) values (4,3,2);
 
@@ -542,23 +529,3 @@ select * from EPREUVE
 
 
 
-
-/*
-
-insert into Qcms (nom, niveau) values ('ECF-Développement web', 'DL');
-insert into Qcms (nom, niveau) values ('ECF-Développement web avancé', 'DL');
-insert into Qcms (nom, niveau) values ('ECF-SQL', 'CDI');
-
-insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 1,'Java EE', 4);
-insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (1, 2,'Php', 4);
-insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (2, 1,'Java EE', 2);
-insert into Sections (id_qcm, id_theme, nom,  nb_questions) values (2, 2,'Php', 3);
-
-insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm, resultat) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 1,1, 15);
-insert into Sessions (date_inscription, date_prevue, temps_limite,id_user, id_qcm, resultat) values (CONVERT(datetime, '16-03-2018 15:00:00', 103), CONVERT(datetime, '26-03-2018 9:00:00', 103), 120, 2,2, 12);
-
-insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 60, 1);
-insert into Epreuves (date_passage, temps_restant, id_session) values (CONVERT(datetime, '26-03-2018 9:00:00', 103), 20, 2);
-
-
-*/
