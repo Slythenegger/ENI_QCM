@@ -45,7 +45,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	@Override
 	public User loginUser(String email, String password) throws BusinessException {
 
-		User user = new User();
+		User user = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
@@ -55,15 +55,8 @@ public class UserDAOJdbcImpl implements UserDAO {
 			ResultSet rs = pst.executeQuery();
 
 			if (rs.next()) {
-				user.setIdUser(rs.getInt(1));
-				user.setNom(rs.getString(2));
-				user.setPrenom(rs.getString(3));
-				user.setEmail(rs.getString(4));
-				user.setPassword(rs.getString(5));
-				user.setRole(rs.getString(6));
-				user.setIdPromo(rs.getString(7));
-			} else
-				user = null;
+				user = buildUser(rs);
+			}
 
 			rs.close();
 			pst.close();

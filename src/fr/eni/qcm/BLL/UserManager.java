@@ -21,13 +21,13 @@ import fr.eni.qcm.DAL.UserDAO;
  *	29 mars 2018
  */
 /**
- * @author wmodeste2017
- *	29 mars 2018
+ * @author wmodeste2017 29 mars 2018
  */
 public class UserManager {
 
 	private UserDAO uDao;
-	public List<User> getAll() throws BusinessException{
+
+	public List<User> getAll() throws BusinessException {
 		return this.uDao.selectAll();
 	}
 
@@ -59,31 +59,33 @@ public class UserManager {
 	 * @throws BusinessException
 	 */
 	public List<Promo> findPromos() throws BusinessException {
-List<Promo> promos=uDao.findPromos();
-if (promos.size()==0) {
-	throw new BusinessException(BusinessError.PROMOS_NO_MATCH);
-}
+		List<Promo> promos = uDao.findPromos();
+		if (promos.size() == 0) {
+			throw new BusinessException(BusinessError.PROMOS_NO_MATCH);
+		}
 		return promos;
 	}
-	
-	public List<User> findPromo(String codepromo) throws BusinessException{
+
+	public List<User> findPromo(String codepromo) throws BusinessException {
 		List<User> users = uDao.selectPromo(codepromo);
-		if (users.size()==0) {
+		if (users.size() == 0) {
 			throw new BusinessException(BusinessError.PROMO_NO_MATCH);
 		}
 		return users;
 	}
 
 	/**
-	 *	Methode servant à récupérer  une liste d'utilisateur appartenant à une promotion à l'aide 
-	 *	du code promo :
+	 * Methode servant à récupérer une liste d'utilisateur appartenant à une
+	 * promotion à l'aide du code promo :
+	 * 
 	 * @param codepromo
 	 * @return
 	 * @throws BusinessException
 	 */
-	
+
 	/**
-	 *	Methode servant à  retrouver un stagiaire à l'aide de son nom:
+	 * Methode servant à retrouver un stagiaire à l'aide de son nom:
+	 * 
 	 * @param nom
 	 * @return
 	 * @throws BusinessException
@@ -91,6 +93,7 @@ if (promos.size()==0) {
 	public List<User> findStagiaire(String nom) throws BusinessException {
 		return uDao.selectStagiaireByName(nom);
 	}
+
 	/**
 	 * Méthode en charge de vérifier les informations saisies et d'envoyer le tout à
 	 * la base
@@ -111,6 +114,7 @@ if (promos.size()==0) {
 		} else {
 
 			user = uDao.loginUser(email, password);
+			
 			if (user == null) {
 				throw new BusinessException(BusinessError.DATABASE_NO_MATCH);
 			}
@@ -173,23 +177,25 @@ if (promos.size()==0) {
 	}
 
 	/**
-	 *	Methode servant à retrouver un candidat avec son nom :
+	 * Methode servant à retrouver un candidat avec son nom :
+	 * 
 	 * @param parameter
 	 * @return
-	 * @throws BusinessException 
+	 * @throws BusinessException
 	 */
 	public List<User> findCandidat(String nom) throws BusinessException {
 		List<User> users = uDao.selectCandidatByName(nom);
-		if (users==null) {
+		if (users == null) {
 			throw new BusinessException(BusinessError.USERS_NO_MATCH);
 		}
 		return users;
 	}
 
 	/**
-	 *	Methode servant à :
+	 * Methode servant à :
+	 * 
 	 * @param parameter
-	 * @throws BusinessException 
+	 * @throws BusinessException
 	 */
 	public User findUser(String parameter) throws BusinessException {
 		// TODO Auto-generated method stub

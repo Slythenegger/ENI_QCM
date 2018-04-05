@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BLL.UserManager;
 import fr.eni.qcm.BO.User;
-import fr.eni.qcm.BO.Users;
 
 /**
  * @author wmodeste2017
@@ -19,7 +18,7 @@ import fr.eni.qcm.BO.Users;
  */
 @Path("/users")
 public class GestionUsers {
-private static Users users= new Users();
+
 
 @GET
 public List<User> getList()throws BusinessException
