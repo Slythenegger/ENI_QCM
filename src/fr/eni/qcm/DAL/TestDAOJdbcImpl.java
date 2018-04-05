@@ -12,10 +12,12 @@ import fr.eni.qcm.BusinessError;
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.CodeEtatEpreuve;
 import fr.eni.qcm.BO.Question;
+import fr.eni.qcm.BO.QuestionTirage;
 import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.Section;
 import fr.eni.qcm.BO.SectionTest;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 
 public class TestDAOJdbcImpl implements TestDAO {
 
@@ -28,7 +30,9 @@ public class TestDAOJdbcImpl implements TestDAO {
 	//private final String INSERT_REPONSES_USER = "intert into REPONSE_TIRAGE (idProposition, idQuestion, idEpreuve) values (?,?,?)";
 	private final String UPDATE_EPREUVE = "update EPREUVE SET etat = ? where idEpreuve = ?";
 	private final String UPDATE_COCHE=" update QUESTION_TIRAGE set estMarquee =? where idQuestion =? and idEpreuve=?";
-
+	private final String SELECT_QUESTION_TIRAGE="select * from QUESTION_TIRAGE where idQuestion =? and idEpreuve=?";
+	
+	
 	private Test buildTest(ResultSet rs) throws SQLException {
 		Test test = new Test();
 
@@ -281,8 +285,68 @@ public class TestDAOJdbcImpl implements TestDAO {
 		}
 	}
 
-	
+	/* (non-Javadoc)
+	 * @see fr.eni.qcm.DAL.TestDAO#findQuestT(int, int)
+	 */
+	@Override
+	public QuestionTirage findQuestT(int idEpreuve, int idQuestion) throws BusinessException {
+		QuestionTirage qT=new QuestionTirage();
+		
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pst=cnx.prepareStatement(SELECT_QUESTION_TIRAGE);
+			pst.setInt(2, idEpreuve);
+			pst.setInt(1, idQuestion);
+			ResultSet rs=pst.executeQuery();
+			if(rs.next()) {
+				qT=this.buildQT(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return qT;
+	}
+
+	/**
+	 *	Methode servant à :
+	 * @param rs
+	 * @return
+	 * @throws SQLException 
+	 */
+	private QuestionTirage buildQT(ResultSet rs) throws SQLException {
+	QuestionTirage qT= new QuestionTirage();
+	qT.setEstMarquee(rs.getBoolean(1));
+	qT.setIdEpreuve(rs.getInt(4));
+	qT.setNumOrdre(rs.getInt(3));
+	qT.setIdQuest(rs.getInt(2));
+		return qT;
+	}
 
 	
 
+	
+	public List<Theme> getAllThemes() throws BusinessException {
+		List<Theme> themes = new ArrayList<>();
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pst = cnx.prepareStatement("SELECT * FROM THEME");
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				Theme theme = new Theme();
+				theme.setIdTheme(rs.getInt(1));
+				theme.setLibelle(rs.getString(2));
+				
+				themes.add(theme);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+		
+		return themes;
+	}
 }

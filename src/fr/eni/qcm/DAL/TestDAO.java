@@ -4,7 +4,9 @@ import java.util.List;
 
 import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
+import fr.eni.qcm.BO.QuestionTirage;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 
 public interface TestDAO {
 
@@ -26,7 +28,14 @@ public interface TestDAO {
 	 * @throws BusinessException 
 	 */
 	void decoche(int id, int idEpreuve) throws BusinessException;
+	/**
+	 *	Methode servant à retrouver une question Tiré à l'aide de son Id Epreuve et son Id Question:
+	 * @param idEpreuve
+	 * @param idQuestion
+	 * @return
+	 */
+	QuestionTirage findQuestT(int idEpreuve, int idQuestion)throws BusinessException;
 	
-	
+	public List<Theme> getAllThemes() throws BusinessException;
 	
 }

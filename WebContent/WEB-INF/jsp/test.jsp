@@ -10,6 +10,7 @@
 <title>QCM</title>
 <c:import url="head.jsp"></c:import>
 </head>
+<script src="asset/js/compteur.js"></script>
 <body>
 	<c:import url="topBar.jsp"></c:import>
 	<div class="container">
@@ -25,15 +26,29 @@
 					<p>${rep.idEpreuve}</p>
 				</c:forEach>
 			</c:if>
-
-
+			
+		
 			<form action="test" method="post">
-
-				<input type="submit"
-					value="Marquer la question-${question.idQuestion}-${idEpreuveEnCours}"
-					name="coche" class="btn btn-info"> <input type="submit"
-					value="Retirer la marque-${question.idQuestion}-${idEpreuveEnCours}"
-					name="coche" class="btn btn-info">
+			<input type="hidden"value="${question.idQuestion}-${idEpreuveEnCours}" name="hidden">
+			<c:choose>
+			<c:when test="${questionTir.estMarquee == false }">
+			<input type="submit" value="Marquer la question" name="coche"  class="btn btn-info">
+			</c:when>
+			<c:when test="${questionTir.estMarquee == true}">
+			<input type="submit" value="Retirer la marque" name="coche"  class="btn btn-info">
+			</c:when>
+			</c:choose>
+			
+			<a href="${pageContext.servletContext.contextPath}/terminer-epreuve" class="btn btn-danger"> Terminer le test</a>
+			
+			 </script>
+                <div id="compteur"></div>
+                <script language="JavaScript">
+                        duree="1800";
+                        t();
+                </script>
+			
+			
 				<div class="margetop margeleft">
 					<h4>${question}</h4>
 
