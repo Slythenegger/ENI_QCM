@@ -78,7 +78,7 @@ html {
 .left-panel {
     min-width: 250px;
     max-width: 250px;
-   	color: white;
+   	background-color: #E6E6FA;
 }
 
 .left-panel-title {
@@ -97,17 +97,19 @@ html {
 .left-panel-lb-item {
 	display: block;
 	padding: 0.15rem 1rem;
-	color: white !important;
 	cursor: pointer;
+	color: black;
 }
 
 .left-panel-lb-item.selected {
 	background-color: #343a40;
+	color: white;
 }
 
 .left-panel-lb-item:hover {
 	background-color: #57616b;
 	text-decoration: none;
+	color: white;
 }
 
 .left-panel-action {

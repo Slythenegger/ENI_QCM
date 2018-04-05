@@ -10,48 +10,58 @@
 	<c:import url="head.jsp"></c:import>
 </head>
 
-<body>
+<body id="page-gt">
 	<c:import url="topBar.jsp"></c:import>
-	<div class="container">
-		
-	<c:if test="${empty tests}">
-		<h2>Aucun tests trouvés !</h2>
-	</c:if>
 	
-	<c:if test="${!empty tests}">
-		<h2>Liste des tests</h2>
-		
-		<ul class="list-inline">
-			<c:forEach var="test" items="${tests}">
-				<li class="list-inline-item"><a href="<c:out value="${pageContext.servletContext.contextPath}/resultats?test=${test.idTest}"/>">${test.libelle}</a></li>
-				
-			</c:forEach>
-		</ul>
-	</c:if>
+	<div class="wrapper">
+		<div class="left-panel wrapper column">
+		<div class="left-panel-title font-weight-bold">Tests</div>
+		<div class="left-panel-lb">
+			<c:forEach var="varTest" items="${tests}">
+				<a 	class="left-panel-lb-item <c:if test="${varTest.idTest == test.idTest}">selected</c:if>"
+					href="${pageContext.servletContext.contextPath}/resultats?test=${varTest.idTest}"
+				>${varTest.libelle}</a>
+			</c:forEach>			
+		</div>
+	</div>
 	
-	<c:if test="${!empty test && !empty resultats}">
-		<h2>Résultat pour ${test.libelle}</h2>
+	<div class="wrapper column"> 
+		<div id="action-container">
+			<c:if test="${empty test}">
+				<h2>Choisissez un test</h2>
+			</c:if>
+			
+			<c:if test="${!empty test && empty resultats}">
+				<h2>Aucun résultats pour ${test.libelle}</h2>
+			</c:if>
+			
 		
-			<table class="table table-striped">
-				<thead>
-				<tr>
-					<th>Nom, prénom</th>
-					<th>Acquis</th>
-					<th>Résultat</th>					
-				</tr>
-				</thead>
+			<c:if test="${!empty test && !empty resultats}">
+				<h2>Résultat pour ${test.libelle}</h2>
 				
-				<tbody>
-				<c:forEach var="resultat" items="${resultats}">
-					<tr>
-						<td>${resultat.nom} ${resultat.prenom}</td>
-						<td>${resultat.acquis}</td>
-						<td>${resultat.noteObtenue}/20</td>						
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>		
-	</c:if>
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Nom, prénom</th>
+							<th>Acquis</th>
+							<th>Résultat</th>					
+						</tr>
+						</thead>
+						
+						<tbody>
+						<c:forEach var="resultat" items="${resultats}">
+							<tr>
+								<td>${resultat.nom} ${resultat.prenom}</td>
+								<td>${resultat.acquis}</td>
+								<td>${resultat.noteObtenue}/20</td>						
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>		
+			</c:if>
+		</div>
+	</div>
+	
 	
 	</div>
 

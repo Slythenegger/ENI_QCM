@@ -15,7 +15,7 @@
 	
 	<div class="wrapper">
 	
-	<div class="left-panel wrapper column bg-secondary">
+	<div class="left-panel wrapper column">
 		<div class="left-panel-title font-weight-bold">Tests</div>
 		<div class="left-panel-lb">
 			<c:forEach var="test" items="${tests}">
