@@ -41,7 +41,7 @@
 			
 			<a href="${pageContext.servletContext.contextPath}/terminer-epreuve" class="btn btn-danger"> Terminer le test</a>
 			
-			 </script>
+			 
                 <div id="compteur"></div>
                 <script language="JavaScript">
                         duree="1800";

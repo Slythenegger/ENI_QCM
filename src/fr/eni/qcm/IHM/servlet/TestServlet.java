@@ -201,17 +201,17 @@ public class TestServlet extends HttpServlet {
 
 		if (!"".equals(request.getParameter("coche")) && request.getParameter("coche") != null) {
 
-			String[] parts = request.getParameter("coche").split("-");
+			String[] parts = request.getParameter("hidden").split("-");
 			try {
 				if( "Marquer la question".equals(request.getParameter("coche"))) {
 					
 						tm.cocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-						
+						response.sendRedirect("test");
 					
 				}else if("Retirer la marque".equals(request.getParameter("coche"))) {
 					
 						tm.decocheQuest(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-						
+						response.sendRedirect("test");
 					}
 			} catch (NumberFormatException | BusinessException e) {
 				request.setAttribute("exception", BusinessError.QUESTIONS_NO_MATCH.getDescription());
