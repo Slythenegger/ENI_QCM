@@ -17,6 +17,7 @@ import fr.eni.qcm.BO.Reponse;
 import fr.eni.qcm.BO.Section;
 import fr.eni.qcm.BO.SectionTest;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 
 public class TestDAOJdbcImpl implements TestDAO {
 
@@ -326,5 +327,26 @@ public class TestDAOJdbcImpl implements TestDAO {
 	
 
 	
-
+	public List<Theme> getAllThemes() throws BusinessException {
+		List<Theme> themes = new ArrayList<>();
+		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pst = cnx.prepareStatement("SELECT * FROM THEME");
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				Theme theme = new Theme();
+				theme.setIdTheme(rs.getInt(1));
+				theme.setLibelle(rs.getString(2));
+				
+				themes.add(theme);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException(BusinessError.DATABASE_ERROR);
+		}
+		
+		return themes;
+	}
 }

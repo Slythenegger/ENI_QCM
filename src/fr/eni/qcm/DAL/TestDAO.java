@@ -6,6 +6,7 @@ import fr.eni.qcm.BusinessException;
 import fr.eni.qcm.BO.Question;
 import fr.eni.qcm.BO.QuestionTirage;
 import fr.eni.qcm.BO.Test;
+import fr.eni.qcm.BO.Theme;
 
 public interface TestDAO {
 
@@ -35,6 +36,6 @@ public interface TestDAO {
 	 */
 	QuestionTirage findQuestT(int idEpreuve, int idQuestion)throws BusinessException;
 	
-	
+	public List<Theme> getAllThemes() throws BusinessException;
 	
 }
